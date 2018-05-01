@@ -68,6 +68,13 @@ The objective of this summer research is to create an R package that can execute
   
   * Pay attention to: [survival](https://cran.r-project.org/web/packages/survival/index.html), [fitdistrplus](https://cran.r-project.org/web/packages/fitdistrplus/index.html), [flexsurv](https://cran.r-project.org/web/packages/flexsurv/index.html), and [survminer](https://cran.r-project.org/web/packages/survminer/index.html).
   
+  **6.  Create functions for items that are not currently easy to achieve in R.  (Make sure that these cannot be accomplished in the existing R packages).
+  
+  * Lab 2:
+  +  Compute survival probabilities based on a specified parametric distribution.
+  +  Display an estimated survival curve based on a specified parametric distribution (singular as well as by groups).
+  +  Estimate median survival time based on a specified parametric distribution.
+  
   
 
   
