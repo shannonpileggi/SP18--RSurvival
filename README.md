@@ -12,7 +12,7 @@ The objective of this summer research is to create an R package that can execute
 
 **A GitHub repository which contains the following:**
 
-1.  An R package for the survival functions.
+1.  An R package for the survival functions. 
 
 2.  A log of hours spent on the summer research by each student, which includes date, hours, and activity summary.
 
@@ -20,7 +20,7 @@ The objective of this summer research is to create an R package that can execute
 
 4.  A presentation at the CSM annual research conference.
 
-5.  A manuscript to submit to the [R Journal](https://journal.r-project.org/) detailing the work and submit an abstract to the [RStudio Conference](https://www.rstudio.com/conference/)
+5.  A manuscript to submit to the [R Journal](https://journal.r-project.org/) detailing the work and submit an abstract to the [RStudio Conference](https://www.rstudio.com/conference/).
 
 ### Specific Aims
 
@@ -43,13 +43,15 @@ The objective of this summer research is to create an R package that can execute
   
   * Use Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/) book as a reference (Ch19 also discusses functions)
   
-  **3.  Create an R package that contains survival functions.**
+  
+  **3.  Create an R package that contains survival functions.**  At a minimum, this should be downloadable through devtools; as time allows, consider putting it on CRAN.
 
   *  DataCamp's [R Packages: A Beginner's Guide](https://www.datacamp.com/community/tutorials/r-packages-guide)
     
   *  Hillary Parker's [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
   
   *  Hadley Wickham's [R pacakges](http://r-pkgs.had.co.nz/) book.
+  
   
    **4.  Provide documentation for the R package.**
 
@@ -58,6 +60,14 @@ The objective of this summer research is to create an R package that can execute
   *  Write a [vignette](http://r-pkgs.had.co.nz/vignettes.html) to accompany the package.
   
   *  Consider using [pkgdown](http://pkgdown.r-lib.org/index.html) to create a website. 
+  
+  
+  **5. Review existing R packages for survival analysis.**
+  
+  * A comprehensive list:  [CRAN Task View: Survival Analysis](https://cran.r-project.org/web/views/Survival.html).
+  
+  * Pay attention to: [survival](https://cran.r-project.org/web/packages/survival/index.html), [fitdistrplus](https://cran.r-project.org/web/packages/fitdistrplus/index.html), [flexsurv](https://cran.r-project.org/web/packages/flexsurv/index.html), and [survminer](https://cran.r-project.org/web/packages/survminer/index.html).
+  
   
 
   
