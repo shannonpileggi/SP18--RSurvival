@@ -49,5 +49,15 @@ The objective of this summer research is to create an R package that can execute
     
   *  Hillary Parker's [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
   
-  +  Hadley Wickham's [R pacakges](http://r-pkgs.had.co.nz/) book
+  *  Hadley Wickham's [R pacakges](http://r-pkgs.had.co.nz/) book.
+  
+   **4.  Provide documentation for the R package.**
+
+  *  Use the [roxygen package](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) to document code.
+  
+  *  Write a [vignette](http://r-pkgs.had.co.nz/vignettes.html) to accompany the package.
+  
+  *  Consider using [pkgdown]((http://pkgdown.r-lib.org/index.html)) to create a website. 
+  
+
   
