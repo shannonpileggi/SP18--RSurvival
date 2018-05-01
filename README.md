@@ -73,7 +73,7 @@ The objective of this summer research is to create an R package that can execute
   #### Parametric:
   * Lab 2:
     + Compute survival probabilities based on a specified parametric distribution.
-    + Display an estimated survival curve based on a specified parametric distribution (singular as well as by groups).
+    + Display an estimated survival, hazard, or cumulative hazard curve based on a specified parametric distribution (singular as well as by groups).
     + Estimate median survival time based on a specified parametric distribution.
     
   * Lab 3:
