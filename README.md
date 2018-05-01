@@ -6,7 +6,7 @@
 
 ### Objective
 
-The objective of this summer research is to create an R package that can execute parametric survival analysis techniques similar to those in Minitab.
+The objective of this summer research is to create an R package that can execute parametric and non-parametric survival analysis techniques similar to those in Minitab.
 
 ### Deliverables
 
