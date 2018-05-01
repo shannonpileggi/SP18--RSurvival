@@ -89,7 +89,11 @@ The objective of this summer research is to create an R package that can execute
   * Lab 5:
     + Compute the Wilcoxon test statistic and p-value to compare survival experiences of two groups.
     
-      
+  **7.  Other potentially useful DataCamp courses.**    
+     + [Introduction to the tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse)
+     + [Data visualization with ggplot, 1](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
+     + [Data visualization with ggplot, 2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-2)
+     + [Data manipulation in R with dplyr](https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial)
   
 
   
