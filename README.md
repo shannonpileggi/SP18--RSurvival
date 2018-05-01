@@ -76,7 +76,9 @@ The objective of this summer research is to create an R package that can execute
     + Estimate median survival time based on a specified parametric distribution.
     
   * Lab 3:
-  
+    + Estimate parameters based on a specified parametric distribution.
+    + Compute the Anderson-Darling test statistic, or otherwise appropriate measure of fit, for a specified parametric distribution.
+    + Estimate various statistics, including median, mean, standard deviation, and percentiles of survival time based on a specified parametric distribution.
   
 
   
