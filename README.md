@@ -42,3 +42,12 @@ The objective of this summer research is to create an R package that can execute
   * Learn about how to write R functions from DataCamp's [Writing functions in R](https://www.datacamp.com/courses/writing-functions-in-r) course 
   
   * Use Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/) book as a reference (Ch19 also discusses functions)
+  
+  **3.  Create an R package that contains survival functions.**
+
+  *  DataCamp's [R Packages: A Beginner's Guide](https://www.datacamp.com/community/tutorials/r-packages-guide)
+    
+  *  Hillary Parker's [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
+  
+  +  Hadley Wickham's [R pacakges](http://r-pkgs.had.co.nz/) book
+  
