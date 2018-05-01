@@ -33,7 +33,7 @@ The objective of this summer research is to create an R package that can execute
   * DataCamp's [Introduction to git for data science](https://www.datacamp.com/courses/introduction-to-git-for-data-science) course
 
 
-**2.  Adhere to good programming practices:**
+**2.  Adhere to good programming practices.**
   
   * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html)
   
@@ -57,7 +57,7 @@ The objective of this summer research is to create an R package that can execute
   
   *  Write a [vignette](http://r-pkgs.had.co.nz/vignettes.html) to accompany the package.
   
-  *  Consider using [pkgdown]((http://pkgdown.r-lib.org/index.html)) to create a website. 
+  *  Consider using [pkgdown](http://pkgdown.r-lib.org/index.html) to create a website. 
   
 
   
