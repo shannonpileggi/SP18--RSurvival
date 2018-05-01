@@ -70,6 +70,7 @@ The objective of this summer research is to create an R package that can execute
   
   **6.  Create functions for items that are not currently easy to achieve in R.  (Make sure that these cannot be accomplished in the existing R packages).**  Pay attention to the parameterization of a distribution, which is often different between [Minitab](https://support.minitab.com/en-us/minitab/18/help-and-how-to/modeling-statistics/reliability/how-to/distribution-overview-plot-right-censoring/methods-and-formulas/parametric-methods-and-formulas/distribution-functions/) and R.
   
+  #### Parametric:
   * Lab 2:
     + Compute survival probabilities based on a specified parametric distribution.
     + Display an estimated survival curve based on a specified parametric distribution (singular as well as by groups).
@@ -79,6 +80,16 @@ The objective of this summer research is to create an R package that can execute
     + Estimate parameters based on a specified parametric distribution.
     + Compute the Anderson-Darling test statistic, or otherwise appropriate measure of fit, for a specified parametric distribution.
     + Estimate various statistics, including median, mean, standard deviation, and percentiles of survival time based on a specified parametric distribution.
+    + Produce a qqplot to examine distribution fit.
+    
+  #### Non-parametric:  
+  * Lab 4:
+    + Plot estimated hazard/cumulative hazard functions
+    
+  * Lab 5:
+    + Compute the Wilcoxon test statistic and p-value to compare survival experiences of two groups.
+    
+      
   
 
   
