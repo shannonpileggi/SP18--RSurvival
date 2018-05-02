@@ -37,13 +37,13 @@ The objective of this summer research is to create an R package that can execute
 
 **2.  Adhere to good programming practices.**
   
-  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html)
+  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html).
   
-  * Use the [tidyverse style guide](http://style.tidyverse.org/) for an additional reference
+  * Use the [tidyverse style guide](http://style.tidyverse.org/) for an additional reference.
   
-  * Learn about how to write R functions from DataCamp's [Writing functions in R](https://www.datacamp.com/courses/writing-functions-in-r) course 
+  * Learn about how to write R functions from DataCamp's [Writing functions in R](https://www.datacamp.com/courses/writing-functions-in-r) course.
   
-  * Use Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/) book as a reference (Ch19 also discusses functions)
+  * Use Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/) book as a reference (Ch19 also discusses functions).
   
   
   **3.  Create an R package that contains survival functions.**  At a minimum, this should be downloadable through devtools; as time allows, consider putting it on CRAN.
