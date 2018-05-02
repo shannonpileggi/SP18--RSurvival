@@ -1,3 +1,5 @@
+# Survival package for R
+
 ## Summer Research, 2018
 
 #### _Students:_ Ashley Jacobson and Victor Wilson
