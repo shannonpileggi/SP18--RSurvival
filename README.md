@@ -37,7 +37,7 @@ The objective of this summer research is to create an R package that can execute
 
 **2.  Adhere to good programming practices.**
   
-  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html).
+  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html)
   
   * Use the [tidyverse style guide](http://style.tidyverse.org/) for an additional reference.
   
