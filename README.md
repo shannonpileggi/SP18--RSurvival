@@ -28,16 +28,18 @@ The objective of this summer research is to create an R package that can execute
 
 **1.  Utilize GitHub to collaborate on project materials and updates.**
 
-  * Karl Broman's [github tutorial](http://kbroman.org/github_tutorial/)
+  * Karl Broman's [github tutorial](http://kbroman.org/github_tutorial/).
 
-  * Jenny Bryan's [Happy git with R](http://happygitwithr.com/) 
+  * Jenny Bryan's [Happy git with R](http://happygitwithr.com/).
   
-  * DataCamp's [Introduction to git for data science](https://www.datacamp.com/courses/introduction-to-git-for-data-science) course
+  * DataCamp's [Introduction to git for data science](https://www.datacamp.com/courses/introduction-to-git-for-data-science) course (good for learning command line, not necessary if using the RStudio IDE).
+  
+  * Also check out [using version control with RStudio](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN) and [this video on Git and RStudio](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-managing-part-2/).
 
 
 **2.  Adhere to good programming practices.**
   
-  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html)
+  * Write all R code according to [Hadley Wickam's Style Guide](http://adv-r.had.co.nz/Style.html).
   
   * Use the [tidyverse style guide](http://style.tidyverse.org/) for an additional reference.
   
@@ -48,11 +50,13 @@ The objective of this summer research is to create an R package that can execute
   
   **3.  Create an R package that contains survival functions.**  At a minimum, this should be downloadable through devtools; as time allows, consider putting it on CRAN.
 
-  *  DataCamp's [R Packages: A Beginner's Guide](https://www.datacamp.com/community/tutorials/r-packages-guide)
+  *  DataCamp's blog post [R Packages: A Beginner's Guide](https://www.datacamp.com/community/tutorials/r-packages-guide)
     
-  *  Hillary Parker's [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
+  *  Hillary Parker's blog post [Writing an R package from scratch](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
   
   *  Hadley Wickham's [R pacakges](http://r-pkgs.had.co.nz/) book.
+  
+  *  RStudio's video on [Package writing in RStudio](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-programming-part-3/).
   
   
    **4.  Provide documentation for the R package.**
@@ -72,31 +76,46 @@ The objective of this summer research is to create an R package that can execute
   
   **6.  Create functions for items that are not currently easy to achieve in R.  (Make sure that these cannot be accomplished in the existing R packages).**  Pay attention to the parameterization of a distribution, which is often different between [Minitab](https://support.minitab.com/en-us/minitab/18/help-and-how-to/modeling-statistics/reliability/how-to/distribution-overview-plot-right-censoring/methods-and-formulas/parametric-methods-and-formulas/distribution-functions/) and R.
   
-  #### Parametric:
-  * Lab 2:
+*Parametric:*
+
+* Lab 2:
     + Compute survival probabilities based on a specified parametric distribution.
     + Display an estimated survival, hazard, or cumulative hazard curve based on a specified parametric distribution (singular as well as by groups).
     + Estimate median survival time based on a specified parametric distribution.
     
-  * Lab 3:
+* Lab 3:
     + Estimate parameters based on a specified parametric distribution.
     + Compute the Anderson-Darling test statistic, or otherwise appropriate measure of fit, for a specified parametric distribution.
     + Estimate various statistics, including median, mean, standard deviation, and percentiles of survival time based on a specified parametric distribution.
     + Produce a qqplot to examine distribution fit.
-    
-  #### Non-parametric:  
-  * Lab 4:
+
+*Non-parametric:*
+
+* Lab 4:
     + Plot estimated hazard/cumulative hazard functions
     
-  * Lab 5:
+* Lab 5:
     + Compute the Wilcoxon test statistic and p-value to compare survival experiences of two groups.
     
-  **7.  Other potentially useful DataCamp courses.**    
-   + [Introduction to the tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse)
-   + [Data visualization with ggplot, 1](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
-   + [Data visualization with ggplot, 2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-2)
-   + [Data manipulation in R with dplyr](https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial)
+**7.  Consider also converting some of the functions to a Shiny App.**
+  
+  * [Shiny tutorial on RStudio](https://shiny.rstudio.com/tutorial/)
+  
+  * DataCamp's [Building Web Applications in R with Shiny](https://www.datacamp.com/courses/building-web-applications-in-r-with-shiny)
+    
+    
+**8.  Other potentially useful DataCamp courses.**    
+
+   * [Working with the RStudio IDE Part 1](https://www.datacamp.com/courses/working-with-the-rstudio-ide-part-1)  
+   
+   * [Working with the RStudio IDE Part 2](https://www.datacamp.com/courses/working-with-the-rstudio-ide-part-2) 
+   
+   * [Introduction to the tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse)
+   
+   * [Data visualization with ggplot, 1](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
+   
+   * [Data visualization with ggplot, 2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-2)
+   
+   * [Data manipulation in R with dplyr](https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial)
   
 
-  
-adding a line
