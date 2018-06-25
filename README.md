@@ -28,7 +28,7 @@ The objective of this summer research is to create an R package that can execute
 
 **1.  Utilize GitHub to collaborate on project materials and updates.**
 
-  * Karl Broman's [github tutorial](http://kbroman.org/github_tutorial/).
+  * Karl Broman's [github tutorial](http://kbroman.org/github_tutorial/)
 
   * Jenny Bryan's [Happy git with R](http://happygitwithr.com/).
   
