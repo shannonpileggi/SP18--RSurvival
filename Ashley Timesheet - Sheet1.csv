@@ -1,8 +1,9 @@
-start time,end time,day,
-9:45,11:15,tues,
-3:30,4:30,wed,
-7:35,8:00,wed,
+start time,end time,day,description
+9:45 AM,11:15 AM,Tuesday 6/26,
+3:30 PM,4:30 PM,Wednesday 6/27,
+7:35 PM,8:00 PM,Wednesday 6/27,
 ,,,
-,,,
-1:30,3:00,Tuesday 7/3,writing code for lab 2 question 2
-11:40,,Friday 7/6,wrote code for plots for question 2 and added comments
+1:30 PM,3:00 PM,Tuesday 7/3,writing code for lab 2 question 2
+11:40 AM,2:00 PM,Friday 7/6,wrote code for plots for lab question 2 and added comments
+11:30 PM,1:00 AM,Friday 7/6,wrote code for lab 2 question 3 part a
+8:00 AM,9:30 AM,Saturday 7/7,finished writing code for lab 2 question 3 part a
