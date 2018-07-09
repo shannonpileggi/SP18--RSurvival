@@ -181,6 +181,152 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
   }
 }
 
+surv_median <- function(data, dist, by = c()) {
+  left <- c()
+  right <- c()
+  
+  for (i in 1:length(data$Time)) {
+    if (data$Censor[i] == 1) {
+      left <- c(left, data$Time[i])
+      right <- c(right, data$Time[i])
+    } 
+    else {
+      left <- c(left, data$Time[i])
+      right <- c(right, NA)
+    }
+  }
+  
+  d <- data.frame(left, right)
+  
+  if (length(by) > 1) { #if there's a grouping variable
+    by <- as.factor(by)
+    d <- data.frame(left, right, by)
+    
+    fit <- c()
+    for (i in levels(by)) {
+      #subsets dataframe
+      d2 <- d[d$by == i, ]
+      d2$by <- NULL
+      #adds estimate to vector
+      fit <- fitdistcens(d2, dist)
+      cat("For level =", i, "\n")
+      print(quantile(fit, .5))
+    }
+  } else {
+    fit <- fitdistcens(d, dist)
+    print(quantile(fit, .5))
+  }
+}
+
+plot_haz <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder name, I'm not creative
+  
+  #plots survival curve for data given that it follows the distribution dist
+  #data is a dataframe with columns Time and Censor where for complete times C = 1
+  #dist is a string which corresponds to the name of the distribution (right now only "lnorm" and "exp")
+  #by is a vector that contains the grouping variable
+  #if by is specified, plots multiple lines; else, plots only one line
+  
+  #this whole section formats the data for the function fitdistcens
+  ####
+  left <- c()
+  right <- c()
+  
+  for (i in 1:length(data$Time)) {
+    if (data$Censor[i] == 1) {
+      left <- c(left, data$Time[i])
+      right <- c(right, data$Time[i])
+    } 
+    else {
+      left <- c(left, data$Time[i])
+      right <- c(right, NA)
+    }
+  }
+  
+  d <- data.frame(left, right)
+  ####
+  
+  #fits data to distribution by the "by" variable and puts estimates in vector "fit"
+  if (length(by) > 1) { #if there's a grouping variable
+    by <- as.factor(by)
+    d <- data.frame(left, right, by)
+    
+    fit <- c()
+    for (i in levels(by)) {
+      #subsets dataframe
+      d2 <- d[d$by == i, ]
+      d2$by <- NULL
+      #adds estimate to vector
+      fit <- c(fit, fitdistcens(d2, dist)$estimate)
+    }
+  } else fit <- fitdistcens(d, dist)$estimate
+  
+  for(j in 1:length(levels(by))) {
+    #for each group, plots line
+    
+    if (dist == "lnorm") {
+      #if no grouping variable, there's just one estimate for each parameter
+      #else, for loop runs multiple times
+      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
+        shape = fit[["meanlog"]]
+        scale = fit[["sdlog"]]
+      } else {
+        print(length(levels(by)))
+        shape = fit[j][["meanlog"]]
+        scale = fit[j][["sdlog"]]
+      }
+      
+      #fits distribution to data
+      x <- seq(0, 300)
+      #lnorm.plot <- -plnorm(seq(0, 300), shape, scale, lower = F, log = T)
+      #***is there a way to know the max of the distribution, 130 is hard coded***
+      lnorm.plot <- dlnorm(x, shape, scale) / (plnorm(x, shape, scale, lower.tail=FALSE))
+      
+      #if first element in vector, uses plot() instead of lines() and sets xlim
+      if (j == 1) {
+        
+        plot(lnorm.plot, xlim = c(70, 120), type = "l", xlab = "Time", ylab = "Percent",
+             main = "Lognormal Hazard Plot for Time", col = j)
+      }
+      else {
+        #only hits condition if there is a grouping variable and j >= the second group
+        lines(lnorm.plot, type = "l", col = j, lty = j)
+      }
+    } else if (dist == "exp") {
+      #if no grouping variable, there's just one estimate for each parameter
+      #else, for loop runs multiple times
+      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
+        rate <- fit[["rate"]]
+      } else {
+        rate <- fit[j][["rate"]]
+      }
+      
+      #fits distribution to data
+      exp.plot <- 1 - pexp(seq(0, 2200), rate)  
+      #***same problem as above, 2200 is hard coded***
+      
+      #if first element in vector, uses plot() instead of lines() and sets xlim
+      if (j == 1) {
+        #finds where the probability is 99%
+        start <- which(exp.plot <= .99)[1]
+        #finds where the probability is 1%
+        end <- tail(which(exp.plot >= .01), 1)
+        
+        plot(exp.plot, xlim = c(start, end), type = "l", xlab = "Time", ylab = "Percent",
+             main = "Exponential Hazard Plot for Time", col = j)
+      }
+      else {
+        #only hits condition if there is a grouping variable and j >= the second group
+        lines(exp.plot, type = "l", col = j, lty = j)
+      }
+    }
+  }
+  #adds legend if more than one group
+  if (j > 1) {
+    legend("topright", legend = levels(by),
+           col = 1:length(levels(by)), lty = 1:length(levels(by)), cex = 0.8)
+  }
+}
+
 #Question 2 ----
 
 #part a
@@ -190,6 +336,7 @@ data$Censor <- data$C
 
 prob(data, "lnorm", 90)
 plot_surv(data, "lnorm")
+plot_haz(data, "lnorm")
 
 #part b
 prob(data, "exp", 90) #different than answer key, but double checked with minitab
@@ -203,3 +350,6 @@ fly$Time <- fly$Longevity
 
 plot_surv(fly, "exp", fly$Partners)
 
+#part b
+
+surv_median(fly, "exp", fly$Partners)
