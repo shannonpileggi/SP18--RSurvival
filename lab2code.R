@@ -1,4 +1,5 @@
 library(fitdistrplus)
+library(ggplot2)
 
 #Question 1 ----
 
@@ -70,6 +71,66 @@ prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder nam
   }
 }
 
+surv_summary <- function(data, dist, by = c()) {
+  left <- c()
+  right <- c()
+  
+  for (i in 1:length(data$Time)) {
+    if (data$Censor[i] == 1) {
+      left <- c(left, data$Time[i])
+      right <- c(right, data$Time[i])
+    } 
+    else {
+      left <- c(left, data$Time[i])
+      right <- c(right, NA)
+    }
+  }
+  
+  d <- data.frame(left, right)
+  
+  if (length(by) > 1) { #if there's a grouping variable
+    by <- as.factor(by)
+    d <- data.frame(left, right, by)
+    
+    fit <- c()
+    for (i in levels(by)) {
+      #subsets dataframe
+      d2 <- d[d$by == i, ]
+      d2$by <- NULL
+      #adds estimate to vector
+      fit <- fitdistcens(d2, dist)
+      rate <- fit$estimate[["rate"]]
+      
+      cat("\n\nFor level =", i, "\n")
+      cat("Log Liklihood", logLik(fit), sep = "\t")
+      cat("\nMean", 1 / rate, sep = "\t\t")
+      cat("\nFirst Quantile", qexp(.25, rate), sep = "\t")
+      cat("\nMedian", qexp(.5, rate), sep = "\t\t")
+      cat("\nThird Quantile", qexp(.75, rate), sep = "\t")
+    }
+  } else {
+    fit <- fitdistcens(d, dist)
+    if (dist == "exp") {
+      rate <- fit$estimate[["rate"]]
+      
+      cat("Log Liklihood", logLik(fit), sep = "\t")
+      cat("\nMean", 1 / rate, sep = "\t\t")
+      cat("\nFirst Quantile", qexp(.25, rate), sep = "\t")
+      cat("\nMedian", qexp(.5, rate), sep = "\t\t")
+      cat("\nThird Quantile", qexp(.75, rate), sep = "\t")
+    } else if (dist == "lnorm") {
+      m <- fit$estimate[["meanlog"]]
+      sd <- fit$estimate[["sdlog"]]
+      
+      cat("Log Liklihood", logLik(fit), sep = "\t")
+      cat("\nMean", exp(m), sep = "\t\t")
+      cat("\nFirst Quantile", qlnorm(.25, m, sd), sep = "\t")
+      cat("\nMedian", qlnorm(.5, m, sd), sep = "\t\t")
+      cat("\nThird Quantile", qlnorm(.75, m, sd), sep = "\t")
+    }
+  }
+}
+
 plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder name, I'm not creative
   
   #plots survival curve for data given that it follows the distribution dist
@@ -102,230 +163,85 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
     by <- as.factor(by)
     d <- data.frame(left, right, by)
     
-    fit <- c()
+    d2 <- d[d$by == levels(by)[1], ]
+    d2$by <- NULL
+    if (dist == "exp") {
+      rate <- fitdistcens(d2, dist)$estimate["rate"]
+      start <- floor(qexp(.01, rate))
+      end <- ceiling(qexp(.99, rate))
+    } else if (dist == "lnrom") {
+      meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
+      sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
+      start <- floor(qlnrom(.01, meanlog, sdlog))
+      end <- ceiling(qlnorm(.99, meanlog, sdlog))
+    }
+    
+    p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
+      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+      ggtitle("Exponential survival function") +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2)))
+    
     for (i in levels(by)) {
       #subsets dataframe
       d2 <- d[d$by == i, ]
       d2$by <- NULL
-      #adds estimate to vector
-      fit <- c(fit, fitdistcens(d2, dist)$estimate)
-    }
-  } else fit <- fitdistcens(d, dist)$estimate
-  
-  for(j in 1:length(levels(by))) {
-    #for each group, plots line
-    
-    if (dist == "lnorm") {
-      #if no grouping variable, there's just one estimate for each parameter
-      #else, for loop runs multiple times
-      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
-        shape = fit[["meanlog"]]
-        scale = fit[["sdlog"]]
-      } else {
-        print(length(levels(by)))
-        shape = fit[j][["meanlog"]]
-        scale = fit[j][["sdlog"]]
+      if (dist == "exp") {
+        rate <- fitdistcens(d2, dist)$estimate["rate"]
+        p <- p + stat_function(fun = function(x) {1 - pexp(x, rate)})
+      } else if (dist == "lnrom") {
+        meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
+        sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
+        p <- p + stat_function(fun = function(x) {1 - plnorm(x, meanlog, sdlog)})
       }
       
-      #fits distribution to data
-      lnorm.plot <- 1 - plnorm(seq(0, 130), shape, scale) 
-      #***is there a way to know the max of the distribution, 130 is hard coded***
-      
-      #if first element in vector, uses plot() instead of lines() and sets xlim
-      if (j == 1) {
-        #finds where the probability is 99%
-        start <- which(lnorm.plot <= .99)[1] 
-        #finds where the probability is 1%
-        end <- tail(which(lnorm.plot >= .01), 1)
-        
-        plot(lnorm.plot, xlim = c(start, end), type = "l", xlab = "Time", ylab = "Percent",
-             main = "Lognormal Survival Plot for Time", col = j)
-      }
-      else {
-        #only hits condition if there is a grouping variable and j >= the second group
-        lines(lnorm.plot, type = "l", col = j, lty = j)
-      }
-    } else if (dist == "exp") {
-      #if no grouping variable, there's just one estimate for each parameter
-      #else, for loop runs multiple times
-      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
-        rate <- fit[["rate"]]
-      } else {
-        rate <- fit[j][["rate"]]
-      }
-      
-      #fits distribution to data
-      exp.plot <- 1 - pexp(seq(0, 2200), rate)  
-      #***same problem as above, 2200 is hard coded***
-      
-      #if first element in vector, uses plot() instead of lines() and sets xlim
-      if (j == 1) {
-        #finds where the probability is 99%
-        start <- which(exp.plot <= .99)[1]
-        #finds where the probability is 1%
-        end <- tail(which(exp.plot >= .01), 1)
-        
-        plot(exp.plot, xlim = c(start, end), type = "l", xlab = "Time", ylab = "Percent",
-             main = "Exponential Survival Plot for Time", col = j)
-      }
-      else {
-        #only hits condition if there is a grouping variable and j >= the second group
-        lines(exp.plot, type = "l", col = j, lty = j)
-      }
     }
-  }
-  #adds legend if more than one group
-  if (j > 1) {
-    legend("topright", legend = levels(by),
-           col = 1:length(levels(by)), lty = 1:length(levels(by)), cex = 0.8)
-  }
-}
-
-surv_median <- function(data, dist, by = c()) {
-  left <- c()
-  right <- c()
-  
-  for (i in 1:length(data$Time)) {
-    if (data$Censor[i] == 1) {
-      left <- c(left, data$Time[i])
-      right <- c(right, data$Time[i])
-    } 
-    else {
-      left <- c(left, data$Time[i])
-      right <- c(right, NA)
-    }
-  }
-  
-  d <- data.frame(left, right)
-  
-  if (length(by) > 1) { #if there's a grouping variable
-    by <- as.factor(by)
-    d <- data.frame(left, right, by)
-    
-    fit <- c()
-    for (i in levels(by)) {
-      #subsets dataframe
-      d2 <- d[d$by == i, ]
-      d2$by <- NULL
-      #adds estimate to vector
-      fit <- fitdistcens(d2, dist)
-      cat("For level =", i, "\n")
-      print(quantile(fit, .5))
-    }
+    plot(p)
   } else {
-    fit <- fitdistcens(d, dist)
-    print(quantile(fit, .5))
-  }
-}
-
-plot_haz <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder name, I'm not creative
-  
-  #plots survival curve for data given that it follows the distribution dist
-  #data is a dataframe with columns Time and Censor where for complete times C = 1
-  #dist is a string which corresponds to the name of the distribution (right now only "lnorm" and "exp")
-  #by is a vector that contains the grouping variable
-  #if by is specified, plots multiple lines; else, plots only one line
-  
-  #this whole section formats the data for the function fitdistcens
-  ####
-  left <- c()
-  right <- c()
-  
-  for (i in 1:length(data$Time)) {
-    if (data$Censor[i] == 1) {
-      left <- c(left, data$Time[i])
-      right <- c(right, data$Time[i])
-    } 
-    else {
-      left <- c(left, data$Time[i])
-      right <- c(right, NA)
+    if (dist == "exp") {
+      rate <- fitdistcens(d, dist)$estimate[["rate"]]
+      
+      start <- floor(qexp(.01, rate))
+      end <- ceiling(qexp(.99, rate))
+      
+      p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
+        stat_function(fun = function(x) {1 - pexp(x, rate = rate)}) +
+        scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+        scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+        ggtitle("Exponential survival function") +
+        theme(axis.text.x = element_text(size = rel(1.5)),
+              axis.text.y = element_text(size = rel(1.5)),
+              axis.title.y = element_text(size = rel(1.5)),
+              axis.title.x = element_text(size = rel(1.5)),
+              plot.title = element_text(size = rel(2)))
+      plot(p)
+    } else if (dist == "lnorm") {
+      
+      meanlog <- fitdistcens(d, dist)$estimate["meanlog"]
+      sdlog <- fitdistcens(d, dist)$estimate["sdlog"]
+      
+      start <- floor(qlnorm(.01, meanlog, sdlog))
+      end <- ceiling(qlnorm(.99, meanlog, sdlog))
+      
+      p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
+        stat_function(fun = function(x) {1 - plnorm(x, meanlog, sdlog)}) +
+        scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+        scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+        ggtitle("Exponential survival function") +
+        theme(axis.text.x = element_text(size = rel(1.5)),
+              axis.text.y = element_text(size = rel(1.5)),
+              axis.title.y = element_text(size = rel(1.5)),
+              axis.title.x = element_text(size = rel(1.5)),
+              plot.title = element_text(size = rel(2)))
+      plot(p)
+      
     }
   }
-  
-  d <- data.frame(left, right)
-  ####
-  
-  #fits data to distribution by the "by" variable and puts estimates in vector "fit"
-  if (length(by) > 1) { #if there's a grouping variable
-    by <- as.factor(by)
-    d <- data.frame(left, right, by)
-    
-    fit <- c()
-    for (i in levels(by)) {
-      #subsets dataframe
-      d2 <- d[d$by == i, ]
-      d2$by <- NULL
-      #adds estimate to vector
-      fit <- c(fit, fitdistcens(d2, dist)$estimate)
-    }
-  } else fit <- fitdistcens(d, dist)$estimate
-  
-  for(j in 1:length(levels(by))) {
-    #for each group, plots line
-    
-    if (dist == "lnorm") {
-      #if no grouping variable, there's just one estimate for each parameter
-      #else, for loop runs multiple times
-      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
-        shape = fit[["meanlog"]]
-        scale = fit[["sdlog"]]
-      } else {
-        print(length(levels(by)))
-        shape = fit[j][["meanlog"]]
-        scale = fit[j][["sdlog"]]
-      }
-      
-      #fits distribution to data
-      x <- seq(0, 300)
-      #lnorm.plot <- -plnorm(seq(0, 300), shape, scale, lower = F, log = T)
-      #***is there a way to know the max of the distribution, 130 is hard coded***
-      lnorm.plot <- dlnorm(x, shape, scale) / (plnorm(x, shape, scale, lower.tail=FALSE))
-      
-      #if first element in vector, uses plot() instead of lines() and sets xlim
-      if (j == 1) {
-        
-        plot(lnorm.plot, xlim = c(70, 120), type = "l", xlab = "Time", ylab = "Percent",
-             main = "Lognormal Hazard Plot for Time", col = j)
-      }
-      else {
-        #only hits condition if there is a grouping variable and j >= the second group
-        lines(lnorm.plot, type = "l", col = j, lty = j)
-      }
-    } else if (dist == "exp") {
-      #if no grouping variable, there's just one estimate for each parameter
-      #else, for loop runs multiple times
-      if (length(levels(by)) == 0 | length(levels(by)) == 1) {
-        rate <- fit[["rate"]]
-      } else {
-        rate <- fit[j][["rate"]]
-      }
-      
-      #fits distribution to data
-      exp.plot <- 1 - pexp(seq(0, 2200), rate)  
-      #***same problem as above, 2200 is hard coded***
-      
-      #if first element in vector, uses plot() instead of lines() and sets xlim
-      if (j == 1) {
-        #finds where the probability is 99%
-        start <- which(exp.plot <= .99)[1]
-        #finds where the probability is 1%
-        end <- tail(which(exp.plot >= .01), 1)
-        
-        plot(exp.plot, xlim = c(start, end), type = "l", xlab = "Time", ylab = "Percent",
-             main = "Exponential Hazard Plot for Time", col = j)
-      }
-      else {
-        #only hits condition if there is a grouping variable and j >= the second group
-        lines(exp.plot, type = "l", col = j, lty = j)
-      }
-    }
-  }
-  #adds legend if more than one group
-  if (j > 1) {
-    legend("topright", legend = levels(by),
-           col = 1:length(levels(by)), lty = 1:length(levels(by)), cex = 0.8)
-  }
-}
+}    
 
 #Question 2 ----
 
@@ -336,11 +252,12 @@ data$Censor <- data$C
 
 prob(data, "lnorm", 90)
 plot_surv(data, "lnorm")
-plot_haz(data, "lnorm")
+surv_summary(data, "lnorm")
 
 #part b
 prob(data, "exp", 90) #different than answer key, but double checked with minitab
-plot_surv(data, "exp")
+plot_surv(data, "exp") 
+surv_summary(data, "exp")
 
 #Question 3 ----
 
@@ -348,8 +265,8 @@ plot_surv(data, "exp")
 fly <- read.csv("Data sets/Fruitfly.txt", sep = "\t")
 fly$Time <- fly$Longevity
 
-plot_surv(fly, "exp", fly$Partners)
+plot_surv(fly, "exp", fly$Partners) #doesn't work
 
 #part b
 
-surv_median(fly, "exp", fly$Partners)
+surv_summary(fly, "exp", fly$Partners)
