@@ -26,6 +26,26 @@ pweibull(70, 7.1, 77, lower.tail = T) - pweibull(50, 7.1, 77, lower.tail = T)
 
 #Functions ----
 
+fit_data <- function(data, dist, time, censor, by = c()) {
+  left <- c()
+  right <- c()
+  time <- as.vector(data[[time]])
+  censor <- as.vector(data[[censor]])
+  
+  for (i in 1:length(time)) {
+    if (censor[i] == 1) {
+      left <- c(left, time[i])
+      right <- c(right, time[i])
+    } 
+    else {
+      left <- c(left, time[i])
+      right <- c(right, NA)
+    }
+  }
+  d <- data.frame(left, right)
+  fitdistcens(d, dist)
+}
+
 prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder name, should be better
   
   #finds probability of survival beyond time = num
@@ -33,60 +53,27 @@ prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder nam
   #dist is a string which corresponds to the name of the distribution (right now only "lnorm" and "exp")
   #num is in int
   
-  #this whole section formats the data for the function fitdistcens
-  ####
-  left <- c()
-  right <- c()
-  
-  for (i in 1:length(data$Time)) {
-    if (data$Censor[i] == 1) {
-      left <- c(left, data$Time[i])
-      right <- c(right, data$Time[i])
-    } 
-    else {
-      left <- c(left, data$Time[i])
-      right <- c(right, NA)
-    }
-  }
-  
-  d <- data.frame(left, right)
-  ####
-  
   #fits data to distribution
-  fit <- fitdistcens(d, dist)
+  fit <- fit_data(data, dist)
   
-  if (dist == "lnorm") {
-    shape = fit$estimate[["meanlog"]]
-    scale = fit$estimate[["sdlog"]]
-    
-    #prints probability of survival beyond time = num
-    cat("P(T > ", num, ") = ", plnorm(num, shape, scale, lower.tail = lower.tail), sep = "")
-  } 
+  #creates argument list
+  l <- c(q = 90, fit$estimate, lower.tail = lower.tail)
+  args <- split(unname(l),names(l))
   
-  else if (dist == "exp") {
-    rate <- fit$estimate[["rate"]]
-    
-    #prints probability of survival beyond time = num
-    cat("P(T > ", num, ") = ", pexp(num, rate, lower.tail = lower.tail), sep = "")
+  #finds distribution funciton
+  pfunc <- match.fun(paste("p", dist, sep = ""))
+  
+  #prints probability
+  if (lower.tail == F) {
+    cat("P(T > ", num, ") = ", do.call(pfunc, args), sep = "")
+  } else {
+    cat("P(T < ", num, ") = ", do.call(pfunc, args), sep = "")
   }
 }
 
 surv_summary <- function(data, dist, by = c()) {
-  left <- c()
-  right <- c()
-  
-  for (i in 1:length(data$Time)) {
-    if (data$Censor[i] == 1) {
-      left <- c(left, data$Time[i])
-      right <- c(right, data$Time[i])
-    } 
-    else {
-      left <- c(left, data$Time[i])
-      right <- c(right, NA)
-    }
-  }
-  
-  d <- data.frame(left, right)
+
+  d <- format_data(data)
   
   if (length(by) > 1) { #if there's a grouping variable
     by <- as.factor(by)
@@ -184,7 +171,7 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
       if (dist == "exp") {
         rate <- fitdistcens(d2, dist)$estimate["rate"]
         y <- rbind(y, cbind(matrix(1 - pexp(start:end, rate), ncol = 1), i))
-      } else if (dist == "lnrom") {
+      } else if (dist == "lnorm") {
         meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
         sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
       }
@@ -192,15 +179,16 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
     df <- data.frame(y)
     df$x <- rep(start:end, length(levels(by)))
     df$V1 <- as.numeric(as.character(df$V1))
-    p <- ggplot(df, aes(x = x, y = V1, group = i, color = factor(i))) + geom_line()# +
-      #scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-      #scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
-      #ggtitle("Exponential survival function") +
-      #theme(axis.text.x = element_text(size = rel(1.5)),
-      #      axis.text.y = element_text(size = rel(1.5)),
-      #      axis.title.y = element_text(size = rel(1.5)),
-      #      axis.title.x = element_text(size = rel(1.5)),
-      #      plot.title = element_text(size = rel(2)))
+    p <- ggplot(df, aes(x = x, y = V1, group = i, color = factor(i))) + geom_line() +
+      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+      ggtitle("Exponential survival function") +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2))) + 
+      scale_colour_discrete(name = "Group")
     plot(p)
   } else {
     if (dist == "exp") {
@@ -251,12 +239,12 @@ data <- read.csv("Data sets/MELT TIMES V2 W2018.txt", sep = "\t")
 data$Time <- data$T
 data$Censor <- data$C
 
-prob(data, "lnorm", 90)
+prob(data, "lnorm", 90, lower.tail = F)
 plot_surv(data, "lnorm")
 surv_summary(data, "lnorm")
 
 #part b
-prob(data, "exp", 90) #different than answer key, but double checked with minitab
+prob(data, "exp", 90) #different than answer key, but double checked with minitab (.82)
 plot_surv(data, "exp") 
 surv_summary(data, "exp")
 
@@ -268,5 +256,4 @@ fly$Time <- fly$Longevity
 plot_surv(fly, "exp", fly$Partners) 
 
 #part b
-
 surv_summary(fly, "exp", fly$Partners)
