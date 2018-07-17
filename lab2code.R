@@ -176,30 +176,31 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
       end <- ceiling(qlnorm(.99, meanlog, sdlog))
     }
     
-    p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
-      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-      scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
-      ggtitle("Exponential survival function") +
-      theme(axis.text.x = element_text(size = rel(1.5)),
-            axis.text.y = element_text(size = rel(1.5)),
-            axis.title.y = element_text(size = rel(1.5)),
-            axis.title.x = element_text(size = rel(1.5)),
-            plot.title = element_text(size = rel(2)))
-    
+    y <- NULL
     for (i in levels(by)) {
       #subsets dataframe
       d2 <- d[d$by == i, ]
       d2$by <- NULL
       if (dist == "exp") {
         rate <- fitdistcens(d2, dist)$estimate["rate"]
-        p <- p + stat_function(fun = function(x) {1 - pexp(x, rate)})
+        y <- rbind(y, cbind(matrix(1 - pexp(start:end, rate), ncol = 1), i))
       } else if (dist == "lnrom") {
         meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
         sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
-        p <- p + stat_function(fun = function(x) {1 - plnorm(x, meanlog, sdlog)})
       }
-      
     }
+    df <- data.frame(y)
+    df$x <- rep(start:end, length(levels(by)))
+    df$V1 <- as.numeric(as.character(df$V1))
+    p <- ggplot(df, aes(x = x, y = V1, group = i, color = factor(i))) + geom_line()# +
+      #scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      #scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+      #ggtitle("Exponential survival function") +
+      #theme(axis.text.x = element_text(size = rel(1.5)),
+      #      axis.text.y = element_text(size = rel(1.5)),
+      #      axis.title.y = element_text(size = rel(1.5)),
+      #      axis.title.x = element_text(size = rel(1.5)),
+      #      plot.title = element_text(size = rel(2)))
     plot(p)
   } else {
     if (dist == "exp") {
@@ -264,8 +265,7 @@ surv_summary(data, "exp")
 #part a
 fly <- read.csv("Data sets/Fruitfly.txt", sep = "\t")
 fly$Time <- fly$Longevity
-
-plot_surv(fly, "exp", fly$Partners) #doesn't work
+plot_surv(fly, "exp", fly$Partners) 
 
 #part b
 
