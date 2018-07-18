@@ -26,12 +26,17 @@ pweibull(70, 7.1, 77, lower.tail = T) - pweibull(50, 7.1, 77, lower.tail = T)
 
 #Functions ----
 
-fit_data <- function(data, dist, time, censor, by = c()) {
+fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
   left <- c()
   right <- c()
   time <- as.vector(data[[time]])
   censor <- as.vector(data[[censor]])
   
+  if (by != "") {
+    data[[by]] <- as.factor(data[[by]])
+    b <- as.factor(as.vector(data[[by]]))
+  } else b <- c()
+
   for (i in 1:length(time)) {
     if (censor[i] == 1) {
       left <- c(left, time[i])
@@ -42,11 +47,27 @@ fit_data <- function(data, dist, time, censor, by = c()) {
       right <- c(right, NA)
     }
   }
+  
   d <- data.frame(left, right)
-  fitdistcens(d, dist)
+  j <- 1
+  fit <- list()
+  if (length(levels(b)) > 1) {
+    for (i in levels(b)) {
+      #subsets dataframe
+      d2 <- d[data[[by]] == i, ]
+      d2[[by]] <- NULL
+      #adds estimate to vector
+      fit[[j]] <- fitdistcens(d2, dist)
+      j <- j + 1
+    }
+    fit
+  } else {
+    fitdistcens(d, dist)
+  }
 }
 
-prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder name, should be better
+prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censor") {
+  #"prob" is a placeholder name, should be better
   
   #finds probability of survival beyond time = num
   #data is a dataframe with columns Time and Censor where for complete times C = 1
@@ -54,7 +75,7 @@ prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder nam
   #num is in int
   
   #fits data to distribution
-  fit <- fit_data(data, dist)
+  fit <- fit_data(data, dist, time, censor)
   
   #creates argument list
   l <- c(q = 90, fit$estimate, lower.tail = lower.tail)
@@ -71,9 +92,9 @@ prob <- function(data, dist, num, lower.tail = F) { #"prob" is a placeholder nam
   }
 }
 
-surv_summary <- function(data, dist, by = c()) {
+surv_summary <- function(data, dist, by = c(), time = "Time", censor = "Censor") {
 
-  d <- format_data(data)
+  fit <- fit_data(data, dist, time, censor)
   
   if (length(by) > 1) { #if there's a grouping variable
     by <- as.factor(by)
@@ -96,7 +117,6 @@ surv_summary <- function(data, dist, by = c()) {
       cat("\nThird Quantile", qexp(.75, rate), sep = "\t")
     }
   } else {
-    fit <- fitdistcens(d, dist)
     if (dist == "exp") {
       rate <- fit$estimate[["rate"]]
       
@@ -236,12 +256,10 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
 
 #part a
 data <- read.csv("Data sets/MELT TIMES V2 W2018.txt", sep = "\t")
-data$Time <- data$T
-data$Censor <- data$C
 
-prob(data, "lnorm", 90, lower.tail = F)
+prob(data, "lnorm", 90, lower.tail = F, time = "T", censor = "C")
 plot_surv(data, "lnorm")
-surv_summary(data, "lnorm")
+surv_summary(data, "lnorm", time = "T", censor = "C")
 
 #part b
 prob(data, "exp", 90) #different than answer key, but double checked with minitab (.82)
@@ -252,8 +270,7 @@ surv_summary(data, "exp")
 
 #part a
 fly <- read.csv("Data sets/Fruitfly.txt", sep = "\t")
-fly$Time <- fly$Longevity
 plot_surv(fly, "exp", fly$Partners) 
 
 #part b
-surv_summary(fly, "exp", fly$Partners)
+surv_summary(fly, "exp", fly$Partners, time = "Longevity")
