@@ -92,53 +92,56 @@ prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censo
   }
 }
 
-surv_summary <- function(data, dist, by = c(), time = "Time", censor = "Censor") {
+surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") {
 
-  fit <- fit_data(data, dist, time, censor)
+  fit <- fit_data(data, dist, time, censor, by)
+  qfunc <- match.fun(paste("q", dist, sep = ""))
   
-  if (length(by) > 1) { #if there's a grouping variable
-    by <- as.factor(by)
-    d <- data.frame(left, right, by)
+  if (nchar(by) > 0) { #if there's a grouping variable
     
-    fit <- c()
-    for (i in levels(by)) {
-      #subsets dataframe
-      d2 <- d[d$by == i, ]
-      d2$by <- NULL
-      #adds estimate to vector
-      fit <- fitdistcens(d2, dist)
-      rate <- fit$estimate[["rate"]]
+    for (i in 1:length(fit)) {
+      f <- fit[[i]]
       
-      cat("\n\nFor level =", i, "\n")
-      cat("Log Liklihood", logLik(fit), sep = "\t")
-      cat("\nMean", 1 / rate, sep = "\t\t")
-      cat("\nFirst Quantile", qexp(.25, rate), sep = "\t")
-      cat("\nMedian", qexp(.5, rate), sep = "\t\t")
-      cat("\nThird Quantile", qexp(.75, rate), sep = "\t")
+      l <- c(p = .25, f$estimate)
+      first <- split(unname(l),names(l))
+      l <- c(p = .5, f$estimate)
+      second <- split(unname(l),names(l))
+      l <- c(p = .75, f$estimate)
+      third <- split(unname(l),names(l))
+  
+      cat("\n\nFor level =", levels(as.factor(data[[by]]))[i], "\n")
+      for (name in names(f$estimate)) {
+        cat(name, f$estimate[name], sep = "\t\t")
+        cat("\n")
+      }
+      cat("Log Liklihood", logLik(f), sep = "\t")
+      cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
+      cat("\nMedian", do.call(qfunc, second), sep = "\t\t")
+      cat("\nThird Quantile", do.call(qfunc, third), sep = "\t")
     }
   } else {
-    if (dist == "exp") {
-      rate <- fit$estimate[["rate"]]
-      
-      cat("Log Liklihood", logLik(fit), sep = "\t")
-      cat("\nMean", 1 / rate, sep = "\t\t")
-      cat("\nFirst Quantile", qexp(.25, rate), sep = "\t")
-      cat("\nMedian", qexp(.5, rate), sep = "\t\t")
-      cat("\nThird Quantile", qexp(.75, rate), sep = "\t")
-    } else if (dist == "lnorm") {
-      m <- fit$estimate[["meanlog"]]
-      sd <- fit$estimate[["sdlog"]]
-      
-      cat("Log Liklihood", logLik(fit), sep = "\t")
-      cat("\nMean", exp(m), sep = "\t\t")
-      cat("\nFirst Quantile", qlnorm(.25, m, sd), sep = "\t")
-      cat("\nMedian", qlnorm(.5, m, sd), sep = "\t\t")
-      cat("\nThird Quantile", qlnorm(.75, m, sd), sep = "\t")
+    
+    qfunc <- match.fun(paste("q", dist, sep = ""))
+    l <- c(p = .25, fit$estimate)
+    first <- split(unname(l),names(l))
+    l <- c(p = .5, fit$estimate)
+    second <- split(unname(l),names(l))
+    l <- c(p = .75, fit$estimate)
+    third <- split(unname(l),names(l))
+    
+    for (name in names(fit$estimate)) {
+      cat(name, fit$estimate[name], sep = "\t\t")
+      cat("\n")
     }
+    cat("Log Liklihood", logLik(fit), sep = "\t")
+    cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
+    cat("\nMedian", do.call(qfunc, second), sep = "\t\t")
+    cat("\nThird Quantile", do.call(qfunc, third), sep = "\t")
   }
 }
 
-plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder name, I'm not creative
+plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") { 
+  #"plot_surv" is also a placeholder name, I'm not creative
   
   #plots survival curve for data given that it follows the distribution dist
   #data is a dataframe with columns Time and Censor where for complete times C = 1
@@ -146,63 +149,39 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
   #by is a vector that contains the grouping variable
   #if by is specified, plots multiple lines; else, plots only one line
   
-  #this whole section formats the data for the function fitdistcens
-  ####
-  left <- c()
-  right <- c()
-  
-  for (i in 1:length(data$Time)) {
-    if (data$Censor[i] == 1) {
-      left <- c(left, data$Time[i])
-      right <- c(right, data$Time[i])
-    } 
-    else {
-      left <- c(left, data$Time[i])
-      right <- c(right, NA)
-    }
-  }
-  
-  d <- data.frame(left, right)
-  ####
+  fit <- fit_data(data, dist, time, censor, by) 
+  pfunc <- match.fun(paste("p", dist, sep = ""))
+  qfunc <- match.fun(paste("q", dist, sep = ""))
+
   
   #fits data to distribution by the "by" variable and puts estimates in vector "fit"
-  if (length(by) > 1) { #if there's a grouping variable
-    by <- as.factor(by)
-    d <- data.frame(left, right, by)
+  if (nchar(by) > 0) { #if there's a grouping variable
+    f <- fit[[1]]
     
-    d2 <- d[d$by == levels(by)[1], ]
-    d2$by <- NULL
-    if (dist == "exp") {
-      rate <- fitdistcens(d2, dist)$estimate["rate"]
-      start <- floor(qexp(.01, rate))
-      end <- ceiling(qexp(.99, rate))
-    } else if (dist == "lnrom") {
-      meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
-      sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
-      start <- floor(qlnrom(.01, meanlog, sdlog))
-      end <- ceiling(qlnorm(.99, meanlog, sdlog))
-    }
+    l <- c(p = .01, f$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, f$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
     
     y <- NULL
-    for (i in levels(by)) {
+    for (i in 1:length(fit)) {
+      f <- fit[[i]]
       #subsets dataframe
-      d2 <- d[d$by == i, ]
-      d2$by <- NULL
-      if (dist == "exp") {
-        rate <- fitdistcens(d2, dist)$estimate["rate"]
-        y <- rbind(y, cbind(matrix(1 - pexp(start:end, rate), ncol = 1), i))
-      } else if (dist == "lnorm") {
-        meanlog <- fitdistcens(d2, dist)$estimate["meanlog"]
-        sdlog <- fitdistcens(d2, dist)$estimate["sdlog"]
-      }
+      args <- c(f$estimate)
+      args <- split(unname(args), names(args))
+      args$q <- start:end
+      y <- rbind(y, cbind(matrix(1 - do.call(pfunc, args), ncol = 1), levels(as.factor(data[[by]]))[i]))
     }
     df <- data.frame(y)
-    df$x <- rep(start:end, length(levels(by)))
-    df$V1 <- as.numeric(as.character(df$V1))
-    p <- ggplot(df, aes(x = x, y = V1, group = i, color = factor(i))) + geom_line() +
+    df$x <- rep(start:end, length(fit))
+    df$X1 <- as.numeric(as.character(df$X1))
+    p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
       scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
       scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
-      ggtitle("Exponential survival function") +
+      ggtitle(paste(dist, "survival function")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
             axis.text.y = element_text(size = rel(1.5)),
             axis.title.y = element_text(size = rel(1.5)),
@@ -211,44 +190,35 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
       scale_colour_discrete(name = "Group")
     plot(p)
   } else {
-    if (dist == "exp") {
-      rate <- fitdistcens(d, dist)$estimate[["rate"]]
-      
-      start <- floor(qexp(.01, rate))
-      end <- ceiling(qexp(.99, rate))
-      
-      p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
-        stat_function(fun = function(x) {1 - pexp(x, rate = rate)}) +
-        scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-        scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
-        ggtitle("Exponential survival function") +
-        theme(axis.text.x = element_text(size = rel(1.5)),
-              axis.text.y = element_text(size = rel(1.5)),
-              axis.title.y = element_text(size = rel(1.5)),
-              axis.title.x = element_text(size = rel(1.5)),
-              plot.title = element_text(size = rel(2)))
-      plot(p)
-    } else if (dist == "lnorm") {
-      
-      meanlog <- fitdistcens(d, dist)$estimate["meanlog"]
-      sdlog <- fitdistcens(d, dist)$estimate["sdlog"]
-      
-      start <- floor(qlnorm(.01, meanlog, sdlog))
-      end <- ceiling(qlnorm(.99, meanlog, sdlog))
-      
-      p <- ggplot(data.frame(x = c(start, end)), aes(x)) +
-        stat_function(fun = function(x) {1 - plnorm(x, meanlog, sdlog)}) +
-        scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-        scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
-        ggtitle("Exponential survival function") +
-        theme(axis.text.x = element_text(size = rel(1.5)),
-              axis.text.y = element_text(size = rel(1.5)),
-              axis.title.y = element_text(size = rel(1.5)),
-              axis.title.x = element_text(size = rel(1.5)),
-              plot.title = element_text(size = rel(2)))
-      plot(p)
-      
-    }
+    
+    l <- c(p = .01, fit$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, fit$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
+    
+    args <- c(fit$estimate)
+    args <- split(unname(args), names(args))
+    args$q <- start:end
+    
+    y <- NULL
+    y <- rbind(y, cbind(matrix(1 - do.call(pfunc, args), ncol = 1)))
+    df <- data.frame(y)
+    df$x <- start:end
+    df$y <- as.numeric(as.character(df$y))
+    p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
+      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
+      ggtitle(paste(dist, "survival function")) +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2)))# + 
+    plot(p)
+    
   }
 }    
 
@@ -256,21 +226,25 @@ plot_surv <- function(data, dist, by = c()) { #"plot_surv" is also a placeholder
 
 #part a
 data <- read.csv("Data sets/MELT TIMES V2 W2018.txt", sep = "\t")
+data$Time <- data$T
+data$Censor <- data$C
 
-prob(data, "lnorm", 90, lower.tail = F, time = "T", censor = "C")
-plot_surv(data, "lnorm")
+prob(data, "lnorm", 90, time = "T", censor = "C")
+plot_surv(data, "lnorm", time = "T", censor = "C")
 surv_summary(data, "lnorm", time = "T", censor = "C")
 
 #part b
-prob(data, "exp", 90) #different than answer key, but double checked with minitab (.82)
-plot_surv(data, "exp") 
-surv_summary(data, "exp")
+prob(data, "exp", 90, time = "T", censor = "C") #different than answer key, but double checked with minitab (.82)
+plot_surv(data, "exp", time = "T", censor = "C") 
+surv_summary(data, "exp", time = "T", censor = "C")
 
 #Question 3 ----
 
 #part a
 fly <- read.csv("Data sets/Fruitfly.txt", sep = "\t")
-plot_surv(fly, "exp", fly$Partners) 
+
+plot_surv(fly, "exp", time = "Longevity", by = "Partners") 
 
 #part b
-surv_summary(fly, "exp", fly$Partners, time = "Longevity")
+surv_summary(fly, "exp", time = "Longevity", by = "Partners")
+
