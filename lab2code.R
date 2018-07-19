@@ -27,6 +27,14 @@ pweibull(70, 7.1, 77, lower.tail = T) - pweibull(50, 7.1, 77, lower.tail = T)
 #Functions ----
 
 fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
+  
+  #fits data to distribution and returns a Fit object
+  #if by (grouping variable) is specified, returns list of Fit objects by group
+  #time, censor, and by are all string names of the colums
+  #dist is the string name of the distribution that corresponds to the r function name
+  #data is a dataframe
+  #complete data corresponds to a censor value of 1
+  
   left <- c()
   right <- c()
   time <- as.vector(data[[time]])
@@ -56,7 +64,7 @@ fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
       #subsets dataframe
       d2 <- d[data[[by]] == i, ]
       d2[[by]] <- NULL
-      #adds estimate to vector
+      #adds estimate to list
       fit[[j]] <- fitdistcens(d2, dist)
       j <- j + 1
     }
@@ -70,9 +78,10 @@ prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censo
   #"prob" is a placeholder name, should be better
   
   #finds probability of survival beyond time = num
-  #data is a dataframe with columns Time and Censor where for complete times C = 1
-  #dist is a string which corresponds to the name of the distribution (right now only "lnorm" and "exp")
+  #data is a dataframe where for complete times censor = 1
+  #dist is a string which corresponds to the name of the distribution
   #num is in int
+  #time and censor are string names of the colums
   
   #fits data to distribution
   fit <- fit_data(data, dist, time, censor)
@@ -94,6 +103,11 @@ prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censo
 
 surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") {
 
+  #prints a summary of data fitted to a distribution
+  #data is a dataframe where for complete times censor = 1
+  #dist is a string which corresponds to the name of the distribution
+  #time, censor, and by are string names of the colums
+  
   fit <- fit_data(data, dist, time, censor, by)
   qfunc <- match.fun(paste("q", dist, sep = ""))
   
@@ -144,10 +158,10 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
   #"plot_surv" is also a placeholder name, I'm not creative
   
   #plots survival curve for data given that it follows the distribution dist
-  #data is a dataframe with columns Time and Censor where for complete times C = 1
-  #dist is a string which corresponds to the name of the distribution (right now only "lnorm" and "exp")
-  #by is a vector that contains the grouping variable
   #if by is specified, plots multiple lines; else, plots only one line
+  #data is a dataframe where for complete times censor = 1
+  #dist is a string which corresponds to the name of the distribution
+  #time, censor, and by are string names of the colums
   
   fit <- fit_data(data, dist, time, censor, by) 
   pfunc <- match.fun(paste("p", dist, sep = ""))
@@ -234,7 +248,7 @@ plot_surv(data, "lnorm", time = "T", censor = "C")
 surv_summary(data, "lnorm", time = "T", censor = "C")
 
 #part b
-prob(data, "exp", 90, time = "T", censor = "C") #different than answer key, but double checked with minitab (.82)
+prob(data, "exp", 90, time = "T", censor = "C") #different than answer key, but checked with minitab (.82)
 plot_surv(data, "exp", time = "T", censor = "C") 
 surv_summary(data, "exp", time = "T", censor = "C")
 

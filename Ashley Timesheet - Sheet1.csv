@@ -1,15 +1,23 @@
-start time,end time,day,description
-9:45 AM,11:15 AM,Tuesday 6/26,
-3:30 PM,4:30 PM,Wednesday 6/27,
-7:35 PM,8:00 PM,Wednesday 6/27,
-,,,
-1:30 PM,3:00 PM,Tuesday 7/3,writing code for lab 2 question 2
-11:40 AM,2:00 PM,Friday 7/6,wrote code for plots for lab question 2 and added comments
-11:30 PM,1:00 AM,Friday 7/6,wrote code for lab 2 question 3 part a
-8:00 AM,9:30 AM,Saturday 7/7,finished writing code for lab 2 question 3 part a
-1:00 PM,2:30 PM,Sunday 7/8,median lifetime function and hazard plot
-,,,
-3:00 PM,5:15 PM,Friday 7/13,Tried replacing graphs with ggplot
-9:30,11:30,Saturday 7/14,Kept trying with ggplot and worked on summary function
-1:00,2:30,Saturday 7/14,ggplot and AD test stat
-3:00,4:30,Sunday 7/15,Worked on ggplot and AD test stat
+start time,end time,day,description,,
+9:45 AM,11:15 AM,Tuesday 6/26,,,
+3:30 PM,4:30 PM,Wednesday 6/27,,,
+7:35 PM,8:00 PM,Wednesday 6/27,,,
+,,,,,
+1:30 PM,3:00 PM,Tuesday 7/3,writing code for lab 2 question 2,1:30 AM,
+11:40 AM,2:00 PM,Friday 7/6,wrote code for plots for lab question 2 and added comments,2:20 AM,
+11:30 PM,1:00 AM,Friday 7/6,wrote code for lab 2 question 3 part a,1:30 AM,
+8:00 AM,9:30 AM,Saturday 7/7,finished writing code for lab 2 question 3 part a,1:30 AM,
+1:00 PM,2:30 PM,Sunday 7/8,median lifetime function and hazard plot,1:30 AM,8:20 AM
+,,,,,
+3:00 PM,5:15 PM,Friday 7/13,tried replacing graphs with ggplot,2:15 AM,
+9:30 AM,11:30 AM,Saturday 7/14,kept trying with ggplot and worked on summary function,2:00 AM,
+1:00 PM,2:30 PM,Saturday 7/14,ggplot and AD test stat,1:30 AM,
+3:00 PM,4:30 PM,Sunday 7/15,worked on ggplot and AD test stat,1:30 AM,7:15 AM
+,,,,,
+3:00 PM,5:30 PM,Monday 7/16,"googled a lot about ggplot, worked on plot function",2:30 AM,
+7:35 PM,10:00 PM,Monday 7/16,worked on plot function,2:25 AM,
+12:30 PM,2:45,Tuesday 7/17,worked on passing in functions as parameters,14:15,
+4:00,6:00,Tuesday 7/17,created a fit data function,2:00,
+4:45,5:30,Wednesday 7/18,debugged summary fucntion,0:45,
+9:30,10:30,Thursday 7/19,worked on passing in functions as parameters,1:00,
+2:50,3:40,Thursday 7/19,finished debugging plot function,0:50,11:45 PM
