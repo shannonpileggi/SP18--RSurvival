@@ -230,7 +230,190 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
             axis.text.y = element_text(size = rel(1.5)),
             axis.title.y = element_text(size = rel(1.5)),
             axis.title.x = element_text(size = rel(1.5)),
-            plot.title = element_text(size = rel(2)))# + 
+            plot.title = element_text(size = rel(2)))
+    plot(p)
+    
+  }
+}    
+
+plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") { 
+  #"plot_haz" is also a placeholder name, I'm not creative
+  
+  #plots hazard curve for data given that it follows the distribution dist
+  #if by is specified, plots multiple lines; else, plots only one line
+  #data is a dataframe where for complete times censor = 1
+  #dist is a string which corresponds to the name of the distribution
+  #time, censor, and by are string names of the colums
+  
+  fit <- fit_data(data, dist, time, censor, by) 
+  pfunc <- match.fun(paste("p", dist, sep = ""))
+  qfunc <- match.fun(paste("q", dist, sep = ""))
+  dfunc <- match.fun(paste("d", dist, sep = ""))
+
+  
+  #fits data to distribution by the "by" variable and puts estimates in vector "fit"
+  if (nchar(by) > 0) { #if there's a grouping variable
+    f <- fit[[1]]
+    
+    l <- c(p = .01, f$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, f$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
+    
+    y <- NULL
+    for (i in 1:length(fit)) {
+      f <- fit[[i]]
+      #subsets dataframe
+      args <- c(f$estimate)
+      pargs <- split(unname(args), names(args))
+      dargs <- split(unname(args), names(args))
+      pargs$q <- start:end
+      dargs$x <- start:end
+      ###
+      y <- rbind(y, cbind(matrix(do.call(dfunc, dargs) / (1 - do.call(pfunc, pargs)), ncol = 1), 
+                          levels(as.factor(data[[by]]))[i]))
+      ###
+    }
+    df <- data.frame(y)
+    df$x <- rep(start:end, length(fit))
+    df$X1 <- as.numeric(as.character(df$X1))
+    p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
+      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "h(t)", breaks = seq(0, 1, by = 0.2)) +
+      ggtitle(paste(dist, "hazard function")) +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2))) + 
+      scale_colour_discrete(name = "Group")
+    plot(p)
+  } else {
+    
+    l <- c(p = .01, fit$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, fit$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
+    
+    args <- c(fit$estimate)
+    pargs <- split(unname(args), names(args))
+    pargs$q <- start:end
+    args <- c(fit$estimate)
+    dargs <- split(unname(args), names(args))
+    dargs$x <- start:end
+    
+    y <- NULL
+    ###
+    y <- rbind(y, cbind(matrix(do.call(dfunc, dargs) / (1 - do.call(pfunc, pargs)), ncol = 1))) 
+    ###
+    df <- data.frame(y)
+    df$x <- start:end
+    df$y <- as.numeric(as.character(df$y))
+    p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
+      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "h(t)", breaks = seq(0, 1, by = 0.2)) +
+      ggtitle(paste(dist, "hazard function")) +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2)))
+    plot(p)
+    
+  }
+}    
+
+plot_cumhaz <- function(data, dist, time = "Time", censor = "Censor", by = "") { 
+  #"plot_cumhaz" is also a placeholder name, I'm not creative
+  
+  #plots cumulative hazard curve for data given that it follows the distribution dist
+  #if by is specified, plots multiple lines; else, plots only one line
+  #data is a dataframe where for complete times censor = 1
+  #dist is a string which corresponds to the name of the distribution
+  #time, censor, and by are string names of the colums
+  
+  fit <- fit_data(data, dist, time, censor, by) 
+  pfunc <- match.fun(paste("p", dist, sep = ""))
+  qfunc <- match.fun(paste("q", dist, sep = ""))
+
+  
+  #fits data to distribution by the "by" variable and puts estimates in vector "fit"
+  if (nchar(by) > 0) { #if there's a grouping variable
+    f <- fit[[1]]
+    
+    l <- c(p = .01, f$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, f$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
+    
+    y <- NULL
+    for (i in 1:length(fit)) {
+      f <- fit[[i]]
+      #subsets dataframe
+      args <- c(f$estimate)
+      pargs <- split(unname(args), names(args))
+      pargs$q <- start:end
+      ###
+      y <- rbind(y, cbind(matrix(-log(1 - do.call(pfunc, pargs)), ncol = 1), 
+                          levels(as.factor(data[[by]]))[i]))
+      ###
+    }
+    df <- data.frame(y)
+    df$x <- rep(start:end, length(fit))
+    df$X1 <- as.numeric(as.character(df$X1))
+    p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
+      scale_x_continuous(name = "T") +
+      scale_y_continuous(name = "H(t)") + 
+      ggtitle(paste(dist, "cumulative hazard function")) +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2))) + 
+      scale_colour_discrete(name = "Group")
+    plot(p)
+  } else {
+    
+    l <- c(p = .01, fit$estimate)
+    s <- split(unname(l), names(l))
+    l <- c(p = .99, fit$estimate)
+    e <- split(unname(l), names(l))
+
+    start <- floor(do.call(qfunc, s))
+    end <- ceiling(do.call(qfunc, e))
+    
+    args <- c(fit$estimate)
+    pargs <- split(unname(args), names(args))
+    pargs$q <- start:end
+    args <- c(fit$estimate)
+    dargs <- split(unname(args), names(args))
+    dargs$x <- start:end
+    
+    y <- NULL
+    ###
+    y <- rbind(y, cbind(matrix(-log(1 - do.call(pfunc, pargs)), ncol = 1))) 
+    ###
+    df <- data.frame(y)
+    df$x <- start:end
+    df$y <- as.numeric(as.character(df$y))
+    p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
+      scale_x_continuous(name = "T") +
+      scale_y_continuous(name = "H(t)") +
+      ggtitle(paste(dist, "cumulative hazard function")) +
+      theme(axis.text.x = element_text(size = rel(1.5)),
+            axis.text.y = element_text(size = rel(1.5)),
+            axis.title.y = element_text(size = rel(1.5)),
+            axis.title.x = element_text(size = rel(1.5)),
+            plot.title = element_text(size = rel(2)))
     plot(p)
     
   }
@@ -240,16 +423,18 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
 
 #part a
 data <- read.csv("Data sets/MELT TIMES V2 W2018.txt", sep = "\t")
-data$Time <- data$T
-data$Censor <- data$C
 
 prob(data, "lnorm", 90, time = "T", censor = "C")
 plot_surv(data, "lnorm", time = "T", censor = "C")
+plot_haz(data, "lnorm", time = "T", censor = "C")
+plot_cumhaz(data, "lnorm", time = "T", censor = "C")
 surv_summary(data, "lnorm", time = "T", censor = "C")
 
 #part b
 prob(data, "exp", 90, time = "T", censor = "C") #different than answer key, but checked with minitab (.82)
 plot_surv(data, "exp", time = "T", censor = "C") 
+plot_haz(data, "exp", time = "T", censor = "C")
+plot_cumhaz(data, "exp", time = "T", censor = "C")
 surv_summary(data, "exp", time = "T", censor = "C")
 
 #Question 3 ----
@@ -258,6 +443,8 @@ surv_summary(data, "exp", time = "T", censor = "C")
 fly <- read.csv("Data sets/Fruitfly.txt", sep = "\t")
 
 plot_surv(fly, "exp", time = "Longevity", by = "Partners") 
+plot_haz(fly, "exp", time = "Longevity", by = "Partners") 
+plot_cumhaz(fly, "exp", time = "Longevity", by = "Partners") 
 
 #part b
 surv_summary(fly, "exp", time = "Longevity", by = "Partners")
