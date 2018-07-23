@@ -29,30 +29,35 @@ d <- data.frame(left, right)
 check <- fitdistcens(d, "exp")
 rate <- 1/check$estimate
 
-library('fitdistrplus')
-plot(fitdist(data$Time,"exp"))
-
 
 #Weibull distribution parameter estimates
 check <- fitdistcens(d, "weibull")
-check$estimate
+parameters <- check$estimate
+parameters
 
 library(car)
-###qPlot(d, distribution="weibull", shape=0.8279898, scale=26.8386386)
+qqPlot(d, distribution="weibull", shape=parameters[1], scale=parameters[2])
 
 #Lognormal distribution parameter estimates
 check <- fitdistcens(d, "lnorm")
-check$estimate
-##qqPlot(d, distribution="lognormal", shape=2.798188, scale=1.746138)
+parameters <- check$estimate
+parameters
+#qqPlot(d, distribution="lognormal", shape=parameters[1], scale=parameters[2])
 
 #Logistic distribution 
 check <- fitdistcens(d, "logis")
-check$estimate
-##qqPlot(d, distribution="logis", location=18.791516, scale=9.784775)
+parameters <- check$estimate
+parameters
+qqPlot(d, distribution="logis", location=parameters[1], scale=parameters[2])
 
 #Loglogistic distribution
+###Parameterization differs between R and Minitab:
+# 1/Shape parameter in R = Scale parameter in Minitab
+# log(scale parameter in R) = Shape parameter in Minitab
 library(flexsurv)
 check <- fitdistcens(d, "llogis")
-check$estimate
+parameters <- check$estimate
+parameters
+
 
 
