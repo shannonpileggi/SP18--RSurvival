@@ -87,7 +87,7 @@ prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censo
   fit <- fit_data(data, dist, time, censor)
   
   #creates argument list
-  l <- c(q = 90, fit$estimate, lower.tail = lower.tail)
+  l <- c(q = num, fit$estimate, lower.tail = lower.tail)
   args <- split(unname(l),names(l))
   
   #finds distribution funciton
@@ -110,18 +110,32 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
   
   fit <- fit_data(data, dist, time, censor, by)
   qfunc <- match.fun(paste("q", dist, sep = ""))
+  pfunc <- match.fun(paste("p", dist, sep = ""))
+  surv <- function(t) {
+    args <- c(fit$estimate)
+    args <- split(unname(args), names(args))
+    args$q <- t
+    1 - do.call(pfunc, args)
+  }
   
   if (nchar(by) > 0) { #if there's a grouping variable
     
     for (i in 1:length(fit)) {
       f <- fit[[i]]
       
+      surv <- function(t) {
+        args <- c(f$estimate)
+        args <- split(unname(args), names(args))
+        args$q <- t
+        1 - do.call(pfunc, args)
+      }
+      
       l <- c(p = .25, f$estimate)
-      first <- split(unname(l),names(l))
+      first <- split(unname(l), names(l))
       l <- c(p = .5, f$estimate)
-      second <- split(unname(l),names(l))
+      second <- split(unname(l), names(l))
       l <- c(p = .75, f$estimate)
-      third <- split(unname(l),names(l))
+      third <- split(unname(l), names(l))
   
       cat("\n\nFor level =", levels(as.factor(data[[by]]))[i], "\n")
       for (name in names(f$estimate)) {
@@ -129,6 +143,13 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
         cat("\n")
       }
       cat("Log Liklihood", logLik(f), sep = "\t")
+      
+      if (dist == "llogis" && 1 / f$estimate[["shape"]] > 1) {
+        cat("\nMean", "N/A", sep = "\t\t")
+      } else {
+        cat("\nMean", integrate(surv, 0, Inf)[["value"]], sep = "\t\t")
+      }
+      
       cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
       cat("\nMedian", do.call(qfunc, second), sep = "\t\t")
       cat("\nThird Quantile", do.call(qfunc, third), sep = "\t")
@@ -137,17 +158,24 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
     
     qfunc <- match.fun(paste("q", dist, sep = ""))
     l <- c(p = .25, fit$estimate)
-    first <- split(unname(l),names(l))
+    first <- split(unname(l), names(l))
     l <- c(p = .5, fit$estimate)
-    second <- split(unname(l),names(l))
+    second <- split(unname(l), names(l))
     l <- c(p = .75, fit$estimate)
-    third <- split(unname(l),names(l))
+    third <- split(unname(l), names(l))
     
     for (name in names(fit$estimate)) {
       cat(name, fit$estimate[name], sep = "\t\t")
       cat("\n")
     }
     cat("Log Liklihood", logLik(fit), sep = "\t")
+    
+    if (dist == "llogis" && 1 / fit$estimate[["shape"]] > 1) {
+      cat("\nMean", "N/A", sep = "\t\t")
+    } else {
+      cat("\nMean", integrate(surv, 0, Inf)[["value"]], sep = "\t\t")
+    }
+    
     cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
     cat("\nMedian", do.call(qfunc, second), sep = "\t\t")
     cat("\nThird Quantile", do.call(qfunc, third), sep = "\t")
@@ -193,7 +221,7 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$x <- rep(start:end, length(fit))
     df$X1 <- as.numeric(as.character(df$X1))
     p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
-      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_x_continuous(name = "T") + #, breaks = seq(start, end, by = (end - start) / 5)) +
       scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
       ggtitle(paste(dist, "survival function")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
@@ -223,7 +251,7 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$x <- start:end
     df$y <- as.numeric(as.character(df$y))
     p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
-      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_x_continuous(name = "T") + #, breaks = seq(start, end, by = (end - start) / 5)) +
       scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
       ggtitle(paste(dist, "survival function")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
@@ -281,8 +309,8 @@ plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$x <- rep(start:end, length(fit))
     df$X1 <- as.numeric(as.character(df$X1))
     p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
-      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-      scale_y_continuous(name = "h(t)", breaks = seq(0, 1, by = 0.2)) +
+      scale_x_continuous(name = "T") +
+      scale_y_continuous(name = "h(t)") +
       ggtitle(paste(dist, "hazard function")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
             axis.text.y = element_text(size = rel(1.5)),
@@ -309,15 +337,13 @@ plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     dargs$x <- start:end
     
     y <- NULL
-    ###
     y <- rbind(y, cbind(matrix(do.call(dfunc, dargs) / (1 - do.call(pfunc, pargs)), ncol = 1))) 
-    ###
     df <- data.frame(y)
     df$x <- start:end
     df$y <- as.numeric(as.character(df$y))
     p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
-      scale_x_continuous(name = "T", breaks = seq(start, end, by = (end - start) / 5)) +
-      scale_y_continuous(name = "h(t)", breaks = seq(0, 1, by = 0.2)) +
+      scale_x_continuous(name = "T") + #, breaks = seq(start, end, by = (end - start) / 5)) +
+      scale_y_continuous(name = "h(t)") + #, breaks = seq(0, 1, by = 0.2)) +
       ggtitle(paste(dist, "hazard function")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
             axis.text.y = element_text(size = rel(1.5)),
@@ -362,10 +388,8 @@ plot_cumhaz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
       args <- c(f$estimate)
       pargs <- split(unname(args), names(args))
       pargs$q <- start:end
-      ###
       y <- rbind(y, cbind(matrix(-log(1 - do.call(pfunc, pargs)), ncol = 1), 
                           levels(as.factor(data[[by]]))[i]))
-      ###
     }
     df <- data.frame(y)
     df$x <- rep(start:end, length(fit))
