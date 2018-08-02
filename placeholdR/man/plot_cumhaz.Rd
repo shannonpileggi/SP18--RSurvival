@@ -22,8 +22,7 @@ a numeric indicator variable where complete times correspond to a value of 1 and
 Plots cumulative hazard curve of right censored data given that it follows a specified parametric distribution.
 }
 \examples{
-library(survival)
-data("lung")
-lung$status <- lung$status - 1
-plot_cumhaz(lung, "lnorm", "weibull", "time" "status")
+library(survival) 
+data("rats")
+plot_cumhaz(rats, "lnorm", time = "time", censor = "status")
 }

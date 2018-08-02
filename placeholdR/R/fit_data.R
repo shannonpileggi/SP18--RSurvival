@@ -9,7 +9,8 @@
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @param by the string name of a grouping variable. if specified, the function returns a list.
 #' 
-#' @seealso \code{\link[fitdistrplus]{fitdistcens()}}
+#' @seealso \code{\link[fitdistrplus]{fitdistcens}}
+#' @import fitdistrplus
 
 fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
   

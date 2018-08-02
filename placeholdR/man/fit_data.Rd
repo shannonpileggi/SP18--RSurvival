@@ -22,5 +22,5 @@ a numeric indicator variable where complete times correspond to a value of 1 and
 Fits right censored data to a distribution using maximum liklihood estimates.
 }
 \seealso{
-\code{\link[fitdistrplus]{fitdistcens()}}
+\code{\link[fitdistrplus]{fitdistcens}}
 }

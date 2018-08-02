@@ -22,3 +22,8 @@ a numeric indicator variable where complete times correspond to a value of 1 and
 Estimates various statistics, including median, mean, standard deviation, and 
 percentiles of survival time given that the data follows a specified parametric distribution.
 }
+\examples{
+library(survival) 
+data("rats")
+surv_summary(rats, "lnorm", time = "time", censor = "status")
+}

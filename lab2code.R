@@ -45,8 +45,7 @@ fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
   if (by != "") {
     data[[by]] <- as.factor(data[[by]])
     b <- as.factor(as.vector(data[[by]]))
-  } 
-  else {
+  } else {
     b <- c()
   }
   #formats data so it'll work with fitdistcens function
@@ -54,8 +53,7 @@ fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     if (censor[i] == 1) {
       left <- c(left, time[i])
       right <- c(right, time[i])
-    } 
-    else {
+    } else {
       left <- c(left, time[i])
       right <- c(right, NA)
     }
@@ -80,9 +78,8 @@ fit_data <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     #returns list
     fit
     
-  }
-  #if there's no grouping variable, returns fit object
-  else {
+  } else {
+    #if there's no grouping variable, returns fit object
     fitdistcens(d, dist)
   }
 }
@@ -109,8 +106,7 @@ prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censo
   #prints probability
   if (lower.tail == F) {
     cat("P(T > ", num, ") = ", do.call(pfunc, args), sep = "")
-  } 
-  else {
+  } else {
     cat("P(T < ", num, ") = ", do.call(pfunc, args), sep = "")
   }
 }
@@ -119,7 +115,6 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
 
   #prints a summary of data fitted to a distribution
   #summary includes parameter estimates, log likelihood, mean, and quantiles
-  ### standard deviation needs to be added ###
   #data is a dataframe where complete times = 1 and incomplete = 0
   #dist is a string which corresponds to the name of the distribution
   #time, censor, and by are string names of the colums
@@ -129,6 +124,8 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
   #finds quantile and cdf functions for distribution
   qfunc <- match.fun(paste("q", dist, sep = ""))
   pfunc <- match.fun(paste("p", dist, sep = ""))
+  rfunc <- match.fun(paste("r", dist, sep = ""))
+  set.seed(1)
   
   #creates survival function
   surv <- function(t) {
@@ -166,31 +163,33 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
       for (name in names(f$estimate)) {
         if (nchar(name) > 7) {
           cat(name, f$estimate[name], sep = "\t")
-        }
-        else {
+        } else {
           cat(name, f$estimate[name], sep = "\t\t")
         }
         cat("\n")
       }
       cat("Log Liklihood", logLik(f), sep = "\t")
+      cat("\nAIC", f$aic, sep = "\t\t")
+      cat("\nBIC", f$bic, sep = "\t\t")
       
       #if loglogistic, checks if mean exists and prints it
       if (dist == "llogis" && 1 / f$estimate[["shape"]] > 1) {
         cat("\nMean", "N/A", sep = "\t\t")
-      } 
-      else {
+      } else {
         cat("\nMean", integrate(surv, 0, Inf)[["value"]], sep = "\t\t")
       }
       
-      ###need to add standard deviation
+      #***is there a better way to find standard deviation?***
+      l <- c(n = 10000, f$estimate)
+      args <- split(unname(l), names(l))
+      cat("\nStDev", sd(do.call(rfunc, args)), sep = "\t\t")
       
       #prints quantiles
       cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
       cat("\nMedian", do.call(qfunc, second), sep = "\t\t")
       cat("\nThird Quantile", do.call(qfunc, third), sep = "\t")
     }
-  } 
-  else { #if there's no grouping variable
+  } else { #if there's no grouping variable
     
     #argument list for quantiles
     l <- c(p = .25, fit$estimate)
@@ -204,23 +203,26 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
     for (name in names(fit$estimate)) {
       if (nchar(name) > 7) {
         cat(name, fit$estimate[name], sep = "\t")
-      }
-      else {
+      } else {
         cat(name, fit$estimate[name], sep = "\t\t")
       }
       cat("\n")
     }
     cat("Log Liklihood", logLik(fit), sep = "\t")
+    cat("\nAIC", fit$aic, sep = "\t\t")
+    cat("\nBIC", fit$bic, sep = "\t\t")
     
     #if loglogistic, checks if mean exists and prints it
     if (dist == "llogis" && 1 / fit$estimate[["shape"]] > 1) {
       cat("\nMean", "N/A", sep = "\t\t")
-    } 
-    else {
+    } else {
       cat("\nMean", integrate(surv, 0, Inf)[["value"]], sep = "\t\t")
     }
     
-    ###need to add standard deviation
+    #***standard deviation***
+    l <- c(n = 10000, fit$estimate)
+    args <- split(unname(l), names(l))
+    cat("\nStDev", sd(do.call(rfunc, args)), sep = "\t\t")
     
     #prints quantiles
     cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")
@@ -291,8 +293,7 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
             plot.title = element_text(size = rel(2))) + 
       scale_colour_discrete(name = "Group")
     plot(p)
-  } 
-  else {
+  } else {
     #if there's no grouping variable
     
     #argument list
@@ -398,8 +399,7 @@ plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
             plot.title = element_text(size = rel(2))) + 
       scale_colour_discrete(name = "Group")
     plot(p)
-  } 
-  else {
+  } else {
     #if there's no grouping variable
     
     #argument list
@@ -503,8 +503,7 @@ plot_cumhaz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
             plot.title = element_text(size = rel(2))) + 
       scale_colour_discrete(name = "Group")
     plot(p)
-  } 
-  else {
+  } else {
     #if there's no grouping variable
     
     #argument list

@@ -21,3 +21,8 @@ a numeric indicator variable where complete times correspond to a value of 1 and
 \description{
 Plots survival curve of right censored data given that it follows a specified parametric distribution.
 }
+\examples{
+library(survival) 
+data("rats")
+plot_surv(rats, "lnorm", time = "time", censor = "status")
+}

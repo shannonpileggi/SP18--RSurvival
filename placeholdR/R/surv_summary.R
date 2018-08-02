@@ -9,6 +9,12 @@
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @param by The string name of a grouping variable. If specified, returns summary statistics for each group.
+#' @import stats
+#' @examples 
+#' library(survival) 
+#' data("rats")
+#' surv_summary(rats, "lnorm", time = "time", censor = "status")
+#' @export
 
 surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") {
 
@@ -59,12 +65,12 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
         } else {
           cat(name, f$estimate[name], sep = "\t\t")
         }
-        cat("\n")
+        cat("\n\n")
       }
       cat("Log Liklihood", logLik(f), sep = "\t")
       cat("\nAIC", f$aic, sep = "\t\t")
       cat("\nBIC", f$bic, sep = "\t\t")
-      
+      cat("\n")
       #if loglogistic, checks if mean exists and prints it
       if (dist == "llogis" && 1 / f$estimate[["shape"]] > 1) {
         cat("\nMean", "N/A", sep = "\t\t")
@@ -76,6 +82,7 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
       l <- c(n = 10000, f$estimate)
       args <- split(unname(l), names(l))
       cat("\nStDev", sd(do.call(rfunc, args)), sep = "\t\t")
+      cat("\n")
       
       #prints quantiles
       cat("\nFirst Quantile", do.call(qfunc, first), sep = "\t")

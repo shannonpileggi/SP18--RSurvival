@@ -23,3 +23,8 @@ a numeric indicator variable where complete times correspond to a value of 1 and
 \description{
 Compute survival probabilities given that the data follows a specified parametric distribution.
 }
+\examples{
+library(survival) 
+data("rats")
+prob(rats, "lnorm", 110, time = "time", censor = "status")
+}

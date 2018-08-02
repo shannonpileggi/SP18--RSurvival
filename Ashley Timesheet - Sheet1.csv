@@ -25,3 +25,14 @@ start time,end time,day,description,time spent,weekly total time
 2:30 PM,5:00 PM,Saturday 7/21,hazard and cumulative hazard plots,2:30:00,
 2:30 PM,4:15 PM,Sunday 7/22,worked on AD,1:45:00,
 6:00 PM,8:30 PM,Sunday 7/22,"qqplots, mean survival time, AD",2:30:00,21:30:00
+,,,,,
+8:00 AM,10:45 AM,Tuesday 7/24,commented code,2:45:00,
+7:30 PM,8:15 PM,Tuesday 7/24,looked into how to create a package,0:45:00,
+9:00 PM,11:30 PM,Wednesday 7/25,"started writing documentation, read cran submission guidelines",2:30:00,
+1:00 PM,2:00 PM,Thursday 7/26,continued writing documentation,1:00:00,
+1:30 PM,4:30 PM,Friday 7/27,wrote documentation,3:00:00,
+10:10 AM,11:30 AM,Saturday 7/28,created package,1:20:00,11:20:00
+,,,,,
+10:30 AM,12:00 PM,Monday 7/30,edited description file,1:30:00,4:35:00
+8:20 PM,9:40 PM,Monday 7/30,edited namespace file,1:20:00,
+4:30 PM,6:15 PM,Wednesday 8/1,wrote examples,1:45:00,

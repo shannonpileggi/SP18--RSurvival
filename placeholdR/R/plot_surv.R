@@ -8,6 +8,12 @@
 #' @param censor the string name of the censor column of the dataframe. defaults to "censor". the censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @param by the string name of a grouping variable. If specified, multiple lines will be plotted.
+#' @import ggplot2 graphics
+#' @examples
+#' library(survival) 
+#' data("rats")
+#' plot_surv(rats, "lnorm", time = "time", censor = "status")
+#' @export
 
 plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") { 
   #"plot_surv" is also a placeholder name, I'm not creative
@@ -54,7 +60,7 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$X1 <- as.numeric(as.character(df$X1))
     
     #plots survival function
-    p <- ggplot(df, aes(x = x, y = X1, group = X2, color = factor(X2))) + geom_line() +
+    p <- ggplot(df, aes_string(x = "x", y = "X1", group = "X2", color = factor("X2"))) + geom_line() +
       scale_x_continuous(name = "T") +
       scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
       ggtitle(paste(dist, "survival function")) +
@@ -94,7 +100,7 @@ plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$y <- as.numeric(as.character(df$y))
     
     #plots survival function
-    p <- ggplot(df, aes(x = x, y = y)) + geom_line() +
+    p <- ggplot(df, aes_string(x = "x", y = "y")) + geom_line() +
       scale_x_continuous(name = "T") +
       scale_y_continuous(name = "S(t)", breaks = seq(0, 1, by = 0.2)) +
       ggtitle(paste(dist, "survival function")) +

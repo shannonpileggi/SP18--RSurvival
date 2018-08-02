@@ -94,8 +94,8 @@ qqplot <- function(data, dist, time, censor) {
   }
   
   df <- data.frame(x, Percent, cdf)
-  p <- ggplot(df, aes(x = x, y = Percent)) + geom_point() +
-      geom_line(aes(x = x, y = cdf)) +
+  p <- ggplot(df, aes(x = Percent, y = cdf)) + geom_point() +
+      geom_line(aes(x = cdf, y = cdf)) +
       scale_x_continuous(name = "Sample") +
       scale_y_continuous(name = "Theoretical")  
       ggtitle(paste(dist, "probability plot")) +

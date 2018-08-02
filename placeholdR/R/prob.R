@@ -9,6 +9,11 @@
 #' @param time The string name of the time column of the dataframe. Defaults to "Time".
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
+#' @examples 
+#' library(survival) 
+#' data("rats")
+#' prob(rats, "lnorm", 110, time = "time", censor = "status")
+#' @export
 
 prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censor") {
   #"prob" is a placeholder name, should be better
