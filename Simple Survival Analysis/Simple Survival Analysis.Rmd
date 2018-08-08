@@ -1,0 +1,57 @@
+---
+title: Simple Survival Analysis with R
+author:
+  - name: Victor Wilson
+    affiliation: Affiliation
+    address:
+    - line 1
+    - line 2
+    email:  victorjw26@yahoo.com
+  - name: Ashley Jacobson
+    affiliation: Affiliation
+    address:
+    - line 1
+    - line 2
+    email:  ashleypjacobson@gmail.com
+abstract: >
+  This article introduces the R package placeholdR, which executes parametric survival analysis
+  techniques similar to those in Minitab. The functions available in this package carry out basic
+  survival analysis techniques. Among these are plotting hazard, cumulative hazard, and survival
+  curves, based on specified parametric distributions, computing survival probabilites, and
+  computing summary statistics. We describe appropriate usage of these functions, what the output
+  means, and provide examples of how to utilizie this functions in real-world datasets. 
+output:
+  rticles::rjournal_article:
+    includes:
+      in_header: preamble.tex
+---
+
+## Introduction
+
+Introductory section which may include references in parentheses
+\citep{R}, or cite a reference such as \citet{R} in the text.
+
+## Section title in sentence case
+
+This section may contain a figure such as Figure \ref{figure:rlogo}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{Rlogo}
+  \caption{The logo of R.}
+  \label{figure:rlogo}
+\end{figure}
+
+## Another section
+
+There will likely be several sections, perhaps including code snippets, such as:
+
+```{r}
+x <- 1:10
+x
+```
+
+## Summary
+
+This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).
+\bibliography{RJreferences}

@@ -1,5 +1,5 @@
 #'---
-#'title: "Guide to using PlaceholdR"
+#'title: "Guide to Using survfuncs"
 #'author: "Ashley Jacobson & Victor Wilson"
 #'output: rmarkdown::html_vignette
 #'vignette: >
