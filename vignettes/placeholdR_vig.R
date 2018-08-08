@@ -49,7 +49,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 #'using maximum likelihood estimates. 
 #'
 #'## Examples
-library(placeholdR)
+library(survfunc)
 library(survival)
 data("rats")
 fit_data(rats, "logis", "time", "status")
