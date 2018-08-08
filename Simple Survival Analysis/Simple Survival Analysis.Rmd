@@ -1,20 +1,14 @@
 ---
-title: Simple Survival Analysis with R
+title: Introducting survfuncs Package - Simple Survival Analysis with R
 author:
   - name: Victor Wilson
-    affiliation: Affiliation
-    address:
-    - line 1
-    - line 2
+    affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
     email:  victorjw26@yahoo.com
   - name: Ashley Jacobson
-    affiliation: Affiliation
-    address:
-    - line 1
-    - line 2
+    affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
     email:  ashleypjacobson@gmail.com
 abstract: >
-  This article introduces the R package placeholdR, which executes parametric survival analysis
+  This article introduces the R package survfuncs, which executes parametric survival analysis
   techniques similar to those in Minitab. The functions available in this package carry out basic
   survival analysis techniques. Among these are plotting hazard, cumulative hazard, and survival
   curves, based on specified parametric distributions, computing survival probabilites, and
