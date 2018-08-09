@@ -33,6 +33,11 @@ start time,end time,day,description,time spent,weekly total time
 1:30 PM,4:30 PM,Friday 7/27,wrote documentation,3:00:00,
 10:10 AM,11:30 AM,Saturday 7/28,created package,1:20:00,11:20:00
 ,,,,,
-10:30 AM,12:00 PM,Monday 7/30,edited description file,1:30:00,4:35:00
+10:30 AM,12:00 PM,Monday 7/30,edited description file,1:30:00,7:10:00
 8:20 PM,9:40 PM,Monday 7/30,edited namespace file,1:20:00,
 4:30 PM,6:15 PM,Wednesday 8/1,wrote examples,1:45:00,
+2:30 PM,3:15 PM,Friday 8/3,"edited description file, looked into rticles packages",0:45:00,
+3:00 PM,4:50 PM,Sunday 8/5,"added qqplot function and documentation, renamed prob",1:50:00,
+,,,,,
+11:00 AM,12:00 PM,Monday 8/6,created new package,1:00:00,3:00:00
+6:00 PM,8:30 PM,Tuesday 8/7,"worked on article, read over vignette, created github repo",2:00:00,
