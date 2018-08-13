@@ -20,7 +20,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 #' # Introduction
 #' 
 #' The motivation for this package is to create functions that display output for Survival Analysis
-#' that is easily available in Minitab, but much more difficult to obtain in R. All of the
+#' that are easily available in Minitab, but much more difficult to obtain in R. All of the
 #' functions in this package are assuming that the data follows a specified parametric distribution. 
 #' Some examples of some of the items that are readily available in Minitab but not in R, that we 
 #' attempted to easily recreate in R are as follows:  
@@ -28,13 +28,13 @@ knitr::opts_chunk$set(collapse = TRUE)
 #' * Computing survival probablities based on a specified parametric distribution  
 #' * Displaying an estimated survival, hazard, or cumulative hazard curve based on a specified
 #' parametric distribution (singular as well as by groups)  
-#' * Estimate survival times based on a specified parametric distribution   
-#' * Estimate parameters based on a specified parametric distribution    
-#' * Estimate various statistics, including mean, median, standard deviation, and percentiles of
+#' * Estimating survival times based on a specified parametric distribution   
+#' * Estimating parameters based on a specified parametric distribution    
+#' * Estimating various statistics, including mean, median, standard deviation, and percentiles of
 #' survival time based on a specified parametric distribution   
-#' * Plot estimated hazard/cumulative hazard functions    
-#' * Compute the Wilcoxon test-statistic and p-value to compare survival experiences of 
-#' two groups.   
+#' * Producing a qq-plot to examine distribution fit 
+#' * Computing the Anderson-Darling test statistic as a measure of fit for a specified parametric
+#' distribution
 
 
 #'
@@ -46,10 +46,12 @@ knitr::opts_chunk$set(collapse = TRUE)
 #'
 #'In order for any of the functions in this package to work, the dataset must be formatted
 #'correctly, using the 'fit_data' function, which fits right censored data to a distribution
-#'using maximum likelihood estimates. 
+#'using maximum likelihood estimates. This function is very similar to the 'fitdistcens' function
+#' which is already available in R via the fitdistrplus package, but is specifically set up to deal 
+#' with datasets that are designed for survival analysis.
 #'
-#'## Examples
-library(survfunc)
+#'## Example
+library(placeholdR)
 library(survival)
 data("rats")
 fit_data(rats, "logis", "time", "status")
@@ -60,17 +62,18 @@ fit_data(rats, "logis", "time", "status")
 # */
 #'
 #' # Plotting Survival Curves
-#' The plot_surv function plots the survival curve of right censored data, once it has been
+#' The 'plot_surv' function plots the survival curve of right censored data, once it has been
 #' formatted using the fit_data function, given that it follows a specified parametric
 #' distribution. Plotted on the x-axis is time after start of observation, and plotted
 #' on the y-axis is proportion of subjects surviving.
 #' 
-#' ##Example
+#'## Example
 library(survival) 
 data("rats")
 plot_surv(rats, "lnorm", time = "time", censor = "status")
 
-#' As seen in this survival curve, at time = 200, roughly 40% of rats are still surviving.
+#' As seen in this survival curve, roughly 40% of rats are estimated to survive beyond time
+#' t = 200. 
 #' 
 # /*
 
@@ -78,12 +81,12 @@ plot_surv(rats, "lnorm", time = "time", censor = "status")
 # */ 
 #'
 #' # Plotting Hazard Curves
-#'  The plot_haz function plots the hazard curve of right censored data, given that it follows 
+#'  The 'plot_haz' function plots the hazard curve of right censored data, given that it follows 
 #'  a specified parametric distribution. The hazard displays the conditional risk that a subject 
-#'  will experience the event of interest given that the subject has survived beyond a certain
-#'  amount of time. 
+#'  will experience the event of interest in the next instant of time, given that the subject has 
+#'  survived beyond a certain amount of time.
 #'  
-#' ##Examples
+#'## Example
 library(survival)
 data("rats")
 plot_haz(rats, "weibull", time="time", censor="status")
@@ -93,12 +96,12 @@ plot_haz(rats, "weibull", time="time", censor="status")
 #*/
 #' 
 #' # Plotting Cumulative Hazard Curves
-#' The plot_cumhaz funtion plots the cumulative hazard curve of right censored data, given that
+#' The 'plot_cumhaz' funtion plots the cumulative hazard curve of right censored data, given that
 #' it follows a specified parametric distribution. It is important to note that the cumulative
 #' hazard function is neither a probability nor a rate, it is merely an accumlation of hazard
 #' rates over time.
 #'  
-#' ##Example
+#'## Example
 library(survival)
 data("rats")
 plot_cumhaz(rats, "weibull", time="time", censor="status")
@@ -108,35 +111,31 @@ plot_cumhaz(rats, "weibull", time="time", censor="status")
 # */
 #'
 #' #Computing Survival Probabilities
-#' One of the most important features of survival analysis is being able to compute the
-#' probability that a subject survives beyond a certain time t. Thus, we developed the function
-#' surv_prob. This function computes survival probabilites, given that the data follows a
-#' specified parametric distribution. 
+#' This function computes survival probabilites, given that the data follows a specified
+#' parametric distribution. The output in this function represents the estimated probability that 
+#' a subject does not experience the event of interest beyond a specified time t. 
 #' 
-#' ##Example
+#'## Example
 library(survival)
 data("rats")
 prob(rats, "lnorm", 110, time = "time", censor = "status")
 
 #' Here we see that using the rats dataset found in the survival package, assuming that the data
 #' follows a log-normal distribution, the probability that a rat survives beyond 110 days is 
-#' rougly 0.8. 
+#' roughly 0.8. 
 #' 
 # /*
 # =============================================================================
 # */
 #'
-#' #Computing Summary Statistics 
+#'# Computing Summary Statistics 
 #' Another form of output that is easily computed in Minitab but not in R are various summary
-#' statistics based on a specified parametric distribution. We developed the surv_summary function
+#' statistics based on a specified parametric distribution. We developed the 'surv_summary' function
 #' to combat this. This function estimates various statistics, including mean, median, standard
 #' deviation, and percentiles of survival time given that the data follows a specified parametric
-#' distribution. Requried parameters are dataset, distribution, name of the Time column of the
-#' data frame, and name of the Censor column of the data frame. There is also an optional
-#' parameter "by", for a grouping variable, that when specified will return summary statistics
-#' for each group. 
+#' distribution.
 #' 
-#' ##Example
+#'## Example
 library(survival)
 data("rats")
 surv_summary(rats, "lnorm", time = "time", censor = "status")
