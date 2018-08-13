@@ -1,5 +1,5 @@
 ---
-title: Introducting survfuncs Package - Simple Survival Analysis with R
+title: Introducing survfuncs Package - Simple Survival Analysis with R
 author:
   - name: Victor Wilson
     affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
@@ -27,7 +27,7 @@ when an observation's survival time is incomplete. The most common way that this
 
 Some of the most popular techniques and statistics utilized when carrying out a survival analysis are computing what are known as the survival and hazard functions. The survival function is important because it gives the proability of surviving (also known as not experiencing the event of interest), for any given time. Similarly, the hazard function is also useful to compute because it gives the conditional probability that the subject will experience the event in the next instance of time, given that they have survived up until the specified point in time. Other popular statistics that are utilized are median survial time, mean survival time, and percentiles of survival time. In this package, all of the functions that we developed utilize parametric methods of survival anlaysis, which assumes that the distribution of the survival times follows a known probability distribution. 
 
-Currently, R does have many survival packages that have been developed that compute some of these statistics. However, we noticed that Minitab has very concise and easy to utilize functions for computing and displaying many of these survival statistics and plots, but this same output is not readily available in any single one package in R, or in some cases not available in any at all. Thus, we decided to develop a package that emulates the output found in Minitab for survival analysis, which contains all of these commonly utilized statistics and plots.
+Currently, R does have many survival packages that have been developed that compute some of these statistics. However, we noticed that Minitab has very concise and easy to utilize functions for computing and displaying many of these survival statistics and plots, but this same output is not readily available in any single one package in R, or in some cases not available at all. Thus, we decided to develop a package that emulates the output found in Minitab for survival analysis, which contains all of these commonly utilized statistics and plots.
 
 This paper describes the functions that this package contains, how the data is formatted in order to utilize these functions, and what the output of these functions represent. There are 3 major groups of functions that we created: fitting the censored data, displaying plots (hazard, cumulative hazard, and survival), and computing summary statistics (mean, median, survival probabilities). The majority of this paper will be organized following these groups of functions. 
 
