@@ -2,12 +2,13 @@
 #' Plotting quantile-quantile plots for parametric fitting of data
 #'
 #' Creates quantile-quantile plot of right censored data given that it follows a specified parametric distribution.
-#' @param data a dataframe containing a time column and a censor column.
-#' @param dist a string name for a distribution that has a corresponding desnity function and distribution function.
+#' @param data A dataframe containing a time column and a censor column.
+#' @param dist A string name for a distribution that has a corresponding desnity function and distribution function.
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
-#' @param time the string name of the time column of the dataframe. defaults to "time".
-#' @param censor the string name of the censor column of the dataframe. defaults to "censor". the censor column must be 
-#' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
+#' @param time The string name of the time column of the dataframe. defaults to "time".
+#' @param censor The string name of the censor column of the dataframe. defaults to "censor". 
+#' The censor column must be a numeric indicator variable where complete times correspond 
+#' to a value of 1 and incomplete times correspond to 0.
 #' @import ggplot2 graphics
 #' @examples
 #' library(survival) 
