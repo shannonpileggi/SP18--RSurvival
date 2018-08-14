@@ -12,11 +12,11 @@
 #' @examples
 #' library(survival) 
 #' data("rats")
-#' plot_qq(rats, "lnorm", time = "time", censor = "status")
-#' plot_qq(rats, "weibull", time = "time", censor = "status")
+#' plot_qqsurv(rats, "lnorm", time = "time", censor = "status")
+#' plot_qqsurv(rats, "weibull", time = "time", censor = "status")
 #' @export
 
-plot_qq <- function(data, dist, time, censor) {
+plot_qqsurv <- function(data, dist, time, censor) {
   
   #makes a qqplot of the data with a fitted distribution line
   #data is a dataframe
@@ -46,7 +46,7 @@ plot_qq <- function(data, dist, time, censor) {
   p <- ggplot(df, aes(x = Percent, y = cdf)) + geom_point() +
       geom_line(aes(x = cdf, y = cdf)) +
       scale_x_continuous(name = "Sample") +
-      scale_y_continuous(name = "Theoretical")  
+      scale_y_continuous(name = "Theoretical") +  
       ggtitle(paste(dist, "probability plot")) +
       theme(axis.text.x = element_text(size = rel(1.5)),
             axis.text.y = element_text(size = rel(1.5)),
