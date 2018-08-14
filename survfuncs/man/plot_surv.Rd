@@ -9,14 +9,16 @@ plot_surv(data, dist, time = "Time", censor = "Censor", by = "")
 \arguments{
 \item{data}{a dataframe containing a time column and a censor column.}
 
-\item{dist}{a string name for a distribution that has a corresponding desnity function and distribution function.}
+\item{dist}{a string name for a distribution that has a corresponding desnity function and distribution function.
+Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
 \item{time}{the string name of the time column of the dataframe. defaults to "time".}
 
 \item{censor}{the string name of the censor column of the dataframe. defaults to "censor". the censor column must be 
 a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.}
 
-\item{by}{the string name of a grouping variable. If specified, multiple lines will be plotted.}
+\item{by}{the string name of a grouping variable. If specified, multiple lines will be plotted.
+Variable can contain logical, string, character, or numeric data.}
 }
 \description{
 Plots survival curve of right censored data given that it follows a specified parametric distribution.
@@ -25,4 +27,5 @@ Plots survival curve of right censored data given that it follows a specified pa
 library(survival) 
 data("rats")
 plot_surv(rats, "lnorm", time = "time", censor = "status")
+plot_surv(rats, "weibull", time = "time", censor = "status", by = "sex")
 }

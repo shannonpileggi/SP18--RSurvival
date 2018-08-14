@@ -4,15 +4,18 @@
 #' Plots survival curve of right censored data given that it follows a specified parametric distribution.
 #' @param data a dataframe containing a time column and a censor column.
 #' @param dist a string name for a distribution that has a corresponding desnity function and distribution function.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
 #' @param time the string name of the time column of the dataframe. defaults to "time".
 #' @param censor the string name of the censor column of the dataframe. defaults to "censor". the censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @param by the string name of a grouping variable. If specified, multiple lines will be plotted.
+#' Variable can contain logical, string, character, or numeric data.
 #' @import ggplot2 graphics
 #' @examples
 #' library(survival) 
 #' data("rats")
 #' plot_surv(rats, "lnorm", time = "time", censor = "status")
+#' plot_surv(rats, "weibull", time = "time", censor = "status", by = "sex")
 #' @export
 
 plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") { 

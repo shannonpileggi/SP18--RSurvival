@@ -5,15 +5,18 @@
 #' percentiles of survival time given that the data follows a specified parametric distribution.
 #' @param data A dataframe containing a time column and a censor column.
 #' @param dist A string name for a distribution that has a corresponding desnity function and a distribution function.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
 #' @param time The string name of the time column of the dataframe. Defaults to "Time".
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @param by The string name of a grouping variable. If specified, returns summary statistics for each group.
+#' Variable can contain logical, string, character, or numeric data.
 #' @import stats
 #' @examples 
 #' library(survival) 
 #' data("rats")
 #' surv_summary(rats, "lnorm", time = "time", censor = "status")
+#' surv_summary(rats, "weibull", time = "time", censor = "status", by = "sex")
 #' @export
 
 surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") {

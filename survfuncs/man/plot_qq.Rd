@@ -9,7 +9,8 @@ plot_qq(data, dist, time, censor)
 \arguments{
 \item{data}{a dataframe containing a time column and a censor column.}
 
-\item{dist}{a string name for a distribution that has a corresponding desnity function and distribution function.}
+\item{dist}{a string name for a distribution that has a corresponding desnity function and distribution function.
+Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
 \item{time}{the string name of the time column of the dataframe. defaults to "time".}
 
@@ -23,4 +24,5 @@ Creates quantile-quantile plot of right censored data given that it follows a sp
 library(survival) 
 data("rats")
 plot_qq(rats, "lnorm", time = "time", censor = "status")
+plot_qq(rats, "weibull", time = "time", censor = "status")
 }

@@ -10,7 +10,8 @@ surv_prob(data, dist, num, lower.tail = F, time = "Time",
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
 
-\item{dist}{A string name for a distribution that has a corresponding desnity function and a distribution function.}
+\item{dist}{A string name for a distribution that has a corresponding desnity function and a distribution function.
+Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
 \item{num}{A scalar quantity}
 
@@ -28,4 +29,5 @@ Compute survival probabilities given that the data follows a specified parametri
 library(survival) 
 data("rats")
 surv_prob(rats, "lnorm", 110, time = "time", censor = "status")
+surv_prob(rats, "weibull", 90, time = "time", censor = "status")  
 }
