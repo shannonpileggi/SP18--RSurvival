@@ -66,7 +66,7 @@ plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") {
     df$X1 <- as.numeric(as.character(df$X1))
     
     #plots hazard curve
-    p <- ggplot(df, aes_string(x = "x", y = "X1", group = "X2", color = factor("X2"))) + geom_line() +
+    p <- ggplot(df, aes_string(x = "x", y = "X1", group = "X2", color = factor(df[["X2"]]))) + geom_line() +
       scale_x_continuous(name = "T") +
       scale_y_continuous(name = "h(t)") +
       ggtitle(paste(dist, "hazard function")) +
