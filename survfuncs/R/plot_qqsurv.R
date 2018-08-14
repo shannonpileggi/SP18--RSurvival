@@ -12,9 +12,9 @@
 #' @import ggplot2 graphics
 #' @examples
 #' library(survival) 
-#' data("rats")
-#' plot_qqsurv(rats, "lnorm", time = "time", censor = "status")
-#' plot_qqsurv(rats, "weibull", time = "time", censor = "status")
+#' data("kidney")
+#' plot_qqsurv(kidney, "logis", time = "time", censor = "status")
+#' plot_qqsurv(kidney, "weibull", time = "time", censor = "status")
 #' @export
 
 plot_qqsurv <- function(data, dist, time, censor) {

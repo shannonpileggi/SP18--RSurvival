@@ -15,7 +15,7 @@ Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
 \item{num}{A scalar quantity, time at which the probability of survival is computed}
 
-\item{lower.tail}{logical; if \code{F} (default), probability is P(T > \code{num}), otherwise, P(T < \code{num}).}
+\item{lower.tail}{Logical; if \code{F} (default), probability is P(T > \code{num}), otherwise, P(T < \code{num}).}
 
 \item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
 
