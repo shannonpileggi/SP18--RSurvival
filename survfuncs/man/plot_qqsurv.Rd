@@ -23,6 +23,6 @@ Creates quantile-quantile plot of right censored data given that it follows a sp
 \examples{
 library(survival) 
 data("rats")
-plot_qq(rats, "lnorm", time = "time", censor = "status")
-plot_qq(rats, "weibull", time = "time", censor = "status")
+plot_qqsurv(rats, "lnorm", time = "time", censor = "status")
+plot_qqsurv(rats, "weibull", time = "time", censor = "status")
 }
