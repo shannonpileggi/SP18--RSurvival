@@ -99,7 +99,7 @@ data("rats")
 plot_cumhaz(rats, "weibull", time="time", censor="status")
 ```
 
-#Computing Survival Probabilities
+# Computing Survival Probabilities
 
 This function computes survival probabilites, given that the data follows a specified
 parametric distribution. The output in this function represents the estimated probability that 

@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{Introducting survfuncs Package - Simple Survival Analysis with R}
+\title{Introducing survfuncs Package - Simple Survival Analysis with R}
 \author{by Victor Wilson, Ashley Jacobson}
 
 \maketitle
@@ -20,21 +20,21 @@ examples of how to utilizie this functions in real-world datasets.
 \hypertarget{introduction}{%
 \subsection{Introduction}\label{introduction}}
 
-The major goal in survival analysis is analyzing the time until an event
-of interest occurs. This event could be a variety of different things
-such as death, development of disease, or first score of a soccer game.
-Observations in survival analysis may also be desrcibed as censored,
-which occurs when an observation's survival time is incomplete. The most
-common way that this occurs is through right censoring, which occurs
-when a subject does not experience the event of interest within the
-duration of the study. Right censoring can also occur if a subject drops
-out before the end of the study and does not experience the event of
-interest. Due to the inherent issue of censoring that is typically found
-in datasets involving survival analysis, computations and analyses can
-be difficult to carry out with many standard functions avaiable in R, as
-the majority of these do not account for censored data. The censored
-data here is of value and we cannot merely eliminate the observations
-which have censored data.
+Survival analysis is a branch of statistics that primarily deals with
+analyzing the time until an event of interest occurs. This event could
+be a variety of different things such as death, development of disease,
+or first score of a soccer game. Observations in survival analysis may
+also be desrcibed as censored, which occurs when an observation's
+survival time is incomplete. The most common way that this occurs is
+through right censoring, which occurs when a subject does not experience
+the event of interest within the duration of the study. Right censoring
+can also occur if a subject drops out before the end of the study and
+does not experience the event of interest. Due to the inherent issue of
+censoring that is typically found in datasets involving survival
+analysis, computations and analyses can be difficult to carry out with
+many standard functions avaiable in R, as the majority of these do not
+account for censored data. The censored data here is of value and we
+cannot merely eliminate the observations which have censored data.
 
 Some of the most popular techniques and statistics utilized when
 carrying out a survival analysis are computing what are known as the
@@ -56,9 +56,9 @@ that compute some of these statistics. However, we noticed that Minitab
 has very concise and easy to utilize functions for computing and
 displaying many of these survival statistics and plots, but this same
 output is not readily available in any single one package in R, or in
-some cases not available in any at all. Thus, we decided to develop a
-package that emulates the output found in Minitab for survival analysis,
-which contains all of these commonly utilized statistics and plots.
+some cases not available at all. Thus, we decided to develop a package
+that emulates the output found in Minitab for survival analysis, which
+contains all of these commonly utilized statistics and plots.
 
 This paper describes the functions that this package contains, how the
 data is formatted in order to utilize these functions, and what the
@@ -68,34 +68,64 @@ functions that we created: fitting the censored data, displaying plots
 statistics (mean, median, survival probabilities). The majority of this
 paper will be organized following these groups of functions.
 
-\hypertarget{section-title-in-sentence-case}{%
-\subsection{Section title in sentence
-case}\label{section-title-in-sentence-case}}
+\hypertarget{fitting-right-censored-survival-data}{%
+\subsection{Fitting Right Censored Survival
+Data}\label{fitting-right-censored-survival-data}}
 
-This section may contain a figure such as Figure \ref{figure:rlogo}.
+As mentoined previously, this function is very similar to the function
+fitdistcens found in the
+\href{https://cran.r-project.org/web/packages/fitdistrplus/index.html}{fitdistrplus}
+package. This package works to help fit a parametric distribution to
+data that is right censored. This function also computes the Maximum
+Likelihood Estimate (MLE).
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{Rlogo}
-  \caption{The logo of R.}
-  \label{figure:rlogo}
-\end{figure}
-
-\hypertarget{another-section}{%
-\subsection{Another section}\label{another-section}}
-
-There will likely be several sections, perhaps including code snippets,
-such as:
+\hypertarget{example}{%
+\subsubsection{Example}\label{example}}
 
 \begin{Schunk}
-\begin{Sinput}
-x <- 1:10
-x
-\end{Sinput}
 \begin{Soutput}
-#>  [1]  1  2  3  4  5  6  7  8  9 10
+#> Fitting of the distribution ' logis ' on censored data by maximum likelihood 
+#> Parameters:
+#>           estimate
+#> location 133.74054
+#> scale     20.48286
+#> Fixed parameters:
+#> data frame with 0 columns and 0 rows
 \end{Soutput}
 \end{Schunk}
+
+\hypertarget{displaying-plots}{%
+\subsection{Displaying Plots}\label{displaying-plots}}
+
+\hypertarget{survival-plots}{%
+\subsubsection{Survival Plots}\label{survival-plots}}
+
+This section introduces an overview of the many types of plots that are
+available to be displayed via this package. Some of the most common
+plots used in Survival Analysis are survival plots, hazard plots, and
+cumulative hazard plots. Survival plots are used to estimate the
+proportion of subjects that survive beyond a specified time \textbf{t}.
+We were motivated to create the function plot\_surv function in an
+attempt to mimic the hazard plots that are available in Minitab. This
+function plots the survival curve of right censored data given that it
+follows a specified parametric distribution. Some examples of the
+distributions that this function supports are the Weibull, Log-Normal,
+Exponential, Normal, and Logistic distributions. This function also
+provides the option to plot by a grouping variable, which if specified,
+displays seperate survival plots for each group of the specified
+variable.
+
+\begin{Schunk}
+
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-2-1} \end{Schunk}
+
+In this example, we fit a Weibull distribution to the rats dataset
+available in the
+\href{https://cran.r-project.org/web/packages/survival/index.html}{survival}
+package, grouping by the ``sex'' variable. As seen in the plot above,
+two different survival curves were plotted. The blue line represents the
+estimated survival curve for male rats, while the red line represents
+the estimated survival curve for female rats.
 
 \hypertarget{summary}{%
 \subsection{Summary}\label{summary}}

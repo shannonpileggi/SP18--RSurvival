@@ -30,25 +30,59 @@ Currently, R does have many survival packages that have been developed that comp
 
 This paper describes the functions that this package contains, how the data is formatted in order to utilize these functions, and what the output of these functions represent. There are 3 major groups of functions that we created: fitting the censored data, displaying plots (hazard, cumulative hazard, and survival), and computing summary statistics (mean, median, survival probabilities). The majority of this paper will be organized following these groups of functions. 
 
-## Section title in sentence case
+## Fitting Right Censored Survival Data
 
-This section may contain a figure such as Figure \ref{figure:rlogo}.
+As mentoined previously, this function is very similar to the function fitdistcens found in the [fitdistrplus](https://cran.r-project.org/web/packages/fitdistrplus/index.html) package. This package works to help fit a parametric distribution to data that is right censored. This function also computes the Maximum Likelihood Estimate (MLE).
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{Rlogo}
-  \caption{The logo of R.}
-  \label{figure:rlogo}
-\end{figure}
-
-## Another section
-
-There will likely be several sections, perhaps including code snippets, such as:
-
-```{r}
-x <- 1:10
-x
+### Example
+```{r, echo=FALSE}
+library(survfuncs)
+library(survival)
+fit_data(rats, "logis", "time", "status")
 ```
+
+
+
+
+
+## Displaying Plots
+This section introduces an overview of the many types of plots that are available to be displayed via this package. Some of the most common plots used in Survival Analysis are survival plots, hazard plots, probability density plots, and cumulative hazard plots. We designed these functions with an intent to have the output displayed be very similar to the output that Minitab displays for these types of plots.
+
+### Survival Plots
+Survival plots are used to estimate the proportion of subjects that survive beyond a specified time **t**. We were motivated to create the function plot_surv function in an attempt to mimic the hazard plots that are available in Minitab. This function plots the survival curve of right censored data given that it follows a specified parametric distribution. Some examples of the distributions that this function supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic distributions. This function also provides the option to plot by a grouping variable, which if specified, displays seperate survival plots for each group of the specified variable.
+
+**INSERT SURVIVAL FUNCTION EQUATION**
+
+
+```{r, echo=FALSE}
+library(survfuncs)
+library(survival)
+plot_surv(rats, "weibull", time="time", censor="status", by ="sex")
+```
+In this example, we fit a Weibull distribution to the rats dataset available in the [survival](https://cran.r-project.org/web/packages/survival/index.html) package, grouping by the "sex" variable. As seen in the plot above, two different survival curves were plotted. The blue line represents the estimated survival curve for male rats, while the red line represents the estimated survival curve for female rats. From this plot, we see that the survival curve for male rats is consistently above the survival curve for female rats throughout all points in time. Due to this, we can conclude that female rats tend to experience the event of interest much more quickly than male rats. This can also be interpreted as male rats tend to survive longer than female rats in this study. 
+
+### Hazard plots
+Hazard plots, on the other hand, are used to display the conditional risk that a subject will experience the event of interest in the next instant of time, given that the subject has survived beyond a certain amount of time. Essentially, the hazard function attempts to assess the risk that an individual who has not yet experienced the event in the very next small amount of time. For example, if we observe that a rat has survived for 75 days already, the hazard function would estimate the risk that the rat will die in the next short instant of time, based on the fact that it has already survived 75 days. We created the "plot_haz" function in order to easily plot hazard functions given that it follows a specified parametric distribution, with the option to include a grouping variable. 
+
+**INSERT HAZARD FUNCTION FORMULA**
+
+```{r, echo=FALSE}
+library(survfuncs)
+library(survival)
+plot_haz(rats, "weibull", time="time", censor="status", by ="sex")
+```
+From this plot above, also using the rats dataset available in the survival package, we can see that as female rats continue to survive, their risk of experiencing the event of interest in the next instant of time dramatically increases. Contrastly, male rats do not seem to have a greater risk of experiencing the event of interest as they survive longer. This is demonstrated by the blue line being mostly flat across all points of time. 
+
+### Cumulative Hazard Plots
+While hazard plots are usually useful in assessing a subject's risk of experiencing the event of interest in the next moment of time, these plots can be difficult to read and understand at times. Sometimes, the changes in hazard are very subtle, making it difficult to describe periods of increasing and decreasing risk. In order to accurately assess how hazard rates change over time, we investigate the accumulation of hazard rates over time, known as cumulative hazard. The cumulative hazard function, denoted **H(t)**, is the accumulated risk of experiencing an event up to time **t**. Since the cumulative hazard function is an accumulation of rates, it is important to note that this function is non-decreasing and is hardly ever remains constant by nature. We developed the function "plot_cumhaz" in order to easily display cumulative hazard plots, given that the data follows a specified parametric distribution. The functionality of this function is nearly identical to that of "plot_haz", with the only distinction being that it plots cumulative hazard curves instead of hazard curves. 
+
+```{r, echo=FALSE}
+library(survfuncs)
+library(survival)
+plot_cumhaz(rats, "weibull", time="time", censor="status", by= "sex")
+```
+
+
 
 ## Summary
 
