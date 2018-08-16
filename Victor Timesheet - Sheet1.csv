@@ -1,28 +1,32 @@
-Name,Date,Hours,Description,Time Spent (Hours)
-Victor,27-Jun,5 pm - 7 pm,Made GitHub account and completed Github tutorial,2
-Victor,6/28/18,6 - 8 pm,Completed Tidyverse style guide and began Datacamp writing funcitons,2
-Victor,6/29/18,11 am - 1 pm,Began Datacamp R studio IDE course and R packages: A beginner's guide,2
-Victor,7/1/18,7 pm - 10 pm ,Completed Datacamp R Studio IDE Course,3
-Victor,7/3/18,3- 4:30 pm,Reviewed Datacamp for writing functions,1.5
-Victor,7/6/18,4 - 6 pm,"Began writing code for Lab 2 question 3 plots, reviewed ggsurvplot capabilities",2
-Victor/Ashley,7/8/18,1-3 pm,"Finished code for Lab 2, reviewed calculating MLE's in R",2
-Victor,7/11/18,2- 3:45 pm,Worked with formatting data for fitdistr function to be able to calculate MLE's,1.75
-Victor/Ashley,7/14/18,1-2:30 pm,"Began writing code to compute MLE's for Lab 3, question 1",1.5
-Victor/Ashley,7/15/18,3- 4:30 pm,"Finished computing MLE's for Lab 3 question 1, began plotting QQ plots",1.5
-Victor/Ashley,7/16/18,10 - 11 am,Met with Dr. Pileggi to discuss progress,1
-Victor/Ashley,7/17/18,4 - 6 pm,Worked on trying to make qqplots for Lab 3,2
-Victor,7/18/18,5 - 7 pm,"Finished working with MLE's for Lab 3, and parameterization of distributions in R",2
-Victor,7/19/18,3- 4:45 pm,Researched on google alternative statistics to Anderson-Darling,1.75
-Victor,7/20/18,1 - 2:30 pm,Investigated how log-logistic parameters in R and Minitab are related,1.5
-Victor/Ashley,7/22/18,6:30 - 8:30 pm,"Computed mean survival time and quantiles for Lab 3 question 2, researched AD",2
-Victor/Ashley,7/23/18,10 - 11 am,Meeting with Dr. Pileggi,1
-Victor/Ashley,7/24/18,2-4:30 pm,Worked on computing AD and reviewing code for Lab 3,2.5
-Victor,25-Jul,12-2:30 pm,"Worked on making package, documentation for code",1.5
-Victor,7/27/18,5 pm - 6:30 pm,Dealt with issue where vignette could not be made due to OS issue,2.5
-Victor,7/31/18,12 pm - 2 pm,"Created vignette, began writing introduction of vignette",2
-Victor,8/2/18,9 am - 11:30 am,"Researched other survival packages vignettes, worked on vignette more",2.5
-Victor/Ashley,8/2/18,2  - 3 pm,Video chatted with Dr. Pileggi to discuss progress and issues,1
-Victor,8/4/18,12 pm - 2 pm,"Worked on writing vignette, and alleviated issue with namespace file",2
-Victor,8/5/18,6 - 9 pm,"Finished writing vignette, began looking into rticles package and how to format R journal article",3
-Victor,8/7/18,7 pm - 10 pm ,"Worked on writing R journal article, wrote introduction",3
-Victor,8/9/18,2:30 - 5 pm,Worked on fixing typos and inconsitencies in vignette for package,
+Name,Date,Hours,Description,Time Spent (Hours),Total Hours
+Victor,27-Jun,5 pm - 7 pm,Made GitHub account and completed Github tutorial,2,60.5
+Victor,6/28/18,6 - 8 pm,Completed Tidyverse style guide and began Datacamp writing funcitons,2,
+Victor,6/29/18,11 am - 1 pm,Began Datacamp R studio IDE course and R packages: A beginner's guide,2,
+Victor,7/1/18,7 pm - 10 pm ,Completed Datacamp R Studio IDE Course,3,
+Victor,7/3/18,3- 4:30 pm,Reviewed Datacamp for writing functions,1.5,
+Victor,7/6/18,4 - 6 pm,"Began writing code for Lab 2 question 3 plots, reviewed ggsurvplot capabilities",2,
+Victor/Ashley,7/8/18,1-3 pm,"Finished code for Lab 2, reviewed calculating MLE's in R",2,
+Victor,7/11/18,2- 3:45 pm,Worked with formatting data for fitdistr function to be able to calculate MLE's,1.75,
+Victor/Ashley,7/14/18,1-2:30 pm,"Began writing code to compute MLE's for Lab 3, question 1",1.5,
+Victor/Ashley,7/15/18,3- 4:30 pm,"Finished computing MLE's for Lab 3 question 1, began plotting QQ plots",1.5,
+Victor/Ashley,7/16/18,10 - 11 am,Met with Dr. Pileggi to discuss progress,1,
+Victor/Ashley,7/17/18,4 - 6 pm,Worked on trying to make qqplots for Lab 3,2,
+Victor,7/18/18,5 - 7 pm,"Finished working with MLE's for Lab 3, and parameterization of distributions in R",2,
+Victor,7/19/18,3- 4:45 pm,Researched on google alternative statistics to Anderson-Darling,1.75,
+Victor,7/20/18,1 - 2:30 pm,Investigated how log-logistic parameters in R and Minitab are related,1.5,
+Victor/Ashley,7/22/18,6:30 - 8:30 pm,"Computed mean survival time and quantiles for Lab 3 question 2, researched AD",2,
+Victor/Ashley,7/23/18,10 - 11 am,Meeting with Dr. Pileggi,1,
+Victor/Ashley,7/24/18,2-4:30 pm,Worked on computing AD and reviewing code for Lab 3,2.5,
+Victor,25-Jul,12-2:30 pm,"Worked on making package, documentation for code",2.5,
+Victor,7/27/18,5 pm - 7:30 pm,Dealt with issue where vignette could not be made due to OS issue,2.5,
+Victor,7/31/18,12 pm - 2 pm,"Created vignette, began writing introduction of vignette",2,
+Victor,8/2/18,9 am - 11:30 am,"Researched other survival packages vignettes, worked on vignette more",2.5,
+Victor/Ashley,8/2/18,2  - 3 pm,Video chatted with Dr. Pileggi to discuss progress and issues,1,
+Victor,8/4/18,12 pm - 2 pm,"Worked on writing vignette, and alleviated issue with namespace file",2,
+Victor,8/5/18,6 - 9 pm,"Finished writing vignette, began looking into rticles package and how to format R journal article",3,
+Victor,8/7/18,7 pm - 10 pm ,"Worked on writing R journal article, wrote introduction",3,
+Victor,8/9/18,2:30 - 5 pm,Worked on fixing typos and inconsitencies in vignette for package,2.5,
+Victor,8/11/18,11 am - 12:30 pm,Finished fixing vignette,1.5,
+Victor,13-Aug,1 pm - 2:30 pm,"Read through vignette and functions for typos, replaced all necessary typos",1.5,
+Victor,8/14/18,6 pm - 7 pm,"Read through draft of Dr. Pileggi's paper, rewrote some of introduction for journal article",1,
+Victor,8/15/18,10 am - 12:30 pm,Wrote sections of plotting functions in R journal article,2.5,
