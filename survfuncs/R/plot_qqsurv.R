@@ -3,10 +3,10 @@
 #'
 #' Creates quantile-quantile plot of right censored data given that it follows a specified parametric distribution.
 #' @param data A dataframe containing a time column and a censor column.
-#' @param dist A string name for a distribution that has a corresponding desnity function and distribution function.
+#' @param dist A string name for a distribution that has a corresponding density function and distribution function.
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
-#' @param time The string name of the time column of the dataframe. defaults to "time".
-#' @param censor The string name of the censor column of the dataframe. defaults to "censor". 
+#' @param time The string name of the time column of the dataframe. Defaults to "Time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
 #' The censor column must be a numeric indicator variable where complete times correspond 
 #' to a value of 1 and incomplete times correspond to 0.
 #' @import ggplot2 graphics
@@ -17,7 +17,7 @@
 #' plot_qqsurv(kidney, "weibull", time = "time", censor = "status")
 #' @export
 
-plot_qqsurv <- function(data, dist, time, censor) {
+plot_qqsurv <- function(data, dist, time = "Time", censor = "Censor") {
   
   #makes a qqplot of the data with a fitted distribution line
   #data is a dataframe

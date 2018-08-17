@@ -4,7 +4,7 @@
 #' Estimates various statistics, including median, mean, standard deviation, and 
 #' percentiles of survival time given that the data follows a specified parametric distribution.
 #' @param data A dataframe containing a time column and a censor column.
-#' @param dist A string name for a distribution that has a corresponding desnity function and a distribution function.
+#' @param dist A string name for a distribution that has a corresponding density function and a distribution function.
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
 #' @param time The string name of the time column of the dataframe. Defaults to "Time".
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
