@@ -9,10 +9,10 @@ plot_haz(data, dist, time = "Time", censor = "Censor", by = "")
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
 
-\item{dist}{A string name for a distribution that has a corresponding desnity function and distribution function.
+\item{dist}{A string name for a distribution that has a corresponding density function and distribution function.
 Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
-\item{time}{The string name of the time column of the dataframe. defaults to "time".}
+\item{time}{The string name of the time column of the dataframe. Defaults to "time".}
 
 \item{censor}{The string name of the censor column of the dataframe. 
 Defaults to "censor". the censor column must be a numeric indicator variable 
