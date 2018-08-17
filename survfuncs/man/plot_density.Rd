@@ -10,7 +10,7 @@ plot_density(data, dist, time = "Time", censor = "Censor")
 \item{data}{a dataframe containing a time column and a censor column.}
 
 \item{dist}{a string name for a distribution that has a corresponding density function and distribution function.
-Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
+Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
 \item{time}{the string name of the time column of the dataframe. Defaults to "Time".}
 

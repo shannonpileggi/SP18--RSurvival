@@ -11,7 +11,7 @@ surv_prob(data, dist, num, lower.tail = F, time = "Time",
 \item{data}{A dataframe containing a time column and a censor column.}
 
 \item{dist}{A string name for a distribution that has a corresponding density function and a distribution function.
-Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
+Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
 \item{num}{A scalar quantity, time at which the probability of survival is computed}
 

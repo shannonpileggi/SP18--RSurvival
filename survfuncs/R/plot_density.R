@@ -4,7 +4,7 @@
 #' Creates histogram of right censored data with the density function of a fitted parametric distribution overlayed.
 #' @param data a dataframe containing a time column and a censor column.
 #' @param dist a string name for a distribution that has a corresponding density function and distribution function.
-#' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
 #' @param time the string name of the time column of the dataframe. Defaults to "Time".
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
 #' The censor column must be a numeric indicator variable where complete times correspond 

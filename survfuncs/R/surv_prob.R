@@ -4,7 +4,7 @@
 #' Computes probability of survival beyond time t given that the data follows a specified parametric distribution.
 #' @param data A dataframe containing a time column and a censor column.
 #' @param dist A string name for a distribution that has a corresponding density function and a distribution function.
-#' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
 #' @param num A scalar quantity, time at which the probability of survival is computed
 #' @param lower.tail Logical; if \code{F} (default), probability is P(T > \code{num}), otherwise, P(T < \code{num}).
 #' @param time The string name of the time column of the dataframe. Defaults to "Time".
