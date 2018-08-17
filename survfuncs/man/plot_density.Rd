@@ -9,12 +9,12 @@ plot_density(data, dist, time, censor)
 \arguments{
 \item{data}{a dataframe containing a time column and a censor column.}
 
-\item{dist}{a string name for a distribution that has a corresponding desnity function and distribution function.
+\item{dist}{a string name for a distribution that has a corresponding density function and distribution function.
 Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
 
-\item{time}{the string name of the time column of the dataframe. defaults to "time".}
+\item{time}{the string name of the time column of the dataframe. Defaults to "time".}
 
-\item{censor}{the string name of the censor column of the dataframe. defaults to "censor". the censor column must be 
+\item{censor}{the string name of the censor column of the dataframe. Defaults to "censor". the censor column must be 
 a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.}
 }
 \description{
