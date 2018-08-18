@@ -31,12 +31,11 @@ plot_density <- function(data, dist, time = "Time", censor = "Censor") {
                   aes(color = paste(round(unname(fit$estimate), 3), collapse = ", ")), size = 1.5) +
     labs(color = paste(names(fit$estimate), collapse = ", ")) +
     scale_x_continuous(name = "time") +
-    scale_y_continuous(name = "count") +
+    scale_y_continuous(name = "percent") +
     ggtitle(paste(dist, "distribution")) +
     theme(axis.text.x = element_text(size = rel(1.5)),
-          axis.text.y = element_blank(),
-          axis.title.y = element_blank(),
-          axis.ticks.y = element_blank(),
+          axis.text.y = element_text(size = rel(1.5)),
+          axis.title.y = element_text(size = rel(1.5)),
           axis.title.x = element_text(size = rel(1.5)),
           plot.title = element_text(size = rel(2)),
           legend.text = element_text(size = rel(1.5)),
