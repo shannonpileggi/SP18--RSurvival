@@ -31,7 +31,8 @@ plot_density <- function(data, dist, time = "Time", censor = "Censor") {
                   aes(color = paste(round(unname(fit$estimate), 3), collapse = ", ")), size = 1.5) +
     labs(color = paste(names(fit$estimate), collapse = ", ")) +
     scale_x_continuous(name = "time") +
-    ggtitle(paste(dist, "curve superimposed")) +
+    scale_y_continuous(name = "count") +
+    ggtitle(paste(dist, "distribution")) +
     theme(axis.text.x = element_text(size = rel(1.5)),
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
