@@ -1,4 +1,4 @@
-Package: survfuncs
+Package: parmsurvfit
 Title: Parametric Survival Functions
 Version: 0.0.0.9000
 Authors@R: c(person("Ashley", "Jacobson", email = "ashleypjacobson@gmail.com", role = c("aut", "cre")),
@@ -14,8 +14,5 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Imports: fitdistrplus, flexsurv, ggplot2, stats, graphics
-Suggests: survival, utils,
-    knitr,
-    rmarkdown
-VignetteBuilder: utils,
-    knitr
+Suggests: survival, utils, knitr, rmarkdown
+VignetteBuilder: utils, knitr
