@@ -16,7 +16,7 @@
 #' library(survival) 
 #' data("kidney")
 #' plot_density(kidney, "logis", time = "time", censor = "status")
-#' plot_density(kidney, "weibull", time = "time", censor = "status")
+#' plot_density(kidney, "weibull", time = "time", censor = "status", by = "sex")
 #' @export
  
 plot_density <- function(data, dist, time = "Time", censor = "Censor", by = "") {

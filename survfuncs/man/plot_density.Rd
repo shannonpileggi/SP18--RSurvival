@@ -28,5 +28,5 @@ Creates histogram of right censored data with the density function of a fitted p
 library(survival) 
 data("kidney")
 plot_density(kidney, "logis", time = "time", censor = "status")
-plot_density(kidney, "weibull", time = "time", censor = "status")
+plot_density(kidney, "weibull", time = "time", censor = "status", by = "sex")
 }
