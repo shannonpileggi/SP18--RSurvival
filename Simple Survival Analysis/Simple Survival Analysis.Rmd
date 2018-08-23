@@ -1,5 +1,5 @@
 ---
-title: Introducing survfuncs Package - Simple Survival Analysis with R
+title: Introducing parmsurvfit Package - Simple Survival Analysis with R
 author:
   - name: Victor Wilson
     affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
@@ -8,7 +8,7 @@ author:
     affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
     email:  ashleypjacobson@gmail.com
 abstract: >
-  This article introduces the R package survfuncs, which executes parametric survival analysis
+  This article introduces the R package parmsurvfit, which executes parametric survival analysis
   techniques similar to those in Minitab. The functions available in this package carry out basic
   survival analysis techniques. Among these are plotting hazard, cumulative hazard, and survival
   curves, based on specified parametric distributions, computing survival probabilites, and
@@ -36,7 +36,7 @@ As mentoined previously, this function is very similar to the function fitdistce
 
 ### Example
 ```{r, echo=FALSE}
-library(survfuncs)
+library(parmsurvfit)
 library(survival)
 fit_data(rats, "logis", "time", "status")
 ```
@@ -55,7 +55,7 @@ Survival plots are used to estimate the proportion of subjects that survive beyo
 
 
 ```{r, echo=FALSE}
-library(survfuncs)
+library(parmsurvfit)
 library(survival)
 plot_surv(rats, "weibull", time="time", censor="status", by ="sex")
 ```
@@ -67,7 +67,7 @@ Hazard plots, on the other hand, are used to display the conditional risk that a
 **INSERT HAZARD FUNCTION FORMULA**
 
 ```{r, echo=FALSE}
-library(survfuncs)
+library(parmsurvfit)
 library(survival)
 plot_haz(rats, "weibull", time="time", censor="status", by ="sex")
 ```
@@ -77,7 +77,7 @@ From this plot above, also using the rats dataset available in the survival pack
 While hazard plots are usually useful in assessing a subject's risk of experiencing the event of interest in the next moment of time, these plots can be difficult to read and understand at times. Sometimes, the changes in hazard are very subtle, making it difficult to describe periods of increasing and decreasing risk. In order to accurately assess how hazard rates change over time, we investigate the accumulation of hazard rates over time, known as cumulative hazard. The cumulative hazard function, denoted **H(t)**, is the accumulated risk of experiencing an event up to time **t**. Since the cumulative hazard function is an accumulation of rates, it is important to note that this function is non-decreasing and is hardly ever remains constant by nature. We developed the function "plot_cumhaz" in order to easily display cumulative hazard plots, given that the data follows a specified parametric distribution. The functionality of this function is nearly identical to that of "plot_haz", with the only distinction being that it plots cumulative hazard curves instead of hazard curves. 
 
 ```{r, echo=FALSE}
-library(survfuncs)
+library(parmsurvfit)
 library(survival)
 plot_cumhaz(rats, "weibull", time="time", censor="status", by= "sex")
 ```
