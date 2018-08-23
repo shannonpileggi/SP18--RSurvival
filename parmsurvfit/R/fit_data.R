@@ -3,12 +3,13 @@
 #'
 #' Fits right censored data to a distribution using maximum liklihood estimates. 
 #' @param data A dataframe containing a time column and a censor column.
-#' @param dist A string name for a distribution that has a corresponding desnity function and a distribution function.
-#' Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.
-#' @param time The string name of the time column of the dataframe. defaults to "time".
-#' @param censor The string name of the censor column of the dataframe. defaults to "censor". The censor column must be 
-#' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
-#' @param by The string name of a grouping variable. if specified, the function returns a list. 
+#' @param dist A string name for a distribution that has a corresponding density function and a distribution function.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
+#' @param time The string name of the time column of the dataframe. Defaults to "Time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
+#' The censor column must be a numeric indicator variable where complete times correspond 
+#' to a value of 1 and incomplete times correspond to 0.
+#' @param by The string name of a grouping variable. If specified, the function returns a list. 
 #' Variable can contain logical, string, character, or numeric data.
 #' 
 #' @examples

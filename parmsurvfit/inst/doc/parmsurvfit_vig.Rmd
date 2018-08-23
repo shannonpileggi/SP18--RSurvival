@@ -1,12 +1,12 @@
 ---
-title: "Guide to Using survfuncs"
+title: "Guide to Using parmsurvfit"
 author: "Ashley Jacobson & Victor Wilson"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Guide to using survfuncs}
+  %\VignetteIndexEntry{Guide to using parmsurvfit}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include = FALSE}
@@ -46,7 +46,7 @@ with datasets that are designed for survival analysis.
 ## Example
 
 ```{r}
-library(survfuncs)
+library(parmsurvfit)
 library(survival)
 data("rats")
 fit_data(rats, "logis", "time", "status")

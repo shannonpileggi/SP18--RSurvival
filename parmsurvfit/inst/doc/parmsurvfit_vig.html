@@ -12,9 +12,8 @@
 
 <meta name="author" content="Ashley Jacobson &amp; Victor Wilson" />
 
-<meta name="date" content="2018-08-14" />
 
-<title>Guide to Using survfuncs</title>
+<title>Guide to Using parmsurvfit</title>
 
 
 
@@ -68,9 +67,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">Guide to Using survfuncs</h1>
+<h1 class="title toc-ignore">Guide to Using parmsurvfit</h1>
 <h4 class="author"><em>Ashley Jacobson &amp; Victor Wilson</em></h4>
-<h4 class="date"><em>2018-08-14</em></h4>
 
 
 
@@ -97,7 +95,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In order for any of the functions in this package to work, the dataset must be formatted correctly, using the ‘fit_data’ function, which fits right censored data to a distribution using maximum likelihood estimates. This function is very similar to the ‘fitdistcens’ function which is already available in R via the fitdistrplus package, but is specifically set up to deal with datasets that are designed for survival analysis.</p>
 <div id="example" class="section level2">
 <h2>Example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(survfuncs)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parmsurvfit)
 <span class="kw">library</span>(survival)
 <span class="kw">data</span>(<span class="st">&quot;rats&quot;</span>)
 <span class="kw">fit_data</span>(rats, <span class="st">&quot;logis&quot;</span>, <span class="st">&quot;time&quot;</span>, <span class="st">&quot;status&quot;</span>)
@@ -170,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; AIC      578.8654</span>
 <span class="co">#&gt; BIC      586.2729</span>
 <span class="co">#&gt; Mean     203.2454</span>
-<span class="co">#&gt; StDev        122.6195</span>
+<span class="co">#&gt; StDev        122.6365</span>
 <span class="co">#&gt; First Quantile   119.5031</span>
 <span class="co">#&gt; Median       174.0206</span>
 <span class="co">#&gt; Third Quantile   253.4091</span></code></pre></div>

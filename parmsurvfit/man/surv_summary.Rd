@@ -9,8 +9,8 @@ surv_summary(data, dist, time = "Time", censor = "Censor", by = "")
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
 
-\item{dist}{A string name for a distribution that has a corresponding desnity function and a distribution function.
-Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
+\item{dist}{A string name for a distribution that has a corresponding density function and a distribution function.
+Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
 \item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
 

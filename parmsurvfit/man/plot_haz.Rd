@@ -9,13 +9,13 @@ plot_haz(data, dist, time = "Time", censor = "Censor", by = "")
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
 
-\item{dist}{A string name for a distribution that has a corresponding desnity function and distribution function.
-Examples include "norm", "lnorm", "exp", "weibull", "logis", etc.}
+\item{dist}{A string name for a distribution that has a corresponding density function and distribution function.
+Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
-\item{time}{The string name of the time column of the dataframe. defaults to "time".}
+\item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
 
 \item{censor}{The string name of the censor column of the dataframe. 
-Defaults to "censor". the censor column must be a numeric indicator variable 
+Defaults to "Censor". The censor column must be a numeric indicator variable 
 where complete times correspond to a value of 1 and incomplete times correspond to 0.}
 
 \item{by}{The string name of a grouping variable. If specified, multiple lines will be plotted.

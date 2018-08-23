@@ -1,4 +1,4 @@
-#' survfuncs: Fitting right censored data to parametric distributions.
+#' parmsurvfit: Fitting right censored data to parametric distributions.
 #'
 #' Executes parametric survival analysis techniques similar to those in Minitab. Fits right censored data to a
 #' given parametric distribution, produces summary statistics of the fitted distribution, and plots parametric survival, 
@@ -7,5 +7,5 @@
 #' 
 #'
 #' @docType package
-#' @name survfuncs
+#' @name parmsurvfit
 NULL
