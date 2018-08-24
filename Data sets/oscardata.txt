@@ -1,0 +1,129 @@
+obs	name	adj_gross	num_movies	avg_gross	top_movie	top_gross	gender	years_until_nom	censor	first_film_appearance	first_oscar_nom
+1	Harrison Ford	10022.8	42	238.6	Star Wars	1597.7	Male	19	1	1966	1985
+2	Tom Hanks	7719	48	160.8	Forrest Gump	705.2	Male	8	1	1980	1988
+3	Anthony Daniels	7006.6	9	778.5	Star Wars	1597.7	Male	41	0	1977	2018
+4	Samuel L. Jackson	6876.9	73	94.2	The Avengers	689.6	Male	22	1	1972	1994
+5	Eddie Murphy	6775.2	39	173.7	Shrek 2	637.3	Male	25	1	1982	2007
+6	Tom Cruise	6430.4	39	164.9	Top Gun	430.8	Male	9	1	1981	1990
+7	Morgan Freeman	6403.5	63	101.6	The Dark Knight	667.9	Male	23	1	1964	1987
+8	Robin Williams	5782.1	50	115.6	Mrs. Doubtfire	472.6	Male	10	1	1977	1987
+9	Dustin Hoffman	5734.1	43	133.4	The Graduate	767.6	Male	1	1	1967	1968
+10	Robert DeNiro	5498.1	81	67.9	Meet the Fockers	396.2	Male	10	1	1965	1975
+11	Carrie Fisher	5479.9	18	304.4	Star Wars	1597.7	Female	42	0	1975	2017
+12	Bruce Willis	5399.3	60	90	Sixth Sense	516.5	Male	38	0	1980	2018
+13	"Robert Downey, Jr."	5306.4	54	98.3	The Avengers	689.6	Male	23	1	1970	1993
+14	Sean Connery	5243.8	37	141.7	Thunderball	671	Male	34	1	1954	1988
+15	Mark Hamill	5192	13	399.4	Star Wars	1597.7	Male	41	0	1977	2018
+16	John Travolta	4944.7	45	109.9	Grease	690.4	Male	3	1	1975	1978
+17	Clint Eastwood	4942.8	46	107.5	Every Which Way But Loose	326.6	Male	37	1	1955	1992
+18	Sylvester Stallone	4879.4	42	116.2	Rocky	493.7	Male	7	1	1969	1976
+19	Michael Caine	4837.9	59	82	The Dark Knight	667.9	Male	10	1	1956	1966
+20	Johnny Depp	4825.3	47	102.7	Dead Man's Chest	579.7	Male	20	1	1984	2004
+21	Julia Roberts	4811.1	44	109.3	Pretty Woman	378.3	Female	2	1	1987	1989
+22	Ian McKellen	4810.9	32	150.3	Return of the King	552.9	Male	30	1	1969	1999
+23	Will Smith	4757.7	25	190.3	Independence Day	621.3	Male	10	1	1992	2002
+24	Gary Oldman	4699.2	41	114.6	The Dark Knight	667.9	Male	30	1	1982	2012
+25	Tommy Lee Jones	4577.9	47	97.4	Men in Black	489.9	Male	21	1	1970	1991
+26	Robert Redford	4570.8	31	147.4	The Sting	799.6	Male	13	1	1960	1973
+27	Stanley Tucci	4450	52	85.6	Beauty and the Beast	509.5	Male	24	1	1985	2009
+28	Matt Damon	4435.4	42	105.6	Saving Private Ryan	410.4	Male	10	1	1988	1998
+29	Sally Field	4414.5	28	157.7	Forrest Gump	705.2	Female	18	1	1962	1980
+30	Cameron Diaz	4399	34	129.4	Shrek 2	637.3	Female	24	0	1994	2018
+31	Robert Duvall	4306.5	55	78.3	The Godfather	707.9	Male	10	1	1962	1972
+32	Peter Mayhew	4291.9	4	1073	Star Wars	1597.7	Male	41	0	1977	2018
+33	Andy Serkis	4288.8	25	171.6	Star Wars: The Force Awakens	969.8	Male	29	0	1989	2018
+34	Liam Neeson	4281.8	67	63.9	The Phantom Menace	810.1	Male	16	1	1978	1994
+35	Jim Carrey	4199.5	28	150	The Grinch	431.5	Male	37	0	1981	2018
+36	Scarlett Johansson	4157.9	40	103.9	The Avengers	689.6	Female	24	0	1994	2018
+37	Mel Gibson	4157.4	35	118.8	Signs	351.9	Male	18	1	1977	1995
+38	Orlando Bloom	4054.1	18	225.2	Dead Man's Chest	579.7	Male	21	0	1997	2018
+39	Emma Watson	4031.1	18	224	Beauty and the Beast	509.5	Female	17	0	2001	2018
+40	Brad Pitt	3995	42	95.1	Ocean's Eleven	287.7	Male	9	1	1987	1996
+41	Jack Nicholson	3980.3	34	117.1	Batman	564.7	Male	12	1	1958	1970
+42	Bill Murray	3937.2	43	91.6	Ghostbusters	638.4	Male	31	1	1973	2004
+43	Cate Blanchett	3930.8	42	93.6	Return of the King	552.9	Female	9	1	1990	1999
+44	Stellan Skarsgard	3930.7	43	91.4	The Avengers	689.6	Male	46	0	1972	2018
+45	Danny DeVito	3920.8	46	85.2	Cuckoo's Nest	481.6	Male	31	1	1970	2001
+46	Ben Stiller	3891.6	38	102.4	Meet the Fockers	396.2	Male	31	0	1987	2018
+47	Sigourney Weaver	3881.7	47	82.6	Avatar	872.9	Female	9	1	1978	1987
+48	Woody Harrelson	3879.6	56	69.3	Catching Fire	458.5	Male	11	1	1986	1997
+49	Michael Keaton	3851.3	38	101.3	Batman	564.7	Male	37	1	1978	2015
+50	Nicolas Cage	3845.5	57	67.5	National Treasure: Book of Secrets	279.6	Male	15	1	1981	1996
+51	Anthony Hopkins	3831.8	57	67.2	Mission: Impossible II	358.5	Male	25	1	1967	1992
+52	Owen Wilson	3736.2	43	86.9	Cars	334.3	Male	8	1	2002	1994
+53	Meryl Streep	3736	54	69.2	Kramer Vs. Kramer	385.9	Female	2	1	1977	1979
+54	Jon Voight	3724.7	35	106.4	Transformers	416.2	Male	3	1	1967	1970
+55	Denzel Washington	3705	46	80.5	Pelican Brief	217.2	Male	11	1	1977	1988
+56	Kathy Bates	3693.6	47	78.6	Titanic	1215.9	Female	20	1	1971	1991
+57	Adam Sandler	3685.9	32	115.2	Waterboy	306.9	Male	29	0	1989	2018
+58	Mark Wahlberg	3676.7	41	89.7	Perfect Storm	303.9	Male	13	1	1994	2007
+59	Arnold Schwarzenegger	3676.5	30	122.5	Terminator 2	437.5	Male	48	0	1970	2018
+60	Ralph Fiennes	3666.7	37	99.1	Harry Potter / Deathly Hallows (P2)	430.5	Male	2	1	1992	1994
+61	Don Cheadle	3647.1	34	107.3	Avengers: Age of Ultron	480.1	Male	20	1	1985	2005
+62	Leonardo DiCaprio	3623.8	25	145	Titanic	1215.9	Male	3	1	1991	1994
+63	Alec Baldwin	3614.9	54	66.9	Pearl Harbor	314.7	Male	20	1	1984	2004
+64	Ewan McGregor	3595.9	48	74.9	The Phantom Menace	810.1	Male	23	0	1995	2018
+65	Al Pacino	3592.5	39	92.1	The Godfather	707.9	Male	4	1	1969	1973
+66	Kevin Costner	3588.1	39	92	Dances with Wolves	392	Male	10	1	1981	1991
+67	Steve Carell	3585.5	29	123.6	Despicable Me 2	420.6	Male	24	1	1991	2015
+68	Sandra Bullock	3560.4	35	101.7	Minions	365.2	Female	23	1	1987	2010
+69	Dwayne Johnson	3530.5	27	130.8	Furious 7	368	Male	17	0	2001	2018
+70	Helena Bonham Carter	3524.8	36	97.9	Harry Potter / Deathly Hallows (P2)	430.5	Female	15	1	1983	1998
+71	Ben Affleck	3481.5	39	89.3	Armageddon	385.5	Male	37	0	1981	2018
+72	Antonio Banderas	3480.7	43	80.9	Shrek 2	637.3	Male	36	0	1982	2018
+73	Philip Seymour Hoffman	3478.1	40	87	Twister	490.6	Male	15	1	1991	2006
+74	Daniel Radcliffe	3440.2	17	202.4	Harry Potter / Sorcerer's Stone	501.5	Male	17	0	2001	2018
+75	Vin Diesel	3435.1	22	156.1	Saving Private Ryan	410.4	Male	21	0	1997	2018
+76	Paul Newman	3403.4	20	170.2	The Sting	799.6	Male	5	1	1954	1959
+77	Kurt Russell	3373.1	37	91.2	Guardians of the Galaxy 2	390.7	Male	53	0	1965	2018
+78	Hugh Jackman	3358.8	27	124.4	X-Men: The Last Stand	321	Male	19	0	1999	2018
+79	Bradley Cooper	3358	26	129.2	Guardians of the Galaxy 2	390.7	Male	12	1	2001	2013
+80	Laurence Fishburne	3346.7	39	85.8	The Matrix Reloaded	418.9	Male	19	1	1975	1994
+81	Michael Douglas	3339.6	36	92.8	Fatal Attraction	355.9	Male	19	1	1969	1988
+82	Christopher Walken	3338.8	62	53.9	The Jungle Book	374.1	Male	10	1	1969	1979
+83	Mike Myers	3332.9	15	222.2	Shrek 2	637.3	Male	26	0	1992	2018
+84	Keanu Reeves	3306.8	46	71.9	The Matrix Reloaded	418.9	Male	33	0	1985	2018
+85	Idris Elba	3266.2	31	105.4	Avengers: Age of Ultron	480.1	Male	19	0	1999	2018
+86	Steve Martin	3258.1	37	88.1	The Jerk	263.4	Male	46	0	1972	2018
+87	Forest Whitaker	3255.4	55	59.2	Rogue One	542.2	Male	25	1	1982	2007
+88	Elizabeth Banks	3240.6	36	90	Catching Fire	458.5	Female	20	0	1998	2018
+89	Christopher Plummer	3228.3	34	95	Sound of Music	1277.5	Male	52	1	1958	2010
+90	Diane Keaton	3208.3	37	86.7	The Godfather	707.9	Female	8	1	1970	1978
+91	Drew Barrymore	3183.5	36	88.4	E.T.	1272.4	Female	38	0	1980	2018
+92	Rupert Grint	3176.6	13	244.4	Harry Potter / Sorcerer's Stone	501.5	Male	17	0	2001	2018
+93	Jeff Goldblum	3154.4	24	131.4	Jurassic Park	824.5	Male	44	0	1974	2018
+94	Ed Harris	3140	51	61.6	Apollo 13	357.5	Male	18	1	1978	1996
+95	Julie Andrews	3083.9	14	220.3	Sound of Music	1277.5	Female	16	1	1949	1965
+96	Jonah Hill	3041.8	29	104.9	The LEGO Movie	289.9	Male	8	1	2004	2012
+97	Zoe Saldana	3008.5	28	107.4	Avatar	872.9	Female	18	0	2000	2018
+98	Jeff Bridges	2999.7	53	56.6	Iron Man	397.8	Male	21	1	1951	1972
+99	Tyrese Gibson	2995.5	17	176.2	Transformers 2	483.5	Male	17	0	2001	2018
+100	Julianne Moore	2974.1	58	51.3	The Lost World	447.7	Female	8	1	1990	1998
+101	Elijah Wood	2965.8	37	80.2	Return of the King	552.9	Male	29	0	1989	2018
+102	Willem Dafoe	2964.4	57	52	Spider-Man	623.3	Male	7	1	1980	1987
+103	Halle Berry	2960.5	31	95.5	X-Men: The Last Stand	321	Female	11	1	1991	2002
+104	Kirsten Dunst	2950.4	34	86.8	Spider-Man	623.3	Female	29	0	1989	2018
+105	Natalie Portman	2941.6	30	98.1	The Phantom Menace	810.1	Female	11	1	1994	2005
+106	James Franco	2940.2	42	70	Spider-Man	623.3	Male	12	1	1999	2011
+107	Susan Sarandon	2939.7	62	47.4	Rocky Horror	494	Female	12	1	1970	1982
+108	Dennis Quaid	2930.1	56	52.3	The Day After Tomorrow	269.7	Male	43	0	1975	2018
+109	Jeremy Renner	2919.1	23	126.9	The Avengers	689.6	Male	15	1	1995	2010
+110	Hugo Weaving	2911.3	19	153.2	Fellowship of the Ring	491.5	Male	37	0	1981	2018
+111	Simon Pegg	2907.9	21	138.5	Star Wars: The Force Awakens	969.8	Male	19	0	1999	2018
+112	George Clooney	2904.3	34	85.4	Perfect Storm	303.9	Male	24	1	1982	2006
+113	Anne Hathaway	2884	26	110.9	The Dark Knight Rises	516.5	Female	8	1	2001	2009
+114	Will Ferrell	2880.2	33	87.3	The LEGO Movie	289.9	Male	21	0	1997	2018
+115	John Goodman	2878.9	40	72	"Monsters, Inc."	442.7	Male	35	0	1983	2018
+116	Angelina Jolie	2876	32	89.9	Kung Fu Panda	269.1	Female	18	1	1982	2000
+117	Christian Bale	2871.8	38	75.6	The Dark Knight	667.9	Male	24	1	1987	2011
+118	Karl Urban	2862	19	150.6	Return of the King	552.9	Male	26	0	1992	2018
+119	Danny Glover	2824.7	44	64.2	Lethal Weapon 2	332.7	Male	39	0	1979	2018
+120	Bill Paxton	2808.8	18	156	Titanic	1215.9	Male	43	0	1975	2018
+121	Jada Pinkett-Smith	2799.9	24	116.7	The Matrix Reloaded	418.9	Female	25	0	1993	2018
+122	Chris Evans	2799.7	24	116.7	The Avengers	689.6	Male	18	0	2000	2018
+123	Richard Gere	2797.5	44	63.6	An Officer and a Gentleman	391.6	Male	43	0	1975	2018
+124	Michelle Pfeiffer	2782.3	38	73.2	Batman Returns	352	Female	9	1	1980	1989
+125	Ben Kingsley	2774.5	52	53.4	Iron Man 3	437.8	Male	17	1	1966	1983
+126	Michelle Rodriguez	2766.5	19	145.6	Avatar	872.9	Female	18	0	2000	2018
+127	Judi Dench	2762.5	35	78.9	Skyfall	339.4	Female	38	1	1960	1998
+128	Kevin Bacon	2758.3	48	57.5	Apollo 13	357.5	Male	40	0	1978	2018
