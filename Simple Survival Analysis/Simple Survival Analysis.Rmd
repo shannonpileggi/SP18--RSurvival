@@ -7,13 +7,12 @@ author:
   - name: Ashley Jacobson
     affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
     email:  ashleypjacobson@gmail.com
+  - name: Shannon Pileggi
+    affiliation: California Polytechnic State University, San Luis Obispo - Statistics Department
+    email:  spileggi@calpoly.edu
 abstract: >
-  This article introduces the R package parmsurvfit, which executes parametric survival analysis
-  techniques similar to those in Minitab. The functions available in this package carry out basic
-  survival analysis techniques. Among these are plotting hazard, cumulative hazard, and survival
-  curves, based on specified parametric distributions, computing survival probabilites, and
-  computing summary statistics. We describe appropriate usage of these functions, what the output
-  means, and provide examples of how to utilizie this functions in real-world datasets. 
+  This article introduces the R package parmsurvfit, which executes basic parametric survival analysis
+  techniques similar to those in Minitab. Among these are plotting hazard, cumulative hazard, survival, and  density curves, computing survival probabilites, and computing summary statistics based on a specified parametric distribution. We describe appropriate usage of these functions, interpretation of output, and provide examples of how to utilize these functions in real-world datasets. 
 output:
   rticles::rjournal_article:
     includes:
@@ -24,15 +23,15 @@ output:
 
 Survival analysis is a branch of statistics that primarily deals with analyzing the time until an event of interest occurs. This event could be a variety of different things such as death, development of disease, or first score of a soccer game. Observations in survival analysis may also be desrcibed as censored, which occurs when an observation's survival time is incomplete. The most common way that this occurs is through right censoring, which occurs when a subject does not experience the event of interest within the duration of the study. Right censoring can also occur if a subject drops out before the end of the study and does not experience the event of interest. Due to the inherent issue of censoring that is typically found in datasets involving survival analysis, computations and analyses can be difficult to carry out with many standard functions avaiable in R, as the majority of these do not account for censored data. The censored data here is of value and we cannot merely eliminate the observations which have censored data. 
 
-Some of the most popular techniques and statistics utilized when carrying out a survival analysis are computing what are known as the survival and hazard functions. The survival function is important because it gives the proability of surviving (also known as not experiencing the event of interest), for any given time. Similarly, the hazard function is also useful to compute because it gives the conditional probability that the subject will experience the event in the next instance of time, given that they have survived up until the specified point in time. Other popular statistics that are utilized are median survial time, mean survival time, and percentiles of survival time. In this package, all of the functions that we developed utilize parametric methods of survival anlaysis, which assumes that the distribution of the survival times follows a known probability distribution. 
+Some of the most popular techniques and statistics utilized when carrying out a survival analysis are computing what are known as the survival and hazard functions. The survival function is important because it gives the proability of surviving (also known as not experiencing the event of interest) beyond any given time $t$.  Similarly, the hazard function is also useful to compute because it gives the conditional probability that the subject will experience the event in the next instance of time, given that they have survived up until the specified point in time. Other popular statistics that are utilized are median survial time, mean survival time, and percentiles of survival time. In this package, all of the functions that we developed utilize parametric methods of survival anlaysis, which assumes that the distribution of the survival times follows a known probability distribution. 
 
-Currently, R does have many survival packages that have been developed that compute some of these statistics. However, we noticed that Minitab has very concise and easy to utilize functions for computing and displaying many of these survival statistics and plots, but this same output is not readily available in any single one package in R, or in some cases not available at all. Thus, we decided to develop a package that emulates the output found in Minitab for survival analysis, which contains all of these commonly utilized statistics and plots.
+Currently, R does have many survival packages that address non-parametic survival analysis, such as the \pkg{survival} package.   Moreover, R does have some packages that aid in estimation for parametric survival analysis, including \pkg{fitdistrplus}. However, Minitab has very concise and easy to utilize functions for computing and displaying many parametric survival statistics and plots, but this same output is not readily available in any single one package in R, or in some cases not available at all. Thus, we decided to develop a package that emulates the output found in Minitab for parametric survival analysis, which contains all of these commonly utilized statistics and plots.
 
-This paper describes the functions that the \pkg{parmsurvfit} package contains, how the data is formatted in order to utilize these functions, and what the output of these functions represent. There are 3 major groups of functions that we created: fitting the censored data, displaying plots (hazard, cumulative hazard, and survival), and computing statistics (mean, median, survival probabilities). The majority of this paper will be organized following these groups of functions. 
+This paper describes the functions that the \pkg{parmsurvfit} package contains, how the data is formatted in order to utilize these functions, and what the output of these functions represent. There are four major groups of functions that we created: fitting the censored data, displaying plots (density, hazard, cumulative hazard, and survival), computing statistics (mean, median, survival probabilities), and assessing fit (qqplot, Anderson Darling statistic). The majority of this paper will be organized following these groups of functions. 
 
 ## Fitting Right Censored Survival Data
 
-As mentoined previously, this function is very similar to the function fitdistcens found in the [fitdistrplus](https://cran.r-project.org/web/packages/fitdistrplus/index.html) package. This package works to help fit a parametric distribution to data that is right censored. This function also computes the Maximum Likelihood Estimate (MLE).
+As mentoined previously, this function is very similar to the function fitdistcens found in the [fitdistrplus](https://cran.r-project.org/web/packages/fitdistrplus/index.html) package, which computes the Maximum Likelihood Estimates (MLEs) for right-censored data. **Is the data organized differently than required for fitdistcens?  Explain the output**
 
 ### Example
 ```{r, echo=FALSE}
@@ -48,8 +47,11 @@ fit_data(rats, "logis", "time", "status")
 ## Displaying Plots
 This section introduces an overview of the many types of plots that are available to be displayed via this package. Some of the most common plots used in Survival Analysis are survival plots, hazard plots, probability density plots, and cumulative hazard plots. We designed these functions with an intent to have the output displayed be very similar to the output that Minitab displays for these types of plots.
 
+### Density Plots/histograms
+**Include here**
+
 ### Survival Plots
-Survival plots are used to estimate the proportion of subjects that survive beyond a specified time **t**. We were motivated to create the function plot_surv function in an attempt to mimic the hazard plots that are available in Minitab. This function plots the survival curve of right censored data given that it follows a specified parametric distribution. Some examples of the distributions that this function supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic distributions. This function also provides the option to plot by a grouping variable, which if specified, displays seperate survival plots for each group of the specified variable.
+Survival plots are used to estimate the proportion of subjects that survive beyond a specified time **t**. We were motivated to create the function plot_surv function in an attempt to mimic the hazard plots that are available in Minitab. This function plots the survival curve of right censored data given that it follows a specified parametric distribution. Some examples of the distributions that this function supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic distributions. This function also provides the option to plot by a grouping variable, which if specified, displays separate curves for each group of the specified variable.
 
 **INSERT SURVIVAL FUNCTION EQUATION**
 
@@ -59,7 +61,7 @@ library(parmsurvfit)
 library(survival)
 plot_surv(rats, "weibull", time="time", censor="status", by ="sex")
 ```
-In this example, we fit a Weibull distribution to the rats dataset available in the \CRANpkg{survival} package, grouping by the "sex" variable. The rats dataset contains 300 observations, with 3 rats each being selected from 100 litters and 1 rat in each litter being adminstered a drug. The event of interest in this study was whether or not a rat developed a tumor following the beginning of the study. For each rat, the litter number (1-100), type of treatment received (coded as 1 = drug, 0 = control), time until development of tumor or last follow-up (measured in days), final event status (1 = tumor, 0 = censored), and sex were recorded. Below is an excerpt of the data.frame.
+In this example, we fit a Weibull distribution to the rats dataset available in the \CRANpkg{survival} package, grouping by the "sex" variable. The rats dataset contains 300 observations, with 3 rats each being selected from 100 litters and 1 rat in each litter being adminstered a drug. The event of interest in this study was whether or not a rat developed a tumor following the beginning of the study. For each rat, the litter number (1-100), type of treatment received (coded as 1 = drug, 0 = control), time until development of tumor or last follow-up (measured in days), final event status (1 = tumor, 0 = censored), and sex were recorded. Below is an excerpt of the data frame.
 
 ```{r}
 library(parmsurvfit)
@@ -86,16 +88,18 @@ From this plot above, also using the rats dataset available in the survival pack
 ### Cumulative Hazard Plots
 While hazard plots are usually useful in assessing a subject's risk of experiencing the event of interest in the next moment of time, these plots can be difficult to read and understand at times. Sometimes, the changes in hazard are very subtle, making it difficult to describe periods of increasing and decreasing risk. In order to accurately assess how hazard rates change over time, we investigate the accumulation of hazard rates over time, known as cumulative hazard. The cumulative hazard function, denoted **H(t)**, is the accumulated risk of experiencing an event up to time **t**. Since the cumulative hazard function is an accumulation of rates, it is important to note that this function is non-decreasing and is hardly ever remains constant by nature. We developed the function "plot_cumhaz" in order to easily display cumulative hazard plots, given that the data follows a specified parametric distribution. The functionality of this function is nearly identical to that of "plot_haz", with the only distinction being that it plots cumulative hazard curves instead of hazard curves. 
 
+**Insert brief interpretation**
+
 ```{r, echo=FALSE}
 library(parmsurvfit)
 library(survival)
 plot_cumhaz(rats, "weibull", time="time", censor="status", by= "sex")
 ```
 ## Computing Survival Probabilities and Summary Statistics
-While viewing plots such as those explained above are very useful in Survival Analysis, they only tell half of the story. In order to carry out a complete survival analysis, we must also compute statistics in order to supplement our plots. Some of the most common statistics utilized in parametric survival analysis are survival probabilities and typical summary statistics (mean, median, standard deviation, and percentiles of survival time). 
+While viewing plots such as those explained above are very useful in survival analysis, they only tell half of the story. In order to carry out a complete survival analysis, we must also compute statistics in order to supplement our plots. Some of the most common statistics utilized in parametric survival analysis are survival probabilities and typical summary statistics such as the mean, median, standard deviation, and percentiles of survival time. 
 
-##Computing Survival Probabilites
-Being able to compute survival probabilites is especially of interest because it estimates the probability that a subject will not have experienced the event of interest at a specified time **t**. We developed the function surv_prob to compute probability of survival beyond time t, given that the data follows a specified parametric distribution. The first argument of this function is a data frame to be refrenced, containing a time column and censor column. The second argument is a string name for a distribution that has a corresponding density function and a distribution function. Some examples of the distributions that can be used here are "norm", "lnorm", "exp", "weibull", "logis", "llogis", and "gompertz". The third argument is the time at which suvival is to be computed, which is input as a scalar quantity. The 4th argument is the string name of the time column of the dataframe. This argument defaults to "Time". Similarly, the final argument is the string name of the censor column of the dataframe, which defaults to "Censor". The censor column must be a numeric indicator variable where complete times correspond to a value of 1, and censored times correspond to a value of 0. An example of this function is shown below. 
+## Computing Survival Probabilites
+Being able to compute survival probabilites is especially of interest because it estimates the probability that a subject will not have experienced the event of interest beyond a specified time $t$. We developed the function surv_prob to compute probability of survival beyond time $t$, given that the data follows a specified parametric distribution. The first argument of this function is a data frame to be refrenced, containing a time column and censor column. The second argument is a string name for a distribution that has a corresponding density function and a distribution function. Some examples of the distributions that can be used here are "norm", "lnorm", "exp", "weibull", "logis", "llogis", and "gompertz". The third argument is the time at which suvival is to be computed, which is input as a scalar quantity. The 4th argument is the string name of the time column of the dataframe. This argument defaults to "Time". Similarly, the final argument is the string name of the censor column of the dataframe, which defaults to "Censor". The censor column must be a numeric indicator variable where complete times correspond to a value of 1, and censored times correspond to a value of 0. An example of this function is shown below. 
 
 ```{r}
 library(survival)
@@ -105,7 +109,7 @@ surv_prob(rats, "lnorm", 110, time="time", censor="status")
 ```
 As seen in the output from the function above, utilizing the rats dataset available in the \CRANpkg{survival} package and fiting a log-normal parametric distribution to the data, the estimated probability that a rat survives beyond 110 days is 0.7948, or roughly 80%. 
 
-###Computing Summary Statistics
+### Computing Summary Statistics
 Another form of output that Minitab produces when computing probability plots that we believed would be useful to also have in R is a table of summary statistics. In Minitab, the statistics that are included in the table that is produced are the mean, standard deviation, median, and IQR. The surv_summary function that we developed is very similar to this, as it estimates various summary statistics, including mean, median, standard deviation, and percentiles of survival time given that the data follows a specified parametric distribution. 
 
 The parameters of this function are very similar to those of the surv_prob function above. The first argument of this function is a data frame to be refrenced, containing a time column and censor column. The second argument is a string name for a distribution that has a corresponding density function and a distribution function. The third and fourth arguments are the string names of the time and censor columns of the dataframe, respectively. There is also an optional 5th argument, which allows for a grouping variable to be utilized. If this argument is specified, it will return the summary statistics for each level of the grouping variable. 
