@@ -54,7 +54,17 @@ This section introduces an overview of the many types of plots that are availabl
 Survival plots are used to estimate the proportion of subjects that survive beyond a specified time **t**. We were motivated to create the function plot_surv function in an attempt to mimic the hazard plots that are available in Minitab. This function plots the survival curve of right censored data given that it follows a specified parametric distribution. Some examples of the distributions that this function supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic distributions. This function also provides the option to plot by a grouping variable, which if specified, displays separate curves for each group of the specified variable.
 
 **INSERT SURVIVAL FUNCTION EQUATION**
-
+\begin{tabular}{ll}
+\hline
+Function & Relationships  \\
+\hline
+PDF & ${f(t)=\frac{d}{dt}F(t)}$\\
+CDF  & ${F(t)=\int_0^t f(y)dy}$\\
+Survival & ${S(t)=1-F(t)=\exp[-H(t)]=\exp[-\int_0^th(y)dy]}$ \\
+Hazard & ${h(t)=f(t)/S(t)=-\frac{d}{dt}\ln[S(t)]}$ \\
+Cum. Haz. & ${H(t)=\int_0^t h(y)dy=-\ln[S(t)]}$\\
+\hline
+\end{tabular}
 
 ```{r, echo=FALSE}
 library(parmsurvfit)
