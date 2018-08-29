@@ -24,7 +24,7 @@ surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") 
 
   #fits data
   fit <- fit_data(data, dist, time, censor, by)
-  #finds quantile and cdf functions for distribution
+  #finds quantile, cdf, and random generation functions for distribution
   qfunc <- match.fun(paste("q", dist, sep = ""))
   pfunc <- match.fun(paste("p", dist, sep = ""))
   rfunc <- match.fun(paste("r", dist, sep = ""))
