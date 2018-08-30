@@ -82,7 +82,6 @@ In this example, we fit a Weibull distribution to the Firstdrink dataset, groupi
 ### Hazard plots
 Hazard plots, on the other hand, are used to display the conditional risk that a subject will experience the event of interest in the next instant of time, given that the subject has survived beyond a certain amount of time. Essentially, the hazard function attempts to assess the risk that an individual who has not yet experienced the event in the very next small amount of time. For example, if we observe that a person has survived for 17 years without first trying alcohol, the hazard function would estimate the risk that the person will experience their first drink of alcohol in the next short instant of time, based on the fact that it has already survived 17 years. We created the \code{plot\_haz} function in order to easily plot hazard functions given that it follows a specified parametric distribution, with the option to include a grouping variable. 
 
-**INSERT HAZARD FUNCTION FORMULA**
 
 ```{r, echo=FALSE}
 library(parmsurvfit)
@@ -111,7 +110,7 @@ Being able to compute survival probabilites is especially of interest because it
 library(parmsurvfit)
 surv_prob(Firstdrink, "lnorm", 30, time="Age")
 ```
-As seen in the output from the function above, utilizing the Firstdrink data set and fiting a log-normal parametric distribution to the data, the estimated probability that a person survives for 30 years without having their first drin of alcohol is roughly 5%. 
+As seen in the output from the function above, utilizing the Firstdrink data set and fiting a log-normal parametric distribution to the data, the estimated probability that a person survives for 30 years without having their first drink of alcohol is roughly 5%. 
 
 ### Computing Summary Statistics
 Another useful form of output that we believed would be useful to also have in R is a table of summary statistics. Summmary statistics that are typically included are the mean, standard deviation, median, and IQR. The surv_summary function that we developed estimates various summary statistics, including mean, median, standard deviation, and percentiles of survival time given that the data follows a specified parametric distribution. This function also supports the option to provide seperate summary statistics for each level of a grouping variable, if desired.  
@@ -120,7 +119,7 @@ Another useful form of output that we believed would be useful to also have in R
 library(parmsurvfit)
 surv_summary(Firstdrink, "lnorm", time="Age", by="Gender")
 ```
-As seen above, after specifying the grouping variable of sex, two seperate tables were produced. We can see that the mean log survival time for females is smaller than the mean log survival time for males. The standard deviation of log survival time for females was also much smaller than that of males. 
+As seen above, after specifying the grouping variable of sex, two seperate tables were produced, one for males and one for females. We can see that the mean log survival time for females is smaller than the mean log survival time for males. The standard deviation of log survival time for females was also much smaller than that of males. 
 
 
 
