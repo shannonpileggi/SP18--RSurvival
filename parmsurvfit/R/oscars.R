@@ -5,7 +5,7 @@
 #' \describe{
 #'   \item{Age}{the age at which the survey respondant had their first drink of alcohol}
 #'   \item{Censor}{censoring status indicator variable (0 = censored event time)}
-#'   \item{Gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+#'   \item{Gender}{a dichotomous variable identifying gender (male = 0, female = 1)}
 #' }
 #' @source {"National Comorbidity Survey (1990-1992)"}
-"firstdrink"
+"oscars"
