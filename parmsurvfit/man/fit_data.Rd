@@ -18,7 +18,8 @@ Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz
 The censor column must be a numeric indicator variable where complete times correspond 
 to a value of 1 and incomplete times correspond to 0.}
 
-\item{by}{The string name of a grouping variable. If specified, the function returns a list. 
+\item{by}{The string name of a grouping variable. If specified, the function returns a list. The list will be in 
+alphabetic order of the values in the by column. 
 Variable can contain logical, string, character, or numeric data.}
 }
 \description{

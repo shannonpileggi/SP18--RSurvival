@@ -8,4 +8,5 @@
 #'
 #' @docType package
 #' @name parmsurvfit
+#' @export
 NULL
