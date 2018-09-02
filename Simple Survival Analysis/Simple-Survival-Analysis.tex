@@ -34,8 +34,8 @@ does not experience the event of interest. Due to the inherent issue of
 censoring that is typically found in datasets involving survival
 analysis, computations and analyses can be difficult to carry out with
 many standard functions avaiable in R, as the majority of these do not
-account for censored data. The censored data here is of value and we
-cannot merely eliminate the observations which have censored data.
+account for censored data. The censored data collected is of value and
+we cannot merely eliminate the observations which have censored data.
 
 Some of the most popular techniques and statistics utilized when
 carrying out a survival analysis are computing what are known as the
@@ -73,8 +73,8 @@ assessing fit (qqplot, Anderson Darling statistic). The majority of this
 paper will be organized following these groups of functions.
 
 \hypertarget{fitting-right-censored-survival-data}{%
-\subsection{Fitting Right Censored Survival
-Data}\label{fitting-right-censored-survival-data}}
+\subsection{Fitting right censored survival
+data}\label{fitting-right-censored-survival-data}}
 
 As mentoined previously, this function is very similar to the function
 fitdistcens found in the
@@ -99,16 +99,15 @@ required for fitdistcens? Explain the output}
 \end{Schunk}
 
 \hypertarget{displaying-plots}{%
-\subsection{Displaying Plots}\label{displaying-plots}}
+\subsection{Displaying plots}\label{displaying-plots}}
 
 This section introduces an overview of the many types of plots that are
-available to be displayed via this package. Some of the most common
-plots used in Survival Analysis are survival plots, hazard plots,
-probability density plots, and cumulative hazard plots. We designed
-these functions with an intent to have the output displayed be very easy
-to read and interpret. Below is a list of each function and it's
-relationship to other functions, as well as the forumla used to compute
-each function.
+able to be displayed via this package. Some of the most common plots
+used in Survival Analysis are survival plots, hazard plots, probability
+density plots, and cumulative hazard plots. We designed these functions
+with an intent to have the output displayed be very easy to read and
+interpret. Below is a list of each function and it's relationship to
+other functions, as well as the forumla used to compute each function.
 
 \begin{tabular}{ll}
 \hline
@@ -123,7 +122,7 @@ Cum. Haz. & ${H(t)=\int_0^t h(y)dy=-\ln[S(t)]}$\\
 \end{tabular}
 
 \hypertarget{density-plotshistograms}{%
-\subsubsection{Density Plots/histograms}\label{density-plotshistograms}}
+\subsubsection{Density plots/histograms}\label{density-plotshistograms}}
 
 The \code{plot\_density} function creates a histogram of the data and
 overlays the density function of a fitted parametric distribution.
@@ -148,7 +147,7 @@ contains data on the age of first consumption of alcholic beverage for
 was created for males and females.
 
 \hypertarget{survival-plots}{%
-\subsubsection{Survival Plots}\label{survival-plots}}
+\subsubsection{Survival plots}\label{survival-plots}}
 
 Survival plots are used to estimate the proportion of subjects that
 survive beyond a specified time \textbf{t}. We were motivated to create
@@ -194,8 +193,6 @@ fact that it has already survived 17 years. We created the
 that it follows a specified parametric distribution, with the option to
 include a grouping variable.
 
-\textbf{INSERT HAZARD FUNCTION FORMULA}
-
 \begin{Schunk}
 
 \includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{Schunk}
@@ -208,7 +205,7 @@ event of interest as they survive longer, but their risk is lower than
 that of females.
 
 \hypertarget{cumulative-hazard-plots}{%
-\subsubsection{Cumulative Hazard Plots}\label{cumulative-hazard-plots}}
+\subsubsection{Cumulative hazard plots}\label{cumulative-hazard-plots}}
 
 While hazard plots are usually useful in assessing a subject's risk of
 experiencing the event of interest in the next moment of time, these
@@ -227,8 +224,6 @@ parametric distribution. The functionality of this function is nearly
 identical to that of \code{plot\_haz}, with the only distinction being
 that it plots cumulative hazard curves instead of hazard curves.
 
-\textbf{Insert brief interpretation}
-
 \begin{Schunk}
 
 \includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-5-1} \end{Schunk}
@@ -240,8 +235,8 @@ is increasing over time, given that they have survived beyond time
 \textbf{t}.
 
 \hypertarget{computing-survival-probabilities-and-summary-statistics}{%
-\subsection{Computing Survival Probabilities and Summary
-Statistics}\label{computing-survival-probabilities-and-summary-statistics}}
+\subsection{Computing survival probabilities and summary
+statistics}\label{computing-survival-probabilities-and-summary-statistics}}
 
 While viewing plots such as those explained above are very useful in
 survival analysis, they only tell half of the story. In order to carry
@@ -252,8 +247,8 @@ typical summary statistics such as the mean, median, standard deviation,
 and percentiles of survival time.
 
 \hypertarget{computing-survival-probabilites}{%
-\subsection{Computing Survival
-Probabilites}\label{computing-survival-probabilites}}
+\subsection{Computing survival
+probabilites}\label{computing-survival-probabilites}}
 
 Being able to compute survival probabilites is especially of interest
 because it estimates the probability that a subject will not have
@@ -275,11 +270,11 @@ surv_prob(Firstdrink, "lnorm", 30, time="Age")
 As seen in the output from the function above, utilizing the Firstdrink
 data set and fiting a log-normal parametric distribution to the data,
 the estimated probability that a person survives for 30 years without
-having their first drin of alcohol is roughly 5\%.
+having their first drink of alcohol is roughly 5\%.
 
 \hypertarget{computing-summary-statistics}{%
-\subsubsection{Computing Summary
-Statistics}\label{computing-summary-statistics}}
+\subsubsection{Computing summary
+statistics}\label{computing-summary-statistics}}
 
 Another useful form of output that we believed would be useful to also
 have in R is a table of summary statistics. Summmary statistics that are
@@ -329,6 +324,19 @@ seperate tables were produced, one for males and one for females. We can
 see that the mean log survival time for females is smaller than the mean
 log survival time for males. The standard deviation of log survival time
 for females was also much smaller than that of males.
+
+\#\#Assessing fit Since all of the functions available in this package
+assume that the survival data follows a known parametric distribution,
+it is important to have a method to analyze how well our assumed model
+fits the data. Utilizing such methods will allow us choose a
+distribution that adequately fits the data. Two common methods used to
+assess goodness of fit are Q-Q (Quantile-Quantile) plots and the
+Anderson-Darling Test.
+
+\#\#\#Q-Q plots As mentioned before, Q-Q plots are a very popular method
+used to evalaute the fit between two probability distributions. In these
+plots, the hypothesized quantiles are plotted on one axis and the
+observed quantiles are plotted on the other axis. A
 
 \hypertarget{summary}{%
 \subsection{Summary}\label{summary}}
