@@ -6,9 +6,9 @@
 \title{Data on time until graduation for 1000 college students.}
 \format{A data frame with 1000 rows and 3 variables:
 \describe{
-  \item{Years}{years until graduation}
-  \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-  \item{Gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+  \item{years}{years until graduation}
+  \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+  \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
 }}
 \source{
 {National Educational Longitudinal Survey (NELS) from 1988-2002}

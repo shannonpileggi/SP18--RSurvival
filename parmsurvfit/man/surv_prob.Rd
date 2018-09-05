@@ -4,8 +4,8 @@
 \alias{surv_prob}
 \title{Survival probability based on parametric distribution}
 \usage{
-surv_prob(data, dist, num, lower.tail = F, time = "Time",
-  censor = "Censor")
+surv_prob(data, dist, num, lower.tail = F, time = "time",
+  censor = "censor")
 }
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
@@ -17,9 +17,9 @@ Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz
 
 \item{lower.tail}{Logical; if \code{F} (default), probability is P(T > \code{num}), otherwise, P(T < \code{num}).}
 
-\item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
+\item{time}{The string name of the time column of the dataframe. Defaults to "time".}
 
-\item{censor}{The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
+\item{censor}{The string name of the censor column of the dataframe. Defaults to "censor". The censor column must be 
 a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.}
 }
 \description{
@@ -27,6 +27,6 @@ Computes probability of survival beyond time t given that the data follows a spe
 }
 \examples{
 data("rearrest")
-surv_prob(rearrest, "lnorm", 110, time = "Months")
-surv_prob(rearrest, "weibull", 90, time = "Months", lower.tail = TRUE)  
+surv_prob(rearrest, "lnorm", 110, time = "months")
+surv_prob(rearrest, "weibull", 90, time = "months", lower.tail = TRUE)  
 }

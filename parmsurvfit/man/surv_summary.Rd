@@ -4,7 +4,7 @@
 \alias{surv_summary}
 \title{Summary statistics based on parametric distribution}
 \usage{
-surv_summary(data, dist, time = "Time", censor = "Censor", by = "")
+surv_summary(data, dist, time = "time", censor = "censor", by = "")
 }
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
@@ -12,9 +12,9 @@ surv_summary(data, dist, time = "Time", censor = "Censor", by = "")
 \item{dist}{A string name for a distribution that has a corresponding density function and a distribution function.
 Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
-\item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
+\item{time}{The string name of the time column of the dataframe. Defaults to "time".}
 
-\item{censor}{The string name of the censor column of the dataframe. Defaults to "Censor". 
+\item{censor}{The string name of the censor column of the dataframe. Defaults to "censor". 
 The censor column must be a numeric indicator variable where complete times correspond 
 to a value of 1 and incomplete times correspond to 0.}
 
@@ -27,6 +27,6 @@ percentiles of survival time given that the data follows a specified parametric 
 }
 \examples{
 data("rearrest")
-surv_summary(rearrest, "lnorm", time = "Months")
-surv_summary(rearrest, "weibull", time = "Months", by = "Personal")
+surv_summary(rearrest, "lnorm", time = "months")
+surv_summary(rearrest, "weibull", time = "months", by = "personal")
 }

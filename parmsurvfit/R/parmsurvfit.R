@@ -15,9 +15,9 @@ NULL
 #'
 #' @format A data frame with 1000 rows and 3 variables:
 #' \describe{
-#'   \item{Age}{the age at which the survey respondant had their first drink of alcohol}
-#'   \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-#'   \item{Gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+#'   \item{age}{the age at which the survey respondant had their first drink of alcohol}
+#'   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+#'   \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
 #' }
 #' @source {"National Comorbidity Survey (1990-1992)"}
 "firstdrink"
@@ -33,9 +33,9 @@ NULL
 #'
 #' @format A data frame with 1000 rows and 3 variables:
 #' \describe{
-#'   \item{Years}{years until graduation}
-#'   \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-#'   \item{Gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+#'   \item{years}{years until graduation}
+#'   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+#'   \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
 #' }
 #' @source {National Educational Longitudinal Survey (NELS) from 1988-2002}
 "graduate"
@@ -53,14 +53,14 @@ NULL
 #'
 #' @format A data frame with 194 rows and 5 variables:
 #' \describe{
-#'   \item{Months}{months until re-arrest}
-#'   \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-#'   \item{Personal}{a dichotomous variable identifying former inmates who had a history of
+#'   \item{months}{months until re-arrest}
+#'   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+#'   \item{personal}{a dichotomous variable identifying former inmates who had a history of
 #'   person-related crimes (personal = 1), i.e. those with one or more convictions for offenses
 #'   such as aggravated assault or kidnapping}
-#'   \item{Property}{a dichotomous variable indicating whether former inmates were convicted
+#'   \item{property}{a dichotomous variable indicating whether former inmates were convicted
 #'   of a property-related crime (property = 1)}
-#'   \item{Cenage}{the "centered" age of individual, i.e. the difference between the age of the
+#'   \item{cenage}{the "centered" age of individual, i.e. the difference between the age of the
 #'   individual upon release and the average age of all inmates in the study.}
 #' }
 #' @source \url{http://www.ats.ucla.edu/stat/examples/alda.htm}
@@ -108,8 +108,8 @@ NULL
 #'
 #' @format A data frame with 57 rows and 2 variables:
 #' \describe{
-#'   \item{Seconds}{Number of seconds until showing signs of agressioin}
-#'   \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+#'   \item{seconds}{Number of seconds until showing signs of agressioin}
+#'   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
 #' }
 #' @source \url{http://www.ats.ucla.edu/stat/examples/alda.htm}
 "aggressive"

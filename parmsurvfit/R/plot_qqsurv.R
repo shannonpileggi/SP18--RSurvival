@@ -5,18 +5,18 @@
 #' @param data A dataframe containing a time column and a censor column.
 #' @param dist A string name for a distribution that has a corresponding density function and distribution function.
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
-#' @param time The string name of the time column of the dataframe. Defaults to "Time".
-#' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
+#' @param time The string name of the time column of the dataframe. Defaults to "time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "censor". 
 #' The censor column must be a numeric indicator variable where complete times correspond 
 #' to a value of 1 and incomplete times correspond to 0.
 #' @import ggplot2 graphics
 #' @examples
 #' data("rearrest")
-#' plot_qqsurv(rearrest, "weibull", time = "Months")
-#' plot_qqsurv(rearrest, "exp", time = "Months")
+#' plot_qqsurv(rearrest, "weibull", time = "months")
+#' plot_qqsurv(rearrest, "exp", time = "months")
 #' @export
 
-plot_qqsurv <- function(data, dist, time = "Time", censor = "Censor") {
+plot_qqsurv <- function(data, dist, time = "time", censor = "censor") {
   
   #makes a qqplot of the data with a fitted distribution line
   #data is a dataframe

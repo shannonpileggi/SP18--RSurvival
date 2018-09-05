@@ -7,16 +7,16 @@
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
 #' @param num A scalar quantity, time at which the probability of survival is computed
 #' @param lower.tail Logical; if \code{F} (default), probability is P(T > \code{num}), otherwise, P(T < \code{num}).
-#' @param time The string name of the time column of the dataframe. Defaults to "Time".
-#' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
+#' @param time The string name of the time column of the dataframe. Defaults to "time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "censor". The censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @examples 
 #' data("rearrest")
-#' surv_prob(rearrest, "lnorm", 110, time = "Months")
-#' surv_prob(rearrest, "weibull", 90, time = "Months", lower.tail = TRUE)  
+#' surv_prob(rearrest, "lnorm", 110, time = "months")
+#' surv_prob(rearrest, "weibull", 90, time = "months", lower.tail = TRUE)  
 #' @export
 
-surv_prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censor") {
+surv_prob <- function(data, dist, num, lower.tail = F, time = "time", censor = "censor") {
   #"prob" is a placeholder name, should be better
   
   #fits data to distribution

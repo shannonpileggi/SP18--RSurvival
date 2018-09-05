@@ -5,8 +5,8 @@
 #' @param data A dataframe containing a time column and a censor column.
 #' @param dist A string name for a distribution that has a corresponding density function and distribution function.
 #' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
-#' @param time The string name of the time column of the dataframe. Defaults to "Time".
-#' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". 
+#' @param time The string name of the time column of the dataframe. Defaults to "time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "censor". 
 #' The censor column must be a numeric indicator variable where complete times correspond 
 #' to a value of 1 and incomplete times correspond to 0.
 #' @param by The string name of a grouping variable. If specified, the function returns a list. 
@@ -14,11 +14,11 @@
 #' @import ggplot2 graphics
 #' @examples
 #' data("rearrest")
-#' plot_density(rearrest, "exp", time = "Months")
-#' plot_density(rearrest, "weibull", time = "Months", by = "Personal")
+#' plot_density(rearrest, "exp", time = "months")
+#' plot_density(rearrest, "weibull", time = "months", by = "personal")
 #' @export
  
-plot_density <- function(data, dist, time = "Time", censor = "Censor", by = "") {
+plot_density <- function(data, dist, time = "time", censor = "censor", by = "") {
   
   #if there's a grouping variable
   if (by != "") {

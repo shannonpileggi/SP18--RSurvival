@@ -4,7 +4,7 @@
 \alias{plot_haz}
 \title{Plotting parametric hazard curves}
 \usage{
-plot_haz(data, dist, time = "Time", censor = "Censor", by = "")
+plot_haz(data, dist, time = "time", censor = "censor", by = "")
 }
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
@@ -12,10 +12,10 @@ plot_haz(data, dist, time = "Time", censor = "Censor", by = "")
 \item{dist}{A string name for a distribution that has a corresponding density function and distribution function.
 Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.}
 
-\item{time}{The string name of the time column of the dataframe. Defaults to "Time".}
+\item{time}{The string name of the time column of the dataframe. Defaults to "time".}
 
 \item{censor}{The string name of the censor column of the dataframe. 
-Defaults to "Censor". The censor column must be a numeric indicator variable 
+Defaults to "censor". The censor column must be a numeric indicator variable 
 where complete times correspond to a value of 1 and incomplete times correspond to 0.}
 
 \item{by}{The string name of a grouping variable. If specified, multiple lines will be plotted.
@@ -26,6 +26,6 @@ Plots hazard curve of right censored data given that it follows a specified para
 }
 \examples{
 data("rearrest")
-plot_haz(rearrest, "logis", time = "Months")
-plot_haz(rearrest, "weibull", time = "Months", by = "Personal")
+plot_haz(rearrest, "logis", time = "months")
+plot_haz(rearrest, "weibull", time = "months", by = "personal")
 }

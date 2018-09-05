@@ -6,9 +6,9 @@
 \title{Data on age at first drink of alcohol.}
 \format{A data frame with 1000 rows and 3 variables:
 \describe{
-  \item{Age}{the age at which the survey respondant had their first drink of alcohol}
-  \item{Censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-  \item{Gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+  \item{age}{the age at which the survey respondant had their first drink of alcohol}
+  \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
+  \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
 }}
 \source{
 {"National Comorbidity Survey (1990-1992)"}
