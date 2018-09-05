@@ -26,11 +26,10 @@ Variable can contain logical, string, character, or numeric data.}
 Fits right censored data to a distribution using maximum liklihood estimates.
 }
 \examples{
-library(survival) 
-data("rats")
-fit_data(rats, "lnorm", time = "time", censor = "status")
+data("rearrest")
+fit_data(rearrest, "lnorm", time = "Months")
 
-fit_data(rats, "weibull", time = "time", censor = "status", by = "sex")
+fit_data(rearrest, "weibull", time = "Months", by = "Personal")
 
 }
 \seealso{

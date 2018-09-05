@@ -11,10 +11,9 @@
 #' @param censor The string name of the censor column of the dataframe. Defaults to "Censor". The censor column must be 
 #' a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.
 #' @examples 
-#' library(survival) 
-#' data("rats")
-#' surv_prob(rats, "lnorm", 110, time = "time", censor = "status")
-#' surv_prob(rats, "weibull", 90, time = "time", censor = "status")  
+#' data("rearrest")
+#' surv_prob(rearrest, "lnorm", 110, time = "Months")
+#' surv_prob(rearrest, "weibull", 90, time = "Months", lower.tail = TRUE)  
 #' @export
 
 surv_prob <- function(data, dist, num, lower.tail = F, time = "Time", censor = "Censor") {

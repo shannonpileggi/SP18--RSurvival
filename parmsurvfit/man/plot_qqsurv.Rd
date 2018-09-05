@@ -22,8 +22,7 @@ to a value of 1 and incomplete times correspond to 0.}
 Creates quantile-quantile plot of right censored data given that it follows a specified parametric distribution.
 }
 \examples{
-library(survival) 
-data("kidney")
-plot_qqsurv(kidney, "logis", time = "time", censor = "status")
-plot_qqsurv(kidney, "weibull", time = "time", censor = "status")
+data("rearrest")
+plot_qqsurv(rearrest, "weibull", time = "Months")
+plot_qqsurv(rearrest, "exp", time = "Months")
 }

@@ -14,10 +14,9 @@
 #' Variable can contain logical, string, character, or numeric data.
 #' @import stats
 #' @examples 
-#' library(survival) 
-#' data("rats")
-#' surv_summary(rats, "lnorm", time = "time", censor = "status")
-#' surv_summary(rats, "weibull", time = "time", censor = "status", by = "sex")
+#' data("rearrest")
+#' surv_summary(rearrest, "lnorm", time = "Months")
+#' surv_summary(rearrest, "weibull", time = "Months", by = "Personal")
 #' @export
 
 surv_summary <- function(data, dist, time = "Time", censor = "Censor", by = "") {

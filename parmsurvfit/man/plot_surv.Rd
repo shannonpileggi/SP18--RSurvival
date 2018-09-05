@@ -25,8 +25,7 @@ Variable can contain logical, string, character, or numeric data.}
 Plots survival curve of right censored data given that it follows a specified parametric distribution.
 }
 \examples{
-library(survival) 
-data("rats")
-plot_surv(rats, "lnorm", time = "time", censor = "status")
-plot_surv(rats, "weibull", time = "time", censor = "status", by = "sex")
+data("rearrest")
+plot_surv(rearrest, "lnorm", time = "Months")
+plot_surv(rearrest, "weibull", time = "Months", by = "Personal")
 }

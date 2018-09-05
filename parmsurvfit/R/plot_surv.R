@@ -13,10 +13,9 @@
 #' Variable can contain logical, string, character, or numeric data.
 #' @import ggplot2 graphics
 #' @examples
-#' library(survival) 
-#' data("rats")
-#' plot_surv(rats, "lnorm", time = "time", censor = "status")
-#' plot_surv(rats, "weibull", time = "time", censor = "status", by = "sex")
+#' data("rearrest")
+#' plot_surv(rearrest, "lnorm", time = "Months")
+#' plot_surv(rearrest, "weibull", time = "Months", by = "Personal")
 #' @export
 
 plot_surv <- function(data, dist, time = "Time", censor = "Censor", by = "") { 

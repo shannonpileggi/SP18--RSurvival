@@ -13,10 +13,9 @@
 #' Variable can contain logical, string, character, or numeric data.
 #' @import ggplot2 graphics
 #' @examples
-#' library(survival) 
-#' data("rats")
-#' plot_cumhaz(rats, "lnorm", time = "time", censor = "status")
-#' plot_cumhaz(rats, "weibull", time = "time", censor = "status", by = "sex")
+#' data("rearrest")
+#' plot_cumhaz(rearrest, "lnorm", time = "Months")
+#' plot_cumhaz(rearrest, "weibull", time = "Months", by = "Personal")
 #' @export
 
 plot_cumhaz <- function(data, dist, time = "Time", censor = "Censor", by = "") { 

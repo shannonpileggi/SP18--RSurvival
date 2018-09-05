@@ -25,8 +25,7 @@ Variable can contain logical, string, character, or numeric data.}
 Creates histogram of right censored data with the density function of a fitted parametric distribution overlayed.
 }
 \examples{
-library(survival) 
-data("kidney")
-plot_density(kidney, "logis", time = "time", censor = "status")
-plot_density(kidney, "weibull", time = "time", censor = "status", by = "sex")
+data("rearrest")
+plot_density(rearrest, "exp", time = "Months")
+plot_density(rearrest, "weibull", time = "Months", by = "Personal")
 }

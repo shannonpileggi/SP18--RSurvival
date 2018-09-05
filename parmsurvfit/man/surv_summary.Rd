@@ -26,8 +26,7 @@ Estimates various statistics, including median, mean, standard deviation, and
 percentiles of survival time given that the data follows a specified parametric distribution.
 }
 \examples{
-library(survival) 
-data("rats")
-surv_summary(rats, "lnorm", time = "time", censor = "status")
-surv_summary(rats, "weibull", time = "time", censor = "status", by = "sex")
+data("rearrest")
+surv_summary(rearrest, "lnorm", time = "Months")
+surv_summary(rearrest, "weibull", time = "Months", by = "Personal")
 }

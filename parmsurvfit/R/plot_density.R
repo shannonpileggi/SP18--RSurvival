@@ -13,10 +13,9 @@
 #' Variable can contain logical, string, character, or numeric data.
 #' @import ggplot2 graphics
 #' @examples
-#' library(survival) 
-#' data("kidney")
-#' plot_density(kidney, "logis", time = "time", censor = "status")
-#' plot_density(kidney, "weibull", time = "time", censor = "status", by = "sex")
+#' data("rearrest")
+#' plot_density(rearrest, "exp", time = "Months")
+#' plot_density(rearrest, "weibull", time = "Months", by = "Personal")
 #' @export
  
 plot_density <- function(data, dist, time = "Time", censor = "Censor", by = "") {

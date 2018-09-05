@@ -11,10 +11,9 @@
 #' to a value of 1 and incomplete times correspond to 0.
 #' @import ggplot2 graphics
 #' @examples
-#' library(survival) 
-#' data("kidney")
-#' plot_qqsurv(kidney, "logis", time = "time", censor = "status")
-#' plot_qqsurv(kidney, "weibull", time = "time", censor = "status")
+#' data("rearrest")
+#' plot_qqsurv(rearrest, "weibull", time = "Months")
+#' plot_qqsurv(rearrest, "exp", time = "Months")
 #' @export
 
 plot_qqsurv <- function(data, dist, time = "Time", censor = "Censor") {

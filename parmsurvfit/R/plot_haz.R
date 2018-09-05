@@ -13,10 +13,9 @@
 #' Variable can contain logical, string, character, or numeric data.
 #' @import ggplot2 graphics
 #' @examples
-#' library(survival) 
-#' data("rats")
-#' plot_haz(rats, "lnorm", time = "time", censor = "status")
-#' plot_haz(rats, "weibull", time = "time", censor = "status", by = "sex")
+#' data("rearrest")
+#' plot_haz(rearrest, "logis", time = "Months")
+#' plot_haz(rearrest, "weibull", time = "Months", by = "Personal")
 #' @export
 
 plot_haz <- function(data, dist, time = "Time", censor = "Censor", by = "") { 
