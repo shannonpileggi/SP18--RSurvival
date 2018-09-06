@@ -26,8 +26,7 @@
 oscars
 }
 \description{
-The dataset contains data for the top 128 grossing actors up to 2017 as listed on Box Office Mojo.
-It should be noted that of the 128 observations in the data set, 48 were right-censored. Right-censored
+The dataset contains data for the top 128 grossing actors up to 2017 as listed on Box Office Mojo.  The data for the first film appearance and for the first oscar nomination was taken from IMDb. It should be noted that of the 128 observations in the data set, 48 were right-censored. Right-censored
 observations represent actors who have not received an oscar nomination by the year 2017 or actors that
 died before 2017 without ever receiving an oscar nomination. For the censor variable "1" represents complete
 observations, actors who received an oscar nomination by the year 2017, and "0" represents right-censored
