@@ -63,7 +63,7 @@ NULL
 #'   \item{cenage}{the "centered" age of individual, i.e. the difference between the age of the
 #'   individual upon release and the average age of all inmates in the study.}
 #' }
-#' @source \url{http://www.ats.ucla.edu/stat/examples/alda.htm}
+#' @source \url{https://stats.idre.ucla.edu/other/examples/alda/}
 "rearrest"
 
 
@@ -109,8 +109,8 @@ NULL
 #'
 #' @format A data frame with 57 rows and 2 variables:
 #' \describe{
-#'   \item{seconds}{Number of seconds until showing signs of agressioin}
+#'   \item{seconds}{Number of seconds until showing signs of aggression}
 #'   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
 #' }
-#' @source \url{http://www.ats.ucla.edu/stat/examples/alda.htm}
+#' @source {https://stats.idre.ucla.edu/other/examples/alda/}
 "aggressive"
