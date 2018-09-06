@@ -8,7 +8,7 @@
 \describe{
   \item{years}{years until graduation}
   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-  \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+  \item{gender}{a dichotomous variable identifying gender (1 = male, 2 = female)}
 }}
 \source{
 {National Educational Longitudinal Survey (NELS) from 1988-2002}
@@ -20,7 +20,7 @@ graduate
 A dataset that contains the time (in years) that 1000 students (472 males and
 528 females) took to graduate (obtain a bachelor’s degree) from college (measured from the time
 they entered a post-secondary institution, i.e. either a junior college or four year degree granting
-institution). The Gender column contains the gender of each student (male = 1, female = 2), and
+institution). The Gender column contains the gender of each student (1 = male, 2 = female), and
 Censor contains the values of the censoring status variable.
 }
 \keyword{datasets}

@@ -6,11 +6,11 @@
 \title{Data on time until drivers honked their horn when being blocked from an intersection}
 \format{A data frame with 57 rows and 2 variables:
 \describe{
-  \item{seconds}{Number of seconds until showing signs of agressioin}
+  \item{seconds}{Number of seconds until showing signs of aggression}
   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
 }}
 \source{
-\url{http://www.ats.ucla.edu/stat/examples/alda.htm}
+{https://stats.idre.ucla.edu/other/examples/alda/}
 }
 \usage{
 aggressive

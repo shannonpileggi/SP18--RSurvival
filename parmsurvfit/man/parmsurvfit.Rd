@@ -11,3 +11,24 @@ given parametric distribution, produces summary statistics of the fitted distrib
 hazard, and cumulative hazard plots. Produces Anderson-Darling test statistic and probability plots to assess goodness
 of fit of right censored data to a distribution.
 }
+\details{
+Functions
+\itemize{
+\item{ \code{\link{fit_data}}}
+\item{ \code{\link{surv_summary}}} 
+\item{ \code{\link{surv_prob}}} 
+\item{ \code{\link{plot_surv}}} 
+\item{ \code{\link{plot_haz}}} 
+\item{ \code{\link{plot_cumhaz}}} 
+\item{ \code{\link{plot_density}}} 
+\item{ \code{\link{plot_qqsurv}}} 
+}
+Datasets
+\itemize{
+\item{ \code{\link{aggressive}}} 
+\item{ \code{\link{firstdrink}}} 
+\item{ \code{\link{graduate}}} 
+\item{ \code{\link{oscars}}} 
+\item{ \code{\link{rearrest}}} 
+}
+}
