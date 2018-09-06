@@ -80,8 +80,22 @@ As mentoined previously, this function is very similar to the function
 fitdistcens found in the
 \href{https://cran.r-project.org/web/packages/fitdistrplus/index.html}{fitdistrplus}
 package, which computes the Maximum Likelihood Estimates (MLEs) for
-right-censored data. \textbf{Is the data organized differently than
-required for fitdistcens? Explain the output}
+right-censored data. The fitdistcens funciton requires data to be
+organized into two columns, right and left. The right column indicates a
+start time, and the left colmun incates an end time. For example, if a
+time is right censored, then the left column would contain the time, and
+the right column would contain NA. This way of organizing survival data
+allows for different types of censoring to be unambiguous, but since the
+\pkg{parmsurvfit} package will only handle right censored data, the
+fit\_data funciton makes it so that the user doesn't have to reorganize
+data. This function takes in two required columns, a time column and a
+censor column. The time column contains the time-to-event variable,
+while the censor column indicates whether right censoring is present (0
+corresponds to censored data and 1 corresponds to complete data). The
+function also takes in an optional grouping variable, which fits the
+data for each group individually. The function returns an object of
+class ``fitdistcens'', and if there's a grouping variable it returns a
+list of objects of class ``fitdistcens''.
 
 \hypertarget{example}{%
 \subsubsection{Example}\label{example}}
@@ -171,10 +185,10 @@ dataset, grouping by the Gender variable once again. As seen in the plot
 above, two different survival curves were plotted. The blue line
 represents the estimated survival curve for males, while the red line
 represents the estimated survival curve for females. From this plot, we
-see that the survival curve for male rats is consistently above the
-survival curve for female rats throughout all points in time. Due to
-this, we can conclude that females tend to experience their first drink
-of alcohol before males do.
+see that the survival curve for female rats is consistently above the
+survival curve for male rats throughout all points in time. Due to this,
+we can conclude that males tend to experience their first drink of
+alcohol before males do.
 
 \hypertarget{hazard-plots}{%
 \subsubsection{Hazard plots}\label{hazard-plots}}
@@ -198,11 +212,11 @@ include a grouping variable.
 \includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{Schunk}
 
 From this plot above, also using the Firstdrink dataset , we can see
-that as females continue to survive, their risk of experiencing the
-event of interest in the next instant of time dramatically increases.
-Similarly, males also seem to have a greater risk of experiencing the
+that as males continue to survive, their risk of experiencing the event
+of interest in the next instant of time dramatically increases.
+Similarly, females also seem to have a greater risk of experiencing the
 event of interest as they survive longer, but their risk is lower than
-that of females.
+that of males.
 
 \hypertarget{cumulative-hazard-plots}{%
 \subsubsection{Cumulative hazard plots}\label{cumulative-hazard-plots}}
@@ -321,9 +335,9 @@ surv_summary(Firstdrink, "lnorm", time="Age", by="Gender")
 
 As seen above, after specifying the grouping variable of sex, two
 seperate tables were produced, one for males and one for females. We can
-see that the mean log survival time for females is smaller than the mean
-log survival time for males. The standard deviation of log survival time
-for females was also much smaller than that of males.
+see that the mean log survival time for males is smaller than the mean
+log survival time for females. The standard deviation of log survival
+time for males was also much smaller than that of females.
 
 \#\#Assessing fit Since all of the functions available in this package
 assume that the survival data follows a known parametric distribution,
@@ -336,10 +350,47 @@ Anderson-Darling Test.
 \#\#\#Q-Q plots As mentioned before, Q-Q plots are a very popular method
 used to evalaute the fit between two probability distributions. In these
 plots, the hypothesized quantiles are plotted on one axis and the
-observed quantiles are plotted on the other axis. A
+observed quantiles are plotted on the other axis. A \emph{y=x} line is
+typically included in these plots, because if the observed data fit the
+hypothesized distribution perfectly, all of the points would lie exactly
+on this line. We developed the \code{plot\_qqsurv} function to create a
+quantile-quantile plot of right-censored data given that it follows a
+specified distribution.
 
-\hypertarget{summary}{%
-\subsection{Summary}\label{summary}}
+\begin{Schunk}
+\begin{Sinput}
+plot_qqsurv(Firstdrink, "exp", time="Age")
+\end{Sinput}
+
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-8-1} \end{Schunk}
+
+We can create a Q-Q plot for the the Firstdrink data set to see how well
+an Exponential distribution fits the data. As seen in the plot above,
+there are some deviations from the provided \emph{y=x} line, indicates
+that an Exponential distribution may not be an ideal fit for the data.
+
+\#\#\#Anderson-Darling Test While creating Q-Q plots are a great way to
+visualize how a particular distribution may fit the data, it can be
+difficult at times to definitively decide how well the plot fits the
+data. The Anderson-Darling test provides a numerical test statistic that
+measures how well the data fits a particular distribution. \textbf{CITE
+MINITAB HELP PAGE}
+
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+The R package \pkg{parmsurvfit} allows for parametric Survial Analysis
+methods involving right-censored data to be easily computed in R. The
+overall goal of developing this package was to provide a central package
+for R users to find typical methods used in Survival Analysis such as
+computing survival probabilities, create survival and hazard plots, and
+assess goodness of fit of a parametric distribution fit to a dataset.
+
+\#\#Acknowledgments This package would not have been possible without
+the generous donation of Bill and Linda Frost. We would also like to
+thank Dr.~Shannon Pileggi for conceptualization of the package, as well
+as for guidance and assistance in issues that we encountered during the
+devolpment of this package.
 
 This file is only a basic article template. For full details of
 \emph{The R Journal} style and information on how to prepare your
