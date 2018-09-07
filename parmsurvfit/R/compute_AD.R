@@ -1,25 +1,41 @@
 
+#' Anderson-Darling goodness of fit test statistic
+#' 
+#' Computes Anderson-Darling goodness of fit test statistic given that the data follows 
+#' a specified parametric distribution.
+#' @param data A dataframe containing a time column and a censor column.
+#' @param dist A string name for a distribution that has a corresponding density function and a distribution function.
+#' Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz", etc.
+#' @param time The string name of the time column of the dataframe. Defaults to "time".
+#' @param censor The string name of the censor column of the dataframe. Defaults to "censor". 
+#' The censor column must be a numeric indicator variable where complete times correspond 
+#' to a value of 1 and incomplete times correspond to 0.
+#' @examples 
+#' data("rearrest")
+#' compute_AD(rearrest, "lnorm", time = "months")
+#' compute_AD(rearrest, "weibull", time = "months")
+#' @export
 
-AD <- function(data, dist, time = "time", censor = "censor") {
+compute_AD <- function(data, dist, time = "time", censor = "censor") {
 
   #fits data to distribution
   fit <- fit_data(data, dist, time, censor) 
   
   
   #orders data by time
-  data <- data[order(data[["time"]], -data[["censor"]]),]
+  data <- data[order(data[[time]], -data[[censor]]),]
   
   # overall sample size
   n_all <- nrow(data)
   
   # computes rank of time values
-  data$rank <- as.numeric(as.factor(data$time))
+  data$rank <- as.numeric(rownames(data))
   
   #reverse rank
   data$rev_rank <- rev(data$rank)
   
   #complete data
-  data <- data[data[["censor"]] == 1, ]
+  data <- data[data[[censor]] == 1, ]
   n <- nrow(data)
   
   
@@ -30,10 +46,6 @@ AD <- function(data, dist, time = "time", censor = "censor") {
     data$adj_rank[i] <- adj_rank
   }
   
-  #stores time and censor as vectors
-  time <- as.vector(data[["time"]])
-  censor <- as.vector(data[["censor"]])
-                      
   calc <- data.frame(time = rep(NA, n+1), 
                              censor = rep(NA, n+1),
                              adj_rank =  rep(NA, n+1), 
@@ -45,22 +57,21 @@ AD <- function(data, dist, time = "time", censor = "censor") {
                              B = rep(NA, n+1),
                              C = rep(NA, n+1))                    
   
-  calc$time[1:n] <- data$time
-  calc$censor[1:n] <- data$censor
+  calc$time[1:n] <- data[[time]]
+  calc$censor[1:n] <- data[[censor]]
   calc$adj_rank[1:n] <- data$adj_rank
   
   #stores cdf function for distribution and arguments
   pfunc <- match.fun(paste("p", dist, sep = ""))
   args <- c(fit$estimate)
   args <- split(unname(args), names(args))
-  args$q <- time
+  args$q <- data[[time]]
   
   # fitted estimate of cdf
   calc$z[1:n] <- do.call(pfunc, args)
   
   # empirical estimate of cdf based on Median Rank method
   calc$Fz <- (calc$adj_rank - 0.3) / (n_all + 0.4) 
-  #calc$Fz <- c(0.147, 0.367, 0.698, NA)
   
   # fixed values
   calc$z[n+1] <-0.999999999999
@@ -83,7 +94,3 @@ AD <- function(data, dist, time = "time", censor = "censor") {
   
   AD
 }
-
-
-
-

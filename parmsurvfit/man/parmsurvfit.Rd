@@ -22,6 +22,7 @@ Functions
 \item{ \code{\link{plot_cumhaz}}} 
 \item{ \code{\link{plot_density}}} 
 \item{ \code{\link{plot_qqsurv}}} 
+\item{ \code{\link(compute_AD)}}
 }
 Datasets
 \itemize{
