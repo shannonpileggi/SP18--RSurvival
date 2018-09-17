@@ -9,15 +9,15 @@
   \item{months}{months until re-arrest}
   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
   \item{personal}{a dichotomous variable identifying former inmates who had a history of
-  person-related crimes (personal = 1), i.e. those with one or more convictions for offenses
+  person-related crimes (1 = personal), i.e. those with one or more convictions for offenses
   such as aggravated assault or kidnapping}
   \item{property}{a dichotomous variable indicating whether former inmates were convicted
-  of a property-related crime (property = 1)}
+  of a property-related crime (1 = property)}
   \item{cenage}{the "centered" age of individual, i.e. the difference between the age of the
   individual upon release and the average age of all inmates in the study.}
 }}
 \source{
-\url{http://www.ats.ucla.edu/stat/examples/alda.htm}
+\url{https://stats.idre.ucla.edu/other/examples/alda/}
 }
 \usage{
 rearrest

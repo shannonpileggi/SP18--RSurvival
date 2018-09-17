@@ -8,7 +8,7 @@
 \describe{
   \item{age}{the age at which the survey respondant had their first drink of alcohol}
   \item{censor}{censoring status indicator variable (0 = censored event time, 1 = complete event time)}
-  \item{gender}{a dichotomous variable identifying gender (male = 1, female = 2)}
+  \item{gender}{a dichotomous variable identifying gender (1 = male, 2 = female)}
 }}
 \source{
 {"National Comorbidity Survey (1990-1992)"}

@@ -18,49 +18,61 @@
 
 plot_qqsurv <- function(data, dist, time = "time", censor = "censor") {
   
-  #makes a qqplot of the data with a fitted distribution line
-  #data is a dataframe
-  #dist is a string name of a distribution
-  #time and censor are string names of columns
-  
   #fits data
   fit <- fit_data(data, dist, time, censor) 
+  
   #orders data by time
-  data <- data[order(data[[time]]),]
-  #stored time and censor variables as vectors
-  time <- as.vector(data[[time]])
-  censor <- as.vector(data[[censor]])
+  data <- data[order(data[[time]], -data[[censor]]),]
+  
+  # overall sample size
+  n_all <- nrow(data)
+  
+  # computes rank of time values
+  data$rank <- as.numeric(rownames(data))
+  
+  #reverse rank
+  data$rev_rank <- rev(data$rank)
+  
+  #complete data
+  data <- data[data[[censor]] == 1, ]
+  n <- nrow(data)
+  
+  
+  #calculates adjusted rank (based on reverse rank)
+  adj_rank <- 0
+  for (i in 1:nrow(data)) {
+    adj_rank <- (data$rev_rank[i] * adj_rank + (n_all + 1)) / (data$rev_rank[i] + 1)
+    data$adj_rank[i] <- adj_rank
+  }
+  
   #stores distribution function
   pfunc <- match.fun(paste("p", dist, sep = ""))
   
   #initializes vectors
-  Percent <- c()
-  x <- c()
-  cdf <- c()
+  z <- c()
+  Fz <- c()
   
   #loopes through each element of time vector
-  for (i in 1:length(time)) {
-    #if the data point is not censored
-    if (censor[i] == 1) {
-      #adds the time to the vector of complete times
-      x <- c(x, time[i])
-      #calculates the cdf of that point, including the censored points
-      Percent <- c(Percent, ((i - 1) / length(time)) * 100)
-      #calls the distribution function on that point and adds to vector containing the cdfs
-      args <- c(q = time[i], fit$estimate)
-      args <- split(unname(args), names(args))
-      cdf <- c(cdf, do.call(pfunc, args) * 100)
-    } 
+  for (i in 1:length(data[[time]])) {
+    
+    # empirical estimate of cdf based on Median Rank method
+    Fz <- c(Fz, (data$adj_rank[i] - 0.3) / (n_all + 0.4))
+    
+    # fitted estimate of cdf
+    args <- c(q = data[[time]][i], fit$estimate)
+    args <- split(unname(args), names(args))
+    z <- c(z, do.call(pfunc, args) * 100)
   }
   
   #vector that contains points to make the line y = x
-  line <- seq(0, 100, length.out = length(x))
+  line <- seq(0, 100, length.out = length(z))
   
   #creates a dataframe of the data
-  df <- data.frame(x, Percent, cdf, line)
+  Fz <- Fz * 100
+  df <- data.frame(Fz, z, line)
   
   #plots qq plot
-  p <- ggplot(df, aes(x = Percent, y = cdf)) + geom_point() +
+  p <- ggplot(df, aes(x = Fz, y = z)) + geom_point() +
       geom_line(aes(x = line, y = line)) +
       scale_x_continuous(name = "Sample") +
       scale_y_continuous(name = "Theoretical") +  

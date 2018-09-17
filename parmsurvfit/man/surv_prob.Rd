@@ -5,7 +5,7 @@
 \title{Survival probability based on parametric distribution}
 \usage{
 surv_prob(data, dist, num, lower.tail = F, time = "time",
-  censor = "censor")
+  censor = "censor", by = "")
 }
 \arguments{
 \item{data}{A dataframe containing a time column and a censor column.}
@@ -21,6 +21,10 @@ Examples include "norm", "lnorm", "exp", "weibull", "logis", "llogis", "gompertz
 
 \item{censor}{The string name of the censor column of the dataframe. Defaults to "censor". The censor column must be 
 a numeric indicator variable where complete times correspond to a value of 1 and incomplete times correspond to 0.}
+
+\item{by}{The string name of a grouping variable. If specified, the function prints probability for each group 
+individually along with the overall probability. 
+Variable can contain logical, string, character, or numeric data.}
 }
 \description{
 Computes probability of survival beyond time t given that the data follows a specified parametric distribution.
