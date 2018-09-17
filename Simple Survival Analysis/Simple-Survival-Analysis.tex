@@ -37,7 +37,8 @@ many standard functions available in R, as the majority of these do not
 account for censored data. The censored data collected is of value and
 we cannot merely eliminate the observations which have censored data.
 
-Some of the most popular techniques and statistics utilized when
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD Some of the most popular techniques and statistics utilized when
 carrying out a survival analysis are computing what are known as the
 survival and hazard functions. The survival function is important
 because it gives the probability of surviving (also known as not
@@ -50,7 +51,22 @@ utilized are median survival time, mean survival time, and percentiles
 of survival time. In this package, all of the functions that we
 developed utilize parametric methods of survival analysis, which assumes
 that the distribution of the survival times follows a known probability
-distribution.
+distribution. ======= Some of the most popular techniques and statistics
+utilized when carrying out a survival analysis are computing what are
+known as the survival and hazard functions \citep{Kleinbaum2012}. The
+survival function is important because it gives the proability of
+surviving (also known as not experiencing the event of interest) beyond
+any given time \(t\). Similarly, the hazard function is also useful to
+compute because it gives the conditional probability that the subject
+will experience the event in the next instance of time, given that they
+have survived up until the specified point in time. Statistics that are
+commonly reported include median survial time, mean survival time, and
+percentiles of survival time. In this package, all of the functions that
+we developed utilize parametric methods of survival anlaysis, which
+assumes that the distribution of the survival times follows a known
+probability distribution.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 Currently, R does have many survival packages that address
 non-parametric survival analysis, such as the \pkg{survival} package.
@@ -66,17 +82,15 @@ plots.
 
 This paper describes the functions that the \pkg{parmsurvfit} package
 contains, how the data is formatted in order to utilize these functions,
-and what the output of these functions represent. There are four major
+and what the output of these functions represent. There are three major
 groups of functions that we created: assessing fit, survival functions
 (density, hazard, cumulative hazard, and survival), and computing
 statistics (mean, median, survival probabilities). The majority of this
 paper will be organized following these groups of functions.
 
-\hypertarget{assessing-fit}{%
-\subsection{Assessing fit}\label{assessing-fit}}
-
-Since all of the functions available in this package assume that the
-survival data follows a\\
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD \#\# Assessing fit Since all of the functions available in this
+package assume that the survival data follows a\\
 known parametric distribution, it is important to have a method to
 analyze how well our assumed model fits the data. Utilizing such methods
 will allow us choose a distribution that adequately fits the data. Some
@@ -101,27 +115,73 @@ allows for different types of censoring to be unambiguous, but since the
 \code{fit\_data} function makes it so that the user doesn't have to
 reorganize data.
 
-This function takes in two required columns, a Time column and a Censor
-column. The time column contains the time-to-event variable, while the
-censor column indicates whether right censoring is present (0
-corresponds to censored data and 1 corresponds to complete data). The
+\hypertarget{this-function-takes-in-two-required-columns-a-time-column-and-a-censor-column.-the-time-column-contains-the-time-to-event-variable-while-the-censor-column-indicates-whether-right-censoring-is-present-0-corresponds-to-censored-data-and-1-corresponds-to-complete-data.-the-function-also-takes-in-an-optional-grouping-variable-which-fits-the-data-for-each-group-individually.-the-function-returns-an-object-of-class-and-if-theres-a-grouping-variable-it-returns-a-list-of-objects-of-class-.-several-of-the-other-functions-available-in-this-package-also-utilize-arguments-that-are-similar-to-the-ones-found-in-this-function.}{%
+\section{\texorpdfstring{This function takes in two required columns, a
+Time column and a Censor column. The time column contains the
+time-to-event variable, while the censor column indicates whether right
+censoring is present (0 corresponds to censored data and 1 corresponds
+to complete data). The function also takes in an optional grouping
+variable, which fits the data for each group individually. The function
+returns an object of class \samp{fitdistcens}, and if there's a grouping
+variable it returns a list of objects of class \samp{fitdistcens}.
+Several of the other functions available in this package also utilize
+arguments that are similar to the ones found in this
+function.}{This function takes in two required columns, a Time column and a Censor column. The time column contains the time-to-event variable, while the censor column indicates whether right censoring is present (0 corresponds to censored data and 1 corresponds to complete data). The function also takes in an optional grouping variable, which fits the data for each group individually. The function returns an object of class , and if there's a grouping variable it returns a list of objects of class . Several of the other functions available in this package also utilize arguments that are similar to the ones found in this function.}}\label{this-function-takes-in-two-required-columns-a-time-column-and-a-censor-column.-the-time-column-contains-the-time-to-event-variable-while-the-censor-column-indicates-whether-right-censoring-is-present-0-corresponds-to-censored-data-and-1-corresponds-to-complete-data.-the-function-also-takes-in-an-optional-grouping-variable-which-fits-the-data-for-each-group-individually.-the-function-returns-an-object-of-class-and-if-theres-a-grouping-variable-it-returns-a-list-of-objects-of-class-.-several-of-the-other-functions-available-in-this-package-also-utilize-arguments-that-are-similar-to-the-ones-found-in-this-function.}}
+
+Then the \code{fit\_data} function produces maximum likelihood estimates
+for right censored data based on the input distribution. The
+\code{fit\_data} function utilizes the \code{fitdistcens} function in
+the
+\href{https://cran.r-project.org/web/packages/fitdistrplus/index.html}{fitdistrplus}
+package, but allows for more intuitive input of right-censored data than
+as specified with \code{fitdistcens}. The \code{fit\_data} function in
+the \pkg{parmsurvfit} package inputs two variables: \code{time} and
+\code{censor}. The \code{time} variable contains the time-to-event
+variable, while the \code{censor} variable indicates whether right
+censoring is present (0 corresponds to censored data and 1 corresponds
+to complete data). Furthermore, the user specifies the desired
+parametric distribution in \code{dist} by inputting the base name of the
+distribution as a character string. For example, to utilize the normal
+distribution you would specify ``norm'' as it is the base of
+\code{dnorm}, \code{pnorm}, etc. Commonly utilized distributions for
+survival analysis include Weibull (``weibull''), log-normal (``lnorm''),
+exponential (``exp''), and logistic (``logis'') distributions. The
 function also takes in an optional grouping variable, which fits the
 data for each group individually. The function returns an object of
-class \samp{fitdistcens}, and if there's a grouping variable it returns
-a list of objects of class \samp{fitdistcens}. Several of the other
-functions available in this package also utilize arguments that are
-similar to the ones found in this function.
+class ``fitdistcens'', and if there's a grouping variable it returns a
+list of objects of class ``fitdistcens''.
+
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
 
 \hypertarget{example}{%
 \subsubsection{Example}\label{example}}
 
+In this example, we fit the weibull distribution to the
+\file{firstdrink} data set where the time to event variable is age and
+the variable that indicates censoring status is censor. The maximum
+likelihood estimates of the location and scale parameters are returned.
+
 \begin{Schunk}
 \begin{Soutput}
-#> Fitting of the distribution ' logis ' on censored data by maximum likelihood 
+#> Fitting of the distribution ' weibull ' on censored data by maximum likelihood 
 #> Parameters:
-#>           estimate
-#> location 16.741581
-#> scale     2.798533
+#>        estimate
+#> shape  2.536106
+#> scale 19.684061
 #> Fixed parameters:
 #> data frame with 0 columns and 0 rows
 \end{Soutput}
@@ -148,9 +208,9 @@ plot_density(Firstdrink, "norm", time = "Age", by = "Gender")
 
 We ran the \code{plot\_density} function, utilizing the
 \file{Firstdrink.txt} dataset available in our package. This dataset
-contains data on the age of first consumption of alcoholic beverage for
-1000 individuals. As seen above, a separate histogram and density plot
-was created for males and females.
+contains data on the age of first consumption of an alcoholic beverage
+for 1000 individuals. As seen above, a separate histogram and density
+plot was created for males and females.
 
 \hypertarget{q-q-plots}{%
 \subsubsection{Q-Q plots}\label{q-q-plots}}
@@ -192,15 +252,28 @@ HELP PAGE}
 
 This section introduces an overview of the many types of survival
 functions that are able to be displayed via this package. Some of the
-most common functions used in Survival Analysis are the survival
+most common functions used in survival analysis are the survival
 function, the hazard function, and the cumulative hazard function.
 
-We designed functions within this package to display a plot for each of
-the aforementioned survival functions with an intent to have the output
-displayed be very easy to read and interpret. Below is a list of each
-function and it's relationship to other functions, as well as the
-formula used to compute each function.
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD We designed functions within this package to display a plot for
+each of the aforementioned survival functions with an intent to have the
+output displayed be very easy to read and interpret. Below is a list of
+each function and it's relationship to other functions, as well as the
+formula used to compute each function. ======= \#\# Plots for survival
+analysis
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
+This section provides overview of the plots available in this package.
+Some of the most common plots used in survival analysis are density
+plots, survival plots, hazard plots, and cumulative hazard plots. We
+designed these functions with an intent to have the output displayed be
+very easy to read and interpret. Table \ref{table:functions} lists each
+function and its relationship to other functions, as well as the forumla
+used to compute each function.
+
+\begin{table}
 \begin{tabular}{ll}
 \hline
 Function & Relationships  \\
@@ -212,64 +285,141 @@ Hazard & ${h(t)=f(t)/S(t)=-\frac{d}{dt}\ln[S(t)]}$ \\
 Cum. Haz. & ${H(t)=\int_0^t h(y)dy=-\ln[S(t)]}$\\
 \hline
 \end{tabular}
+\label{table:functions}
+\end{table}
+
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD
 
 \hypertarget{survival-plots}{%
 \subsubsection{Survival plots}\label{survival-plots}}
 
-Survival plots are used to estimate the proportion of subjects that
-survive beyond a specified time \textbf{t}. We were motivated to create
-the function \code{plot\_surv} in an attempt to create hazard plots that
-are easy to produce, when dealing with data set up for Survival
-Analysis. This function plots the survival curve of right censored data
-given that it follows a specified parametric distribution. Some examples
-of the distributions that this function supports are the Weibull,
-Log-Normal, Exponential, Normal, and Logistic distributions. This
-function also provides the option to plot by a grouping variable, which
-if specified, displays separate curves for each group of the specified
-variable. In these plots, survival time is plotted on the x-axis, while
-survival probability is plotted on the y-axis.
+\hypertarget{survival-plots-are-used-to-estimate-the-proportion-of-subjects-that-survive-beyond-a-specified-time-t.-we-were-motivated-to-create-the-function-in-an-attempt-to-create-hazard-plots-that-are-easy-to-produce-when-dealing-with-data-set-up-for-survival-analysis.-this-function-plots-the-survival-curve-of-right-censored-data-given-that-it-follows-a-specified-parametric-distribution.-some-examples-of-the-distributions-that-this-function-supports-are-the-weibull-log-normal-exponential-normal-and-logistic-distributions.-this-function-also-provides-the-option-to-plot-by-a-grouping-variable-which-if-specified-displays-separate-curves-for-each-group-of-the-specified-variable.-in-these-plots-survival-time-is-plotted-on-the-x-axis-while-survival-probability-is-plotted-on-the-y-axis.}{%
+\section{\texorpdfstring{Survival plots are used to estimate the
+proportion of subjects that survive beyond a specified time \textbf{t}.
+We were motivated to create the function \code{plot\_surv} in an attempt
+to create hazard plots that are easy to produce, when dealing with data
+set up for survival analysis. This function plots the survival curve of
+right censored data given that it follows a specified parametric
+distribution. Some examples of the distributions that this function
+supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic
+distributions. This function also provides the option to plot by a
+grouping variable, which if specified, displays separate curves for each
+group of the specified variable. In these plots, survival time is
+plotted on the x-axis, while survival probability is plotted on the
+y-axis.}{Survival plots are used to estimate the proportion of subjects that survive beyond a specified time t. We were motivated to create the function  in an attempt to create hazard plots that are easy to produce, when dealing with data set up for survival analysis. This function plots the survival curve of right censored data given that it follows a specified parametric distribution. Some examples of the distributions that this function supports are the Weibull, Log-Normal, Exponential, Normal, and Logistic distributions. This function also provides the option to plot by a grouping variable, which if specified, displays separate curves for each group of the specified variable. In these plots, survival time is plotted on the x-axis, while survival probability is plotted on the y-axis.}}\label{survival-plots-are-used-to-estimate-the-proportion-of-subjects-that-survive-beyond-a-specified-time-t.-we-were-motivated-to-create-the-function-in-an-attempt-to-create-hazard-plots-that-are-easy-to-produce-when-dealing-with-data-set-up-for-survival-analysis.-this-function-plots-the-survival-curve-of-right-censored-data-given-that-it-follows-a-specified-parametric-distribution.-some-examples-of-the-distributions-that-this-function-supports-are-the-weibull-log-normal-exponential-normal-and-logistic-distributions.-this-function-also-provides-the-option-to-plot-by-a-grouping-variable-which-if-specified-displays-separate-curves-for-each-group-of-the-specified-variable.-in-these-plots-survival-time-is-plotted-on-the-x-axis-while-survival-probability-is-plotted-on-the-y-axis.}}
+
+\hypertarget{density-plotshistograms-1}{%
+\subsubsection{Density
+plots/histograms}\label{density-plotshistograms-1}}
+
+The \code{plot\_density} function creates a histogram of the data and
+overlays the density function of a fitted parametric distribution.
+Parameters estimates for the specified parametric distribution are
+provided as well. This function also supports the ability to plot
+separate histograms and density functions for each level of a grouping
+variable. Below, we fit the weibull distribution to age until first
+drink by each value for gender using the \file{firstdrink} data set.
+Three plots are produced, each based on separate MLE estimates: a plot
+for males (level = 1), females (level = 2), and overall. In these plots,
+all time to event data are plotted regardless of censoring status.
 
 \begin{Schunk}
+\begin{Sinput}
+plot_density(data = Firstdrink, dist = "weibull", time = "Age", censor = "Censor", by = "Gender")
+\end{Sinput}
 
-\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{Schunk}
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-1} 
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-2} 
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-4-3} \end{Schunk}
 
-In this example, we fit a Weibull distribution to the Firstdrink
-dataset, grouping by the Gender variable once again. As seen in the plot
-above, two different survival curves were plotted. The blue line
-represents the estimated survival curve for males, while the red line
-represents the estimated survival curve for females. From this plot, we
-see that the survival curve for female rats is consistently above the
-survival curve for male rats throughout all points in time. Due to this,
-we can conclude that males tend to experience their first drink of
-alcohol before males do.
+\hypertarget{survival-plots-1}{%
+\subsubsection{Survival plots}\label{survival-plots-1}}
 
-\hypertarget{hazard-plots}{%
-\subsubsection{Hazard plots}\label{hazard-plots}}
-
-Hazard plots, on the other hand, are used to display the conditional
-risk that a subject will experience the event of interest in the next
-instant of time, given that the subject has survived beyond a certain
-amount of time. Essentially, the hazard function attempts to assess the
-risk that an individual who has not yet experienced the event in the
-very next small amount of time. For example, if we observe that a person
-has survived for 17 years without first trying alcohol, the hazard
-function would estimate the risk that the person will experience their
-first drink of alcohol in the next short instant of time, based on the
-fact that it has already survived 17 years. We created the
-\code{plot\_haz} function in order to easily plot hazard functions given
-that it follows a specified parametric distribution, with the option to
-include a grouping variable.
+The survival function \(S(t)\) estimates the proportion of subjects that
+survive beyond a specified time \(t\). The \code{plot\_surv} function
+plots the survival curve of right censored data given a specified
+parametric distribution. This function also provides the option to plot
+by a grouping variable, which if specified, displays separate curves for
+each value of the specified grouping variable. In these plots, survival
+time is plotted on the \(x\)-axis, while survival probability is plotted
+on the \(y\)-axis.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 \begin{Schunk}
 
 \includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-5-1} \end{Schunk}
 
-From this plot above, also using the Firstdrink dataset, we can see that
-as males continue to survive, their risk of experiencing the event of
-interest in the next instant of time dramatically increases. Similarly,
-females also seem to have a greater risk of experiencing the event of
-interest as they survive longer, but their risk is lower than that of
-males.
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD In this example, we fit a Weibull distribution to the `Firstdrink'
+dataset, grouping by the Gender variable once again. As seen in the plot
+above, two different survival curves were plotted. The blue line
+represents the estimated survival curve for males, while the red line
+represents the estimated survival curve for females. From this plot, we
+see that the survival curve for females is consistently above the
+survival curve for males throughout all points in time. Due to this, we
+can conclude that males tend to experience their first drink of alcohol
+before males do.
+
+\hypertarget{hazard-plots}{%
+\subsubsection{Hazard plots}\label{hazard-plots}}
+
+\hypertarget{hazard-plots-on-the-other-hand-are-used-to-display-the-conditional-risk-that-a-subject-will-experience-the-event-of-interest-in-the-next-instant-of-time-given-that-the-subject-has-survived-beyond-a-certain-amount-of-time.-essentially-the-hazard-function-attempts-to-assess-the-risk-that-an-individual-who-has-not-yet-experienced-the-event-will-experience-the-event-in-the-very-next-small-amount-of-time.-for-example-if-we-observe-that-a-person-has-survived-for-17-years-without-first-trying-alcohol-the-hazard-function-would-estimate-the-risk-that-the-person-will-experience-their-first-drink-of-alcohol-in-the-next-short-instant-of-time-based-on-the-fact-that-they-have-already-survived-17-years.-we-created-the-function-in-order-to-easily-plot-hazard-functions-given-that-it-follows-a-specified-parametric-distribution-with-the-option-to-include-a-grouping-variable.}{%
+\section{\texorpdfstring{Hazard plots, on the other hand, are used to
+display the conditional risk that a subject will experience the event of
+interest in the next instant of time, given that the subject has
+survived beyond a certain amount of time. Essentially, the hazard
+function attempts to assess the risk that an individual who has not yet
+experienced the event, will experience the event in the very next small
+amount of time. For example, if we observe that a person has survived
+for 17 years without first trying alcohol, the hazard function would
+estimate the risk that the person will experience their first drink of
+alcohol in the next short instant of time, based on the fact that they
+have already survived 17 years. We created the \code{plot\_haz} function
+in order to easily plot hazard functions given that it follows a
+specified parametric distribution, with the option to include a grouping
+variable.}{Hazard plots, on the other hand, are used to display the conditional risk that a subject will experience the event of interest in the next instant of time, given that the subject has survived beyond a certain amount of time. Essentially, the hazard function attempts to assess the risk that an individual who has not yet experienced the event, will experience the event in the very next small amount of time. For example, if we observe that a person has survived for 17 years without first trying alcohol, the hazard function would estimate the risk that the person will experience their first drink of alcohol in the next short instant of time, based on the fact that they have already survived 17 years. We created the  function in order to easily plot hazard functions given that it follows a specified parametric distribution, with the option to include a grouping variable.}}\label{hazard-plots-on-the-other-hand-are-used-to-display-the-conditional-risk-that-a-subject-will-experience-the-event-of-interest-in-the-next-instant-of-time-given-that-the-subject-has-survived-beyond-a-certain-amount-of-time.-essentially-the-hazard-function-attempts-to-assess-the-risk-that-an-individual-who-has-not-yet-experienced-the-event-will-experience-the-event-in-the-very-next-small-amount-of-time.-for-example-if-we-observe-that-a-person-has-survived-for-17-years-without-first-trying-alcohol-the-hazard-function-would-estimate-the-risk-that-the-person-will-experience-their-first-drink-of-alcohol-in-the-next-short-instant-of-time-based-on-the-fact-that-they-have-already-survived-17-years.-we-created-the-function-in-order-to-easily-plot-hazard-functions-given-that-it-follows-a-specified-parametric-distribution-with-the-option-to-include-a-grouping-variable.}}
+
+In this example, we fit a Weibull distribution to the \file{firstdrink}
+dataset, grouping by the gender variable. As seen in the plot above, two
+different survival curves were plotted. The red line represents the
+estimated survival curve for males (gender = 1), while the blue line
+represents the estimated survival curve for females (gender = 2). From
+this plot, we see that the survival curve for females is consistently
+above the survival curve for males throughout all points in time. Due to
+this, we can conclude that males tend to experience their first drink of
+alcohol before females do.
+
+\hypertarget{hazard-plots-1}{%
+\subsubsection{Hazard plots}\label{hazard-plots-1}}
+
+Hazard plots, denoted \(h(t)\), are used to display the conditional risk
+that a subject will experience the event of interest in the next instant
+of time, given that the subject has survived beyond a certain time
+\(t\). For example, if we observe that a person has survived for 17
+years without first trying alcohol, the hazard function would estimate
+the risk that the person will experience their first drink of alcohol in
+the next short instant of time, based on the fact that the person has
+already survived 17 years alcohol free. Hazard is not probability, and
+therefore can take values greater than one. Moreover, the hazard
+function can be both increasing or decreasing. The \code{plot\_haz}
+function plots the hazard function based on a specified parametric
+distribution, with the option to include a grouping variable.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
+
+\begin{Schunk}
+
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-6-1} \end{Schunk}
+
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD From this plot above, also using the `Firstdrink' dataset, we can
+see that as males continue to survive, their risk of experiencing the
+event of interest in the next instant of time dramatically increases.
+Similarly, females also seem to have a greater risk of experiencing the
+event of interest as they survive longer, but their risk is lower than
+that of males.
 
 \hypertarget{cumulative-hazard-plots}{%
 \subsubsection{Cumulative hazard plots}\label{cumulative-hazard-plots}}
@@ -282,137 +432,292 @@ periods of increasing and decreasing risk. In order to accurately assess
 how hazard rates change over time, we investigate the accumulation of
 hazard rates over time, known as cumulative hazard. The cumulative
 hazard function, denoted \textbf{H(t)}, is the accumulated risk of
-experiencing an event up to time \textbf{t}.
+experiencing an event up to time \emph{t}.
+
+\hypertarget{since-the-cumulative-hazard-function-is-an-accumulation-of-rates-it-is-important-to-note-that-this-function-is-non-decreasing-and-hardly-ever-remains-constant-by-nature.-we-developed-the-function-in-order-to-easily-display-cumulative-hazard-plots-given-that-the-data-follows-a-specified-parametric-distribution.-the-functionality-of-this-function-is-nearly-identical-to-that-of-with-the-only-distinction-being-that-it-plots-cumulative-hazard-curves-instead-of-hazard-curves.}{%
+\section{\texorpdfstring{Since the cumulative hazard function is an
+accumulation of rates, it is important to note that this function is
+non-decreasing and hardly ever remains constant by nature. We developed
+the function \code{plot\_cumhaz} in order to easily display cumulative
+hazard plots, given that the data follows a specified parametric
+distribution. The functionality of this function is nearly identical to
+that of \code{plot\_haz}, with the only distinction being that it plots
+cumulative hazard curves instead of hazard
+curves.}{Since the cumulative hazard function is an accumulation of rates, it is important to note that this function is non-decreasing and hardly ever remains constant by nature. We developed the function  in order to easily display cumulative hazard plots, given that the data follows a specified parametric distribution. The functionality of this function is nearly identical to that of , with the only distinction being that it plots cumulative hazard curves instead of hazard curves.}}\label{since-the-cumulative-hazard-function-is-an-accumulation-of-rates-it-is-important-to-note-that-this-function-is-non-decreasing-and-hardly-ever-remains-constant-by-nature.-we-developed-the-function-in-order-to-easily-display-cumulative-hazard-plots-given-that-the-data-follows-a-specified-parametric-distribution.-the-functionality-of-this-function-is-nearly-identical-to-that-of-with-the-only-distinction-being-that-it-plots-cumulative-hazard-curves-instead-of-hazard-curves.}}
+
+From this plot above, also using the \code{firstdrink} data set, we can
+see that as males continue to survive, their risk of experiencing the
+event of interest in the next instant of time increases more
+dramatically as compared to females. While females also seem to have a
+greater risk of experiencing the event of interest as they survive
+longer, but their risk is lower than that of males.
+
+\hypertarget{cumulative-hazard-plots-1}{%
+\subsubsection{Cumulative hazard
+plots}\label{cumulative-hazard-plots-1}}
+
+While hazard plots are usually useful in assessing a subject's risk of
+experiencing the event of interest in the next moment of time, these
+plots can be difficult to read and understand at times. Sometimes, the
+changes in hazard are very subtle, making it difficult to describe
+periods of increasing and decreasing risk. In order to accurately assess
+how hazard rates change over time, we investigate the accumulation of
+hazard rates over time, known as cumulative hazard. The cumulative
+hazard function, denoted \(H(t)\), is the total accumulated risk of
+experiencing an event up to time \(t\).
 
 Since the cumulative hazard function is an accumulation of rates, it is
 important to note that this function is non-decreasing and is hardly
-ever remains constant by nature. We developed the function
-\code{plot\_cumhaz} in order to easily display cumulative hazard plots,
-given that the data follows a specified parametric distribution. The
-functionality of this function is nearly identical to that of
-\code{plot\_haz}, with the only distinction being that it plots
-cumulative hazard curves instead of hazard curves.
+ever remains constant by nature. The \code{plot\_cumhaz} function
+displays cumulative hazard plots, given that the data follows a
+specified parametric distribution. The functionality of this function is
+nearly identical to that of \code{plot\_haz}, with the only distinction
+being that it plots cumulative hazard curves instead of hazard curves.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 \begin{Schunk}
 
-\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-6-1} \end{Schunk}
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-7-1} \end{Schunk}
 
-As we can see, the cumulative hazard function is increasing for both
-males and females. This means that the risk for experiencing the first
-drink of alcohol for both males and females in the next instant of time
-is increasing over time, given that they have survived beyond time
-\textbf{t}.
+As expected, the cumulative hazard function is increasing for both males
+and females. Here, the total accumulated risk of experiencing the first
+drink of alcohol is greater for males compared to females
 
-\hypertarget{statisticscomputations}{%
-\subsection{Statistics/Computations}\label{statisticscomputations}}
-
-While viewing plots such as those explained above are very useful in
-survival analysis, they only tell half of the story. In order to carry
-out a complete survival analysis, we must also compute statistics in
-order to supplement our plots. Some of the most common statistics
-utilized in parametric survival analysis are survival probabilities and
-typical summary statistics such as the mean, median, standard deviation,
-and percentiles of survival time.
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD \#\# Statistics/Computations While viewing plots such as those
+explained above are very useful in survival analysis, they only tell
+half of the story. In order to carry out a complete survival analysis,
+we must also compute statistics in order to supplement our plots. Some
+of the most common statistics utilized in parametric survival analysis
+are survival probabilities and typical summary statistics such as the
+mean, median, standard deviation, and percentiles of survival time.
 
 \hypertarget{computing-survival-probabilites}{%
 \subsubsection{Computing survival
 probabilites}\label{computing-survival-probabilites}}
 
-Being able to compute survival probabilities is especially of interest
-because it estimates the probability that a subject will not have
-experienced the event of interest beyond a specified time \(t\). We
+\hypertarget{being-able-to-compute-survival-probabilities-is-especially-of-interest-because-it-estimates-the-probability-that-a-subject-will-not-have-experienced-the-event-of-interest-beyond-a-specified-time-t.-we-developed-the-function-to-compute-probability-of-survival-beyond-time-t-given-that-the-data-follows-a-specified-parametric-distribution.}{%
+\section{\texorpdfstring{Being able to compute survival probabilities is
+especially of interest because it estimates the probability that a
+subject will not have experienced the event of interest beyond a
+specified time \(t\). We developed the function \code{surv\_prob} to
+compute probability of survival beyond time \(t\), given that the data
+follows a specified parametric
+distribution.}{Being able to compute survival probabilities is especially of interest because it estimates the probability that a subject will not have experienced the event of interest beyond a specified time t. We developed the function  to compute probability of survival beyond time t, given that the data follows a specified parametric distribution.}}\label{being-able-to-compute-survival-probabilities-is-especially-of-interest-because-it-estimates-the-probability-that-a-subject-will-not-have-experienced-the-event-of-interest-beyond-a-specified-time-t.-we-developed-the-function-to-compute-probability-of-survival-beyond-time-t-given-that-the-data-follows-a-specified-parametric-distribution.}}
+
+\hypertarget{computing-survival-probabilities-and-summary-statistics}{%
+\subsection{Computing survival probabilities and summary
+statistics}\label{computing-survival-probabilities-and-summary-statistics}}
+
+Some common statistics utilized in parametric survival analysis include
+survival probabilities and typical summary statistics such as the mean,
+median, standard deviation, and percentiles of survival time.
+
+\hypertarget{computing-survival-probabilites-1}{%
+\subsubsection{Computing survival
+probabilites}\label{computing-survival-probabilites-1}}
+
+A survival probabily estimates the probability that a subject will not
+have experienced the event of interest beyond a specified time \(t\). We
 developed the function \code{surv\_prob} to compute probability of
 survival beyond time \(t\), given that the data follows a specified
 parametric distribution.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 \begin{Schunk}
 \begin{Sinput}
-library(parmsurvfit)
-surv_prob(Firstdrink, "lnorm", 30, time="Age")
+surv_prob(data = Firstdrink, dist = "weibull", num = 30, time = "Age", censor = "Censor")
 \end{Sinput}
 \begin{Soutput}
-#> P(T > 30) = 0.05191602
+#> P(T > 30) = 0.05439142
 \end{Soutput}
 \end{Schunk}
 
-As seen in the output from the function above, utilizing the Firstdrink
-data set and fitting a log-normal parametric distribution to the data,
-the estimated probability that a person survives for 30 years without
-having their first drink of alcohol is roughly 5\%.
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD As seen in the output from the function above, utilizing the
+`Firstdrink' data set and fitting a log-normal parametric distribution
+to the data, the estimated probability that a person survives for 30
+years without having their first drink of alcohol is roughly 5\%.
 
 \hypertarget{computing-summary-statistics}{%
 \subsubsection{Computing summary
 statistics}\label{computing-summary-statistics}}
 
-Another useful form of output that we believed would be useful to also
-have in R is a table of summary statistics. Summary statistics that are
-typically included are the mean, standard deviation, median, and IQR.
-The surv\_summary function that we developed estimates various summary
-statistics, including mean, median, standard deviation, and percentiles
-of survival time given that the data follows a specified parametric
-distribution. This function also supports the option to provide separate
-summary statistics for each level of a grouping variable, if desired.
+\hypertarget{another-useful-form-of-output-that-we-believed-would-be-useful-to-also-have-in-r-is-a-table-of-summary-statistics.-summary-statistics-that-are-typically-included-are-the-mean-standard-deviation-median-and-iqr.-the-function-that-we-developed-estimates-various-summary-statistics-including-mean-median-standard-deviation-and-percentiles-of-survival-time-given-that-the-data-follows-a-specified-parametric-distribution.-this-function-also-supports-the-option-to-provide-separate-summary-statistics-for-each-level-of-a-grouping-variable-if-desired.}{%
+\section{\texorpdfstring{Another useful form of output that we believed
+would be useful to also have in R is a table of summary statistics.
+Summary statistics that are typically included are the mean, standard
+deviation, median, and IQR. The \code{surv_summary} function that we
+developed estimates various summary statistics, including mean, median,
+standard deviation, and percentiles of survival time given that the data
+follows a specified parametric distribution. This function also supports
+the option to provide separate summary statistics for each level of a
+grouping variable, if
+desired.}{Another useful form of output that we believed would be useful to also have in R is a table of summary statistics. Summary statistics that are typically included are the mean, standard deviation, median, and IQR. The  function that we developed estimates various summary statistics, including mean, median, standard deviation, and percentiles of survival time given that the data follows a specified parametric distribution. This function also supports the option to provide separate summary statistics for each level of a grouping variable, if desired.}}\label{another-useful-form-of-output-that-we-believed-would-be-useful-to-also-have-in-r-is-a-table-of-summary-statistics.-summary-statistics-that-are-typically-included-are-the-mean-standard-deviation-median-and-iqr.-the-function-that-we-developed-estimates-various-summary-statistics-including-mean-median-standard-deviation-and-percentiles-of-survival-time-given-that-the-data-follows-a-specified-parametric-distribution.-this-function-also-supports-the-option-to-provide-separate-summary-statistics-for-each-level-of-a-grouping-variable-if-desired.}}
+
+Utilizing the firstdrink data set and fiting a weibull distribution to
+the data, the estimated probability that a person survives for 30 years
+without having their first drink of alcohol is roughly 5\%.
+
+\hypertarget{computing-summary-statistics-1}{%
+\subsubsection{Computing summary
+statistics}\label{computing-summary-statistics-1}}
+
+The \code{surv_summary} function estimates various summary statistics,
+including mean, median, standard deviation, and percentiles of survival
+time given that the data follows a specified parametric distribution.
+This function also supports the option to provide seperate summary
+statistics for each level of a grouping variable, if desired.\\
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 \begin{Schunk}
 \begin{Sinput}
-library(parmsurvfit)
-surv_summary(Firstdrink, "lnorm", time="Age", by="Gender")
+surv_summary(data = Firstdrink, dist = "weibull", time = "Age", censor = "Censor", by = "Gender")
 \end{Sinput}
 \begin{Soutput}
 #> 
 #> 
 #> For level = 1 
-#> meanlog      2.743253
-#> sdlog        0.3505774
-#> Log Liklihood    -1370.309
-#> AIC      2744.619
-#> BIC      2752.885
-#> Mean     16.52221
-#> StDev        5.974932
-#> First Quantile   12.26552
-#> Median       15.53745
-#> Third Quantile   19.68219
+#> shape        2.637645
+#> scale        18.2804
+#> Log Liklihood    -1425.271
+#> AIC      2854.541
+#> BIC      2862.808
+#> Mean     16.24398
+#> StDev        6.625303
+#> First Quantile   11.39844
+#> Median       15.90884
+#> Third Quantile   20.6903
 #> 
 #> For level = 2 
-#> meanlog      2.862891
-#> sdlog        0.3674697
-#> Log Liklihood    -1658.704
-#> AIC      3321.408
-#> BIC      3329.987
-#> Mean     18.73528
-#> StDev        7.123736
-#> First Quantile   13.66772
-#> Median       17.51209
-#> Third Quantile   22.43778
+#> shape        2.516025
+#> scale        20.85053
+#> Log Liklihood    -1730.273
+#> AIC      3464.546
+#> BIC      3473.126
+#> Mean     18.50288
+#> StDev        7.872356
+#> First Quantile   12.70752
+#> Median       18.02407
+#> Third Quantile   23.74094
 \end{Soutput}
 \end{Schunk}
 
-As seen above, after specifying the grouping variable of sex, two
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD As seen above, after specifying the grouping variable of sex, two
 separate tables were produced, one for males and one for females. We can
 see that the mean log survival time for males is smaller than the mean
 log survival time for females. The standard deviation of log survival
-time for males was also much smaller than that of females.
+time for males was also much smaller than that of females. ======= As
+seen above, after specifying the grouping variable of gender, two
+separate tables were produced, one for males and one for females. We can
+see that the mean survival time for males (16.2 years) is less than the
+mean survival time for females (18.5 years).
+
+\hypertarget{assessing-fit}{%
+\subsection{Assessing fit}\label{assessing-fit}}
+
+Since all of the functions available in this package assume that the
+survival data follows a known parametric distribution, it is important
+to have a method to analyze how well our assumed model fits the data.
+Utilizing such methods will allow us choose a distribution that
+adequately fits the data. Two common methods used to assess goodness of
+fit are Q-Q (Quantile-Quantile) plots and the Anderson-Darling test
+statistic.
+
+\hypertarget{q-q-plots-1}{%
+\subsubsection{Q-Q plots}\label{q-q-plots-1}}
+
+In Q-Q plots the hypothesized quantiles are plotted on the \(y\)-axis
+and the observed quantiles are plotted on the \(x\)-axis. A \(y=x\) line
+is typically included in these plots, because if the observed data fit
+the hypothesized distribution perfectly, all of the points would lie
+exactly on this diagonal line. The \code{plot\_qqsurv} function creates
+a quantile-quantile plot of right-censored data given that it follows a
+specified distribution.
+
+\textbf{May need to modify: The points are plotted according to the
+median rank method \citep{Minitabqq}.}
+
+\begin{Schunk}
+\begin{Sinput}
+plot_qqsurv(data = Firstdrink, dist = "weibull", time = "Age", censor = "Censor")
+\end{Sinput}
+
+\includegraphics{Simple_Survival_Analysis_files/figure-latex/unnamed-chunk-10-1} \end{Schunk}
+
+The plot above displays a Q-Q plot for the the \file{firstdrink} data
+set to see how well the Weibull distribution fits the data. As seen in
+the plot above, there are some deviations from the provided \(y=x\)
+line, indicates that an Weibull distribution may not be an ideal fit for
+the data.
+
+\hypertarget{anderson-darling-test-statistic}{%
+\subsubsection{Anderson-Darling test
+statistic}\label{anderson-darling-test-statistic}}
+
+While creating Q-Q plots are a great way to visualize how a particular
+distribution may fit the data, it can be difficult at times to
+definitively decide how well the plot fits the data. The
+Anderson-Darling test statistic provides a numerical test statistic that
+measures how well the data fits a particular distribution, such that
+lower values indicate a better fit. Computation of the test statistic
+adhered to Minitab's documentation, utilizing the median rank plotting
+method \citep{Minitabgof}.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
 
 \hypertarget{conclusion}{%
 \subsection{Conclusion}\label{conclusion}}
 
-The R package \pkg{parmsurvfit} allows for parametric Survival Analysis
-methods involving right-censored data to be easily computed in R. The
-overall goal of developing this package was to provide a central package
-for R users to find typical methods used in Survival Analysis such as
-computing survival probabilities, create survival and hazard plots, and
-assess goodness of fit of a parametric distribution fit to a dataset.
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD The R package \pkg{parmsurvfit} allows for parametric survival
+analysis methods involving right-censored data to be easily computed in
+R. The overall goal of developing this package was to provide a central
+package for R users to find typical methods used in Survival Analysis
+such as computing survival probabilities, create survival and hazard
+plots, and assess goodness of fit of a parametric distribution fit to a
+dataset.
+
+\bibliography{Simple Survival Analysis}
+
+=======
+
+The R package \pkg{parmsurvfit} allows for simple parametric survial
+analysis methods involving right-censored data to be easily computed in
+R. The overall goal of developing this package was to provide a central
+package for R users to utilize typical parametric survival analysis
+methods such as computing survival probabilities, creating survival and
+hazard plots, and assessing goodness of fit of a parametric distribution
+fit to a dataset with right-censored observations.
 
 \hypertarget{acknowledgments}{%
 \subsection{Acknowledgments}\label{acknowledgments}}
 
-This package would not have been possible without the generous donation
-of Bill and Linda Frost. We would also like to thank Dr.~Shannon Pileggi
-for conceptualization of the package, as well as for guidance and
-assistance in issues that we encountered during the development of this
-package.
+This package development was funded by the Bill and Linda Frost fund at
+California Polytechnic State University, San Luis Obispo. We would also
+like to thank Jeff Sklar for his input and guidance.
 
-\bibliography{Simple Survival Analysis}
+\bibliography{RJreferences}
+
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+fab9f94e6d9225cfa4ed2576d8985a391a7b604d
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
 
 
 \address{%
