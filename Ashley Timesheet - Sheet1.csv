@@ -62,4 +62,11 @@ start time,end time,day,description,time spent,weekly total time
 3:30 PM,4:55 PM,Sunday 9/2,finished fixing datasets,1:25:00,
 6:20 PM,7:00 PM,Tuesday 9/4,changed examples in help files to use datasets,0:40:00,
 9:50 AM,11:30 AM,Wednesday 9/5,"cleaned up datasets, worked on AD",1:40:00,
-6:20 PM,7:00 PM,Wednesday 9/5,read up on AD,0:40:00,6:05:00
+6:20 PM,7:00 PM,Wednesday 9/5,read up on AD,0:40:00,
+1:30 PM,2:45 PM,Thursday 9/6,Worked on help files,1:15:00,
+9:00 AM,10:00 AM,Friday 9/7,Got AD function to work,1:00:00,
+11:00 AM,11:20 AM,Friday 9/7,wrote help file for AD,0:20:00,8:40:00
+,,,,,
+9:30 AM,10:00 AM,Friday 9/21,made a new respository,0:30:00,
+2:45 PM,4:00 PM,Friday 9/21,fixed some cran errors,1:15:00,
+3:30 PM,4:30 PM,Saturday 9/22,submitted to cran,1:00:00,2:45:00
