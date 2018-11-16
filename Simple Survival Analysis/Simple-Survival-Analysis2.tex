@@ -1,6 +1,6 @@
 % !TeX root = RJwrapper.tex
-\title{Introducing parmsurvfit Package - Simple Parametric Survival Analysis
-with R}
+\title{Introducing parmsurvfit Package - Simple Parametric Models for Survival
+Analysis in R}
 \author{by Victor Wilson, Ashley Jacobson, Shannon Pileggi}
 
 \maketitle
@@ -25,37 +25,37 @@ Survival analysis is a branch of statistics that primarily deals with
 analyzing the time until an event of interest occurs. This event could
 be a variety of different endpoints such as death, development of
 disease, or first score of a soccer game. Observations in survival
-analysis may also be described as censored, which occurs when an
+analysis may also be subject to censoring, which occurs when an
 observation's actual time to event is unknown, but is known to be within
 some specified range. For example, if a subject does not experience the
 event of interest prior to study completion, then their ``observed''
 event time (time until study completion) is less than their ``actual''
 event time. This particular case is known as right-censoring, which is
-the most common form. Right censoring can also occur if a subject drops
-out before the end of the study and does not experience the event of
-interest.
+the most common form of censoring. Right censoring can also occur if a
+subject drops out before the end of the study and does not experience
+the event of interest.
 
 Typically, survival analysis begins with computing what are known as the
 survival and hazard functions \citep{Kleinbaum2012}. The survival
 function estimates the probability of surviving (also known as not
-experiencing the event of interest) beyond any giventime \(t\). The
-hazard function computes the conditional probability that the subject
-will experience the event in the next instance of time, given that they
-have survived up until the specified point in time. Summary statistics
-that are commonly reported include median survival time, mean survival
-time, and percentiles of survival time. These functions and statistics
-can be computed by either parametric or nonparametric techniques. In the
+experiencing the event of interest) beyond time \(t\). The hazard
+function computes the conditional risk that the subject will experience
+the event in the next instance of time, given that they have survived up
+until the specified point in time. Summary statistics that are commonly
+reported include median survival time, mean survival time, and
+percentiles of survival time. These functions and statistics can be
+computed by either parametric or nonparametric techniques. In the
 \pkg{parmsurvfit} package, all of the functions that we developed
-utilize parametric methods of survival analysis, which assumes that the
+utilize parametric methods for survival analysis, which assumes that the
 distribution of the survival times follows a known probability
 distribution.
 
 R has many survival packages that address non-parametric survival
 analysis, such as the \CRANpkg{survival} package. However, prior to the
-\pkg{parmsurvfit} package, parametric estimation of survival functions
-and statistics was not easily attained. The \pkg{parmsurvfit} package
-attempts to emulate the ease and functionality of parametric survival
-analysis features available in Minitab.
+\pkg{parmsurvfit} package, parametric models for survival data and
+corresponding summary statistics was not easily attained. The
+\pkg{parmsurvfit} package attempts to emulate the ease and functionality
+of parametric survival analysis features available in Minitab.
 
 This paper describes example survival data available in the
 \pkg{parmsurvfit} package, the functions that the package contains, how
@@ -157,9 +157,8 @@ ability to plot separate histograms and density functions for each level
 of a grouping variable. Below, we fit the weibull distribution to age
 until first drink by gender. Three plots are produced, each based on
 their respective MLE's: a plot for males (\code{level = 1}), females
-(\code{level = 2}), and overall.\\
-In these plots, all time to event data are plotted regardless of
-censoring status.
+(\code{level = 2}), and overall. In these plots, all time to event data
+are plotted regardless of censoring status.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -222,9 +221,8 @@ compute_AD(data = firstdrink, dist = "weibull", time = "age", censor = "censor")
 \end{Soutput}
 \end{Schunk}
 
-Here, the AD test statistic value observed of 315.5693 provides no
-useful information as a stand-alone value, but rather can be used to
-judge fit relatively to another computed AD test statistic.
+Here, the AD test statistic value is 315.5693; this can be used to judge
+fit relative to another computed AD test statistic.
 
 \hypertarget{survival-functions}{%
 \section{Survival functions}\label{survival-functions}}
@@ -233,19 +231,18 @@ This section provides an overview of the survival functions available in
 this package. Some of the most common functions used in survival
 analysis are the survival function, the hazard function, and the
 cumulative hazard function. Table \ref{table:functions} lists each
-function and its relationship to the other functions, as well as the
-formula used to compute each function.
+function and its relationship to the other functions.
 
 \begin{table}
 \begin{tabular}{ll}
 \hline
-Function & Relationships  \\
+Function & Relationship  \\
 \hline
 PDF & ${f(t)=\frac{d}{dt}F(t)}$\\
 CDF  & ${F(t)=\int_0^t f(y)dy}$\\
-Survival & ${S(t)=1-F(t)=\exp[-H(t)]=\exp[-\int_0^th(y)dy]}$ \\
-Hazard & ${h(t)=f(t)/S(t)=-\frac{d}{dt}\ln[S(t)]}$ \\
-Cumulative hazard & ${H(t)=\int_0^t h(y)dy=-\ln[S(t)]}$\\
+Survival & ${S(t)=1-F(t)}$ \\
+Hazard & ${h(t)=f(t)/S(t)}$ \\
+Cumulative hazard & ${H(t)=-\ln[S(t)]}$\\
 \hline
 \end{tabular}
 \label{table:functions}
@@ -358,7 +355,7 @@ survival beyond time \(t\), given that the data follows a specified
 parametric distribution. The \code{num} argument specifies the time
 \(t\) of interest. The default for \code{surv\_prob} is to compute an
 upper tail probability; this can be reversed to a lower tail probability
-useing the \code{lower.tail} argument. The function can also optionally
+using the \code{lower.tail} argument. The function can also optionally
 take a grouping variable with the \code{by} argument.
 
 \begin{Schunk}
@@ -395,7 +392,7 @@ statistics for each level of a grouping variable, if desired All summary
 statistics from the class \samp{fitdistcens} are provided. If the
 distribution supplied is one of normal, lognormal, exponential, weibull,
 or logistic then the standard deviation reported is an exact computation
-from parameter estimates However, if a user specifies a distribution
+from parameter estimates; however, if a user specifies a distribution
 other than that from this list, then the standard deviation is estimated
 from 1,000 randomly generated values from the distribution.
 
